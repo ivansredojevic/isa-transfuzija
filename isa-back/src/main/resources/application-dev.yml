@@ -1,0 +1,8 @@
+datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:oracle:thin:@localhost:1521:xe
+    username: IVAN
+    password: ivan
+
+server:
+  port : 8089
