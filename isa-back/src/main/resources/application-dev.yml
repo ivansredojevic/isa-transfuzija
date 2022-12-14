@@ -1,8 +1,13 @@
-datasource:
-    type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:oracle:thin:@localhost:1521:xe
-    username: IVAN
-    password: ivan
-
+spring:
+  jpa:
+    database: POSTGRESQL
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+  datasource:
+    url: jdbc:postgresql://localhost:5432/isadb?currentSchema=isa
+    username: postgres
+    password: 1234
+    driverClassName: org.postgresql.Driver
 server:
   port : 8089
