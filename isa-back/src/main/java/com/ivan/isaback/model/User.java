@@ -3,14 +3,12 @@ package com.ivan.isaback.model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -22,12 +20,15 @@ import lombok.ToString;
 public class User {
 	
 	@Id
-	@SequenceGenerator(name = "user_id", sequenceName = "user_id")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_id" )
-	private Integer id;
+    @GeneratedValue(generator = "user_id_seq" )
+	@SequenceGenerator(name = "user_id_seq", sequenceName = "user_id_seq", allocationSize = 100, initialValue=1)
+	private int id;
 	
 	@Column
 	private String email;
+	
+	@Column
+	private String username;
 
 	@Column
 	private String password;
@@ -62,13 +63,13 @@ public class User {
 	@Column
 	private String jobinformation;
 	
-
 	@Column
 	private Boolean activated;
 	
-
 	@Column
 	private String role;
 	
-
+	@Transient
+	private String token;
+	
 }
