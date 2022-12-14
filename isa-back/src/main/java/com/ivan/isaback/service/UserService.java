@@ -7,7 +7,7 @@ import com.ivan.isaback.model.User;
 public interface UserService {
 	
 	void addUser(User user);
-	void deleteUser(Integer id);
+	void deleteUser(int id);
 	void updateUser(User user);
 	Optional<User> findByUsername(String username);
 
