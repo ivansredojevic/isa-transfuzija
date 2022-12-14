@@ -45,7 +45,7 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 		try {			
 			User user = userRepository.findByUsername(username).get();
 			List<GrantedAuthority> authorities = new ArrayList<>();
-			authorities.add(new SimpleGrantedAuthority(user.getRole()));
+			authorities.add(new SimpleGrantedAuthority("ROLE_" + user.getRole()));
 			return new org.springframework.security.core.userdetails.User(username, user.getPassword(), true, true, true, true, authorities);			
 		} catch(Exception ex) {		
 			throw new UsernameNotFoundException("No user with username " + username);		
