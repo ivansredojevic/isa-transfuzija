@@ -1,0 +1,13 @@
+spring:
+  jpa:
+    database: POSTGRESQL
+    
+  datasource:
+    url: jdbc:postgresql://localhost:5432/isadb?currentSchema=isa
+    username: postgres
+    password: 1234
+    driverClassName: org.postgresql.Driver
+    
+    
+server:
+  port : 8089
