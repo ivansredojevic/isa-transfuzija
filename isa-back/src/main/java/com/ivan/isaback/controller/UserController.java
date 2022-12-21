@@ -1,9 +1,11 @@
 package com.ivan.isaback.controller;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -30,27 +32,40 @@ public class UserController {
 		this.bCryptPasswordEncoder = bCryptPasswordEncoder;
 	}
 
-	@PostMapping
+	@PostMapping("register")
 	public ResponseEntity<String> addUser(@RequestBody User user) {
-		log.info("insert " + user);
-		if (userService.findByUsername(user.getUsername()).isPresent()) {
-			return ResponseEntity.ok("User with the username '" + user.getUsername() + "' already exists.");			
+//		log.info("insert " + user);
+		if (userService.findByEmail(user.getEmail()).isPresent()) {
+			return ResponseEntity.ok("User with email '" + user.getEmail() + "' already exists.");			
 		}
 		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-		userService.addUser(user);
+		log.info("insert: " + user);
+		User u = userService.registerUser(user);
+		log.info("" + u);
 		return ResponseEntity.ok("OK");
 	}
 	
-	@PutMapping("{id}")
-	public void updateSubscriber(@RequestBody User user) {
+	@PutMapping("update/{id}")
+	public void updateUser(@RequestBody User user) {
 		log.info("update " + user);
 		userService.updateUser(user);
 	}
 	
-	@DeleteMapping("{id}")
-	public void deleteSubscriber(@PathVariable int id) {
+	@DeleteMapping("delete/{id}")
+	public void deleteUser(@PathVariable int id) {
 		log.info("delete " + id);
 		this.userService.deleteUser(id);
+	}
+	
+	@GetMapping(path = "activate/{token}")
+	public ResponseEntity<String> activate(@PathVariable String token) {
+		
+		if(!userService.activateUser(token)) {
+			return new ResponseEntity<>("Account already activated or token doesn't exist", HttpStatus.BAD_REQUEST);
+		}
+		
+		return new ResponseEntity<String>("Account activated", HttpStatus.OK);
+		
 	}
 	
 }
