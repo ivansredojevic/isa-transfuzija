@@ -14,6 +14,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import com.ivan.isaback.filter.JwtRequestFilter;
 
+@SuppressWarnings("deprecation")
 @Configuration
 @EnableWebSecurity
 public class SecurityConfigurer extends WebSecurityConfigurerAdapter{
@@ -31,8 +32,8 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter{
 	protected void configure(HttpSecurity http) throws Exception { 
 		
 		http.csrf().disable()
-			.authorizeRequests().antMatchers("/api/auth/generate-token").permitAll()
-			.anyRequest().authenticated()
+			.authorizeRequests()
+			.antMatchers("/api/auth/generate-token").permitAll()
 			.and().sessionManagement()
 			.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		

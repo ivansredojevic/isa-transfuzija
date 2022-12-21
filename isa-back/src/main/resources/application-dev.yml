@@ -7,7 +7,22 @@ spring:
     username: postgres
     password: 1234
     driverClassName: org.postgresql.Driver
+    hikari:
+      schema: isa
+      
+  mail:
+    properties:
+      mail:
+        smtp:
+          starttls:
+            enable: true
+          auth: true
+    host: smtp.gmail.com
+    username: sokolicc.dji.acc@gmail.com
+    password: dmpcnamghlyqqpto
+    port: '587'
     
     
 server:
   port : 8089
+ 

@@ -3,6 +3,7 @@ package com.ivan.isaback.model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -16,12 +17,12 @@ import lombok.ToString;
 @Setter
 @ToString
 @Entity
-@Table(name = "USER")
+@Table(name = "user", schema = "isa")
 public class User {
 	
 	@Id
-    @GeneratedValue(generator = "user_id_seq" )
-	@SequenceGenerator(name = "user_id_seq", sequenceName = "user_id_seq", allocationSize = 100, initialValue=1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//	@SequenceGenerator(name = "user_id_seq", sequenceName = "user_id_seq", allocationSize = 100, initialValue=1)
 	private int id;
 	
 	@Column
@@ -63,13 +64,13 @@ public class User {
 	@Column
 	private String jobinformation;
 	
-	@Column
+	@Column(nullable = false)
 	private Boolean activated;
 	
 	@Column
 	private String role;
 	
-	@Transient
+	@Column
 	private String token;
 	
 }
