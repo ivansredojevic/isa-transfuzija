@@ -5,14 +5,17 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.ivan.isaback.model.User;
+import com.ivan.isaback.model.dto.UserDTO;
 import com.ivan.isaback.repository.UserRepository;
 import com.ivan.isaback.service.UserService;
 import com.ivan.isaback.util.email.EmailDetails;
@@ -23,6 +26,8 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 @Slf4j
 public class UserServiceImpl implements UserService, UserDetailsService{
+	
+	private BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 	
 	private UserRepository userRepository;
 	private EmailService emailService;
@@ -64,8 +69,23 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 	}
 
 	@Override
-	public void updateUser(User user) {
-		userRepository.save(user);
+	public void updateUser(UserDTO userDto) {
+		Optional<User> user = userRepository.findById(userDto.getId());
+		if(user.isPresent()) {
+			user.get().setEmail(userDto.getEmail());
+			user.get().setUsername(userDto.getUsername());
+			user.get().setName(userDto.getName());
+			user.get().setSurname(userDto.getSurname());
+			user.get().setAddress(userDto.getAddress());
+			user.get().setCity(userDto.getCity());
+			user.get().setState(userDto.getState());
+			user.get().setPhone(userDto.getPhone());
+			user.get().setJmbg(userDto.getJmbg());;
+			user.get().setSex(userDto.getSex());
+			user.get().setOccupation(userDto.getOccupation());
+			user.get().setJobinformation(userDto.getJobinformation());
+			userRepository.save(user.get());	
+		}
 	}
 	
 	@Override
@@ -105,5 +125,15 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 		userRepository.save(user);
 		
 		return true;
+	}
+
+	@Override
+	public void updatePassword(UserDTO userDto) {
+		
+		Optional<User> user = userRepository.findById(userDto.getId());
+		if(user.isPresent()) {
+			user.get().setPassword(bCryptPasswordEncoder.encode(userDto.getPassword()));
+			userRepository.save(user.get());	
+		}
 	}
 }

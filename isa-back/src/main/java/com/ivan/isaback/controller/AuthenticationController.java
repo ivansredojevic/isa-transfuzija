@@ -19,7 +19,7 @@ import com.ivan.isaback.util.JwtUtil;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/api/auth/")
+@RequestMapping("/api/auth")
 public class AuthenticationController {
 	
 	private AuthenticationManager authenticationManager;

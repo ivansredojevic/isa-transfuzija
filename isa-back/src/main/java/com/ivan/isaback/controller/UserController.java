@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ivan.isaback.model.User;
+import com.ivan.isaback.model.dto.UserDTO;
 import com.ivan.isaback.service.UserService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -46,9 +47,16 @@ public class UserController {
 	}
 	
 	@PutMapping("update/{id}")
-	public void updateUser(@RequestBody User user) {
-		log.info("update " + user);
-		userService.updateUser(user);
+	public void updateUser(@RequestBody UserDTO userDto) {
+		log.info("update " + userDto);
+		userService.updateUser(userDto);
+	}
+	
+	
+	@PutMapping("update-password/{id}")
+	public void updatePassword(@RequestBody UserDTO userDto) {
+		log.info("update password " + userDto);
+		userService.updatePassword(userDto);
 	}
 	
 	@DeleteMapping("delete/{id}")
