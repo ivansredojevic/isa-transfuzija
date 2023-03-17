@@ -35,7 +35,6 @@ public class UserController {
 
 	@PostMapping("register")
 	public ResponseEntity<String> addUser(@RequestBody User user) {
-//		log.info("insert " + user);
 		if (userService.findByEmail(user.getEmail()).isPresent()) {
 			return ResponseEntity.ok("User with email '" + user.getEmail() + "' already exists.");			
 		}
@@ -67,13 +66,10 @@ public class UserController {
 	
 	@GetMapping(path = "activate/{token}")
 	public ResponseEntity<String> activate(@PathVariable String token) {
-		
 		if(!userService.activateUser(token)) {
 			return new ResponseEntity<>("Account already activated or token doesn't exist", HttpStatus.BAD_REQUEST);
 		}
-		
 		return new ResponseEntity<String>("Account activated", HttpStatus.OK);
-		
 	}
 	
 }
