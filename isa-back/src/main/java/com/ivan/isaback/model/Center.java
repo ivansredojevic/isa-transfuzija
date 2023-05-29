@@ -27,4 +27,10 @@ public class Center {
 	
 	@Column
 	private int adminId;
+	
+	@Column
+	private String city;
+	
+	@Column
+	private String rating;
 }
