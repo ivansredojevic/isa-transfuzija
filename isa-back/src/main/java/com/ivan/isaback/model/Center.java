@@ -33,4 +33,5 @@ public class Center {
 	
 	@Column
 	private String rating;
+	
 }
