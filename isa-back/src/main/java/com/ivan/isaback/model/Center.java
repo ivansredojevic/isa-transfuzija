@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.Getter;
@@ -25,8 +27,9 @@ public class Center {
 	@Column
 	private String centerName;
 	
-	@Column
-	private int adminId;
+	@ManyToOne
+	@JoinColumn(name = "admin_id", nullable = false)
+	private User admin;
 	
 	@Column
 	private String city;
