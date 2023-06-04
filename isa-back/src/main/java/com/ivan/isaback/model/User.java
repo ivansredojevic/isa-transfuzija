@@ -38,47 +38,47 @@ public class User {
 	@Column
 	private String name;
 
-	@Column
+	@Column(nullable = true)
 	private String surname;
 
-	@Column
+	@Column(nullable = true)
 	private String address;
 
-	@Column
+	@Column(nullable = true)
 	private String city;
 
-	@Column
+	@Column(nullable = true)
 	private String state;
 
-	@Column
+	@Column(nullable = true)
 	private String phone;
 
-	@Column
+	@Column(nullable = true)
 	private String jmbg;
 
-	@Column
+	@Column(nullable = true)
 	private String sex;
 
-	@Column
+	@Column(nullable = true)
 	private String occupation;
 
-	@Column
+	@Column(nullable = true)
 	private String jobinformation;
 	
 	@Column(nullable = false)
 	private Boolean activated;
 	
-	@Column
+	@Column(nullable = true)
 	private String role;
 	
-	@Column
+	@Column(nullable = true)
 	private String token;
 	
-	@Column
+	@Column(nullable = true)
 	private int penalty;
 	
 	@OneToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "")
+	@JoinColumn(name = "questionnaire_id", nullable = true)
 	private Questionnaire questionnaire;
 	
 }

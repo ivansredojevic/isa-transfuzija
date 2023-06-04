@@ -1,6 +1,7 @@
 package com.ivan.isaback.model;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -42,7 +43,7 @@ public class Appointment {
 	private Center center;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "user_id", nullable = false)
+	@JoinColumn(name = "user_id", nullable = true)
 	private User user;
 	
 	@ManyToMany(cascade = {CascadeType.ALL})
@@ -50,21 +51,18 @@ public class Appointment {
     private Set<Personnel> personnelList = new HashSet<Personnel>();
 	
 	@Column
-	private Timestamp dateModified;
+	private LocalDateTime modifiedTime;
 	
 	@Column
-	private Timestamp startTime;
-	
-	@Column
-	private int price;
+	private LocalDateTime startTime;
 	
 	@Column
 	private int duration;
 	
-	@Column
+	@Column(nullable = true)
 	private boolean status;
 	
-	@Column
+	@Column(nullable = true)
 	private boolean approved;
 	
 }

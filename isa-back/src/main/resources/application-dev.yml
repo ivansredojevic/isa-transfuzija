@@ -1,14 +1,17 @@
 spring:
   jpa:
     database: POSTGRESQL
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
     
   datasource:
-    url: jdbc:postgresql://localhost:5432/isadb?currentSchema=isa
+    url: jdbc:postgresql://localhost:5432/isadb?currentSchema=isaadb
     username: postgres
     password: 1234
     driverClassName: org.postgresql.Driver
-    hikari:
-      schema: isa
+#    hikari:
+#      schema: isaadb
       
   mail:
     properties:

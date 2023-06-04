@@ -39,19 +39,27 @@ public class Questionnaire {
     @Column
     private int donationNumber;
     
+    @Column
     private boolean rejected;
     
+    @Column
     private boolean healthy;
     
+    @Column
     private boolean dangerousOccupation;
     
+    @Column
     private boolean infectious;
     
+    @Column
     private boolean bloodPressureIssues;
     
+    @Column
     private boolean onTherapy;
     
+    @Column
     private boolean aspirin;
     
+    @Column
     private boolean tatooed;
 }

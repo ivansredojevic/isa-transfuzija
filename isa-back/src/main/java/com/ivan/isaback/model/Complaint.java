@@ -30,12 +30,23 @@ public class Complaint {
 	@Column
 	private String text;
 	
+	@Column(nullable = true)
+	private String reply;
+	
+	@OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "admin_id", nullable = true)
+    private User admin;
+	
+	@OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "appointment_id", nullable = true)
+	private Appointment appointment;
+	
 	@OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 	
 	@OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id", nullable = true)
+    @JoinColumn(name = "personnel_id", nullable = true)
     private User personnelUser;
 	
 	@OneToOne(fetch = FetchType.EAGER)
