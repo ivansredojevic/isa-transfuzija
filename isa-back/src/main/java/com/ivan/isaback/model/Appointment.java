@@ -1,39 +1,53 @@
 package com.ivan.isaback.model;
 
 import java.sql.Timestamp;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+@Entity
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @ToString
-@Entity
-@Table(name = "appointment", schema = "isa")
+//@Table(name = "appointment", schema = "isa")
 public class Appointment {
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "center_id", nullable = false)
 	private Center center;
 	
-	// one appointment connected to many users
-	@ManyToOne
-	@JoinColumn(name = "short_number_id", nullable = false)
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "user_id", nullable = false)
 	private User user;
+	
+	@ManyToMany(cascade = {CascadeType.ALL})
+    @JoinTable(name = "appointment_personnel", joinColumns = @JoinColumn(name = "personnel_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "appointment_id", referencedColumnName = "id"))
+    private Set<Personnel> personnelList = new HashSet<Personnel>();
 	
 	@Column
 	private Timestamp dateModified;
@@ -42,18 +56,15 @@ public class Appointment {
 	private Timestamp startTime;
 	
 	@Column
-	private String price;
+	private int price;
 	
 	@Column
-	private String duration;
+	private int duration;
 	
 	@Column
 	private boolean status;
 	
 	@Column
 	private boolean approved;
-
-	
-	
 	
 }

@@ -2,9 +2,12 @@ package com.ivan.isaback.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import lombok.Getter;
@@ -15,7 +18,7 @@ import lombok.ToString;
 @Setter
 @ToString
 @Entity
-@Table(name = "user", schema = "isa")
+//@Table(name = "user", schema = "isa")
 public class User {
 	
 	@Id
@@ -73,5 +76,9 @@ public class User {
 	
 	@Column
 	private int penalty;
+	
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "")
+	private Questionnaire questionnaire;
 	
 }
