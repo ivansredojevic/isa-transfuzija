@@ -7,7 +7,7 @@ import com.ivan.isaback.model.dto.QuestionnaireDTO;
 
 public interface QuestionnaireService {
 	
-	Questionnaire findById(int id);
+	Questionnaire findByApplicationUserId(int id);
 	Questionnaire save(QuestionnaireDTO questionnaire);
 	List<Questionnaire> findAll();
 	

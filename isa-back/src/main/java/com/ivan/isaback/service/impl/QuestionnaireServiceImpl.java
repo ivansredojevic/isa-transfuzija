@@ -30,10 +30,11 @@ public class QuestionnaireServiceImpl implements QuestionnaireService{
 	}
 
 	@Override
-	public Questionnaire findById(int id) {
-		Optional<Questionnaire> questionnaire = questionnaireRepository.findById(id);
-		if(questionnaire.isPresent()) {
-			return questionnaire.get();
+	public Questionnaire findByApplicationUserId(int id) {
+		List<Questionnaire> questionnaire = questionnaireRepository.findByApplicationUserId(id);
+		if(!questionnaire.isEmpty()) {
+			log.info("Found " + questionnaire.size() + " Questionnaires for ApplicationUserId = " + id + ".");
+			return questionnaire.get(0);
 		}
 		return null;
 	}

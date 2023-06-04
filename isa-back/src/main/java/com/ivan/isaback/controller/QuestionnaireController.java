@@ -1,5 +1,7 @@
 package com.ivan.isaback.controller;
 
+import java.util.List;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -44,11 +46,24 @@ public class QuestionnaireController {
 	@GetMapping("get/{id}")
 	public ResponseEntity<Questionnaire> getQuestionnaire(@PathVariable int id) {
 		
-		Questionnaire questionnaire = questionnaireService.findById(id);
+		Questionnaire questionnaire = questionnaireService.findByApplicationUserId(id);
 		if(questionnaire != null) {
 			return ResponseEntity.ok(questionnaire);
 		} else {
 			log.error("No questionnaire found");
+			return ResponseEntity.internalServerError().body(null);
+		}
+		
+	}
+	
+	@GetMapping("get-all")
+	public ResponseEntity<List<Questionnaire>> getAll() {
+		
+		List<Questionnaire> questionnaire = questionnaireService.findAll();
+		if(!questionnaire.isEmpty()) {
+			return ResponseEntity.ok(questionnaire);
+		} else {
+			log.error("No questionnaires found");
 			return ResponseEntity.internalServerError().body(null);
 		}
 		
