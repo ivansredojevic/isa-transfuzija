@@ -2,17 +2,17 @@ package com.ivan.isaback.service;
 
 import java.util.Optional;
 
-import com.ivan.isaback.model.User;
+import com.ivan.isaback.model.ApplicationUser;
 import com.ivan.isaback.model.dto.UserDTO;
 
 public interface UserService {
 	
-	User registerUser(User user);
+	ApplicationUser registerUser(ApplicationUser user);
 	void deleteUser(int id);
 	void updateUser(UserDTO user);
 	void updatePassword(UserDTO user);
-	Optional<User> findByUsername(String username);
-	Optional<User> findByEmail(String email);
+	ApplicationUser findByUsername(String username);
+	Optional<ApplicationUser> findByEmail(String email);
 	boolean activateUser(String token);
 
 }

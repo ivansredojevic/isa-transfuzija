@@ -28,29 +28,29 @@ public class Complaint {
     private int id;
 	
 	@Column
-	private String text;
+	private String complaintText;
 	
 	@Column(nullable = true)
-	private String reply;
+	private String replyText;
 	
 	@OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "admin_id", nullable = true)
-    private User admin;
+	@JoinColumn(name = "admin_id", nullable = true)
+    private ApplicationUser admin;
 	
 	@OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "appointment_id", nullable = true)
+	@JoinColumn(name = "appointment_id", nullable = true)
 	private Appointment appointment;
 	
 	@OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+	@JoinColumn(name = "application_user_id", nullable = true)
+    private ApplicationUser applicationUser;
 	
 	@OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "personnel_id", nullable = true)
-    private User personnelUser;
+	@JoinColumn(name = "personnel_user_id", nullable = true)
+    private Personnel personnelUser;
 	
 	@OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "center_id", nullable = true)
+	@JoinColumn(name = "center_id", nullable = true)
     private Center center;
 	
 }

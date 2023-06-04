@@ -12,5 +12,5 @@ import lombok.Setter;
 public class AuthenticationResponse {
 	
 	private String jwt;	
-	private User user;
+	private ApplicationUser user;
 }

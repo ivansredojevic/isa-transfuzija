@@ -1,12 +1,18 @@
 package com.ivan.isaback.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -14,12 +20,13 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+@Entity
 @Getter
 @Setter
 @ToString
-@Entity
+@DiscriminatorValue("application_user")
 //@Table(name = "user", schema = "isa")
-public class User {
+public class ApplicationUser {
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,7 +36,7 @@ public class User {
 	@Column
 	private String email;
 	
-	@Column
+	@Column(unique = true)
 	private String username;
 
 	@Column
@@ -80,5 +87,5 @@ public class User {
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "questionnaire_id", nullable = true)
 	private Questionnaire questionnaire;
-	
+
 }

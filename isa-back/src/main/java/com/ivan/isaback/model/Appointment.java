@@ -38,13 +38,12 @@ public class Appointment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "center_id", nullable = false)
+	@ManyToOne
 	private Center center;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "user_id", nullable = true)
-	private User user;
+	@JoinColumn(name = "application_user_id", nullable = true)
+	private ApplicationUser applicationUser;
 	
 	@ManyToMany(cascade = {CascadeType.ALL})
     @JoinTable(name = "appointment_personnel", joinColumns = @JoinColumn(name = "personnel_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "appointment_id", referencedColumnName = "id"))

@@ -1,18 +1,24 @@
 spring:
   jpa:
-    database: POSTGRESQL
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: none
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQL9Dialect
+        format_sql: true
+        
     show-sql: true
-    
+    defer-datasource-initialization: true
   datasource:
-    url: jdbc:postgresql://localhost:5432/isadb?currentSchema=isaadb
+    url: jdbc:postgresql://localhost:5432/isaautogen
     username: postgres
     password: 1234
     driverClassName: org.postgresql.Driver
-#    hikari:
-#      schema: isaadb
-      
+  sql:
+    init:
+      mode: never
+    
+    
   mail:
     properties:
       mail:

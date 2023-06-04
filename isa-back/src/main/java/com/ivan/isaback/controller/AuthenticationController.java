@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ivan.isaback.model.AuthenticationRequest;
 import com.ivan.isaback.model.AuthenticationResponse;
-import com.ivan.isaback.model.User;
+import com.ivan.isaback.model.ApplicationUser;
 import com.ivan.isaback.service.impl.UserServiceImpl;
 import com.ivan.isaback.util.JwtUtil;
 
@@ -45,7 +45,7 @@ public class AuthenticationController {
 		final UserDetails userDetails = userService.loadUserByUsername(request.getUsername());
 		final String jwt = jwtUtil.generateToken(userDetails);
 		
-		final User user = userService.findByUsername(request.getUsername()).get();
+		final ApplicationUser user = userService.findByUsername(request.getUsername());
 		user.setToken(jwt);
 		
 		return ResponseEntity.ok(new AuthenticationResponse(jwt, user));

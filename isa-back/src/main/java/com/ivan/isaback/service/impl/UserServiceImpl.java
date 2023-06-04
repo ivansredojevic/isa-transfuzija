@@ -13,7 +13,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.ivan.isaback.model.User;
+import com.ivan.isaback.model.ApplicationUser;
 import com.ivan.isaback.model.dto.UserDTO;
 import com.ivan.isaback.repository.UserRepository;
 import com.ivan.isaback.service.UserService;
@@ -38,9 +38,9 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 	}
 
 	@Override
-	public User registerUser(User user) {
+	public ApplicationUser registerUser(ApplicationUser user) {
 		
-		Optional<User> existingUser = userRepository.findOneByEmail(user.getEmail());
+		Optional<ApplicationUser> existingUser = userRepository.findOneByEmail(user.getEmail());
 		
 		if(existingUser.isPresent()) {
 			return null;
@@ -49,7 +49,7 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 		user.setToken(UUID.randomUUID().toString());
 		user.setRole("ROLE_USER");
 		user.setActivated(false);
-		User savedUser = userRepository.save(user);
+		ApplicationUser savedUser = userRepository.save(user);
 		
 		EmailDetails emailDetails = new EmailDetails();
 		emailDetails.setRecipient(user.getEmail());
@@ -69,7 +69,7 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 
 	@Override
 	public void updateUser(UserDTO userDto) {
-		Optional<User> user = userRepository.findById(userDto.getId());
+		Optional<ApplicationUser> user = userRepository.findById(userDto.getId());
 		if(user.isPresent()) {
 			user.get().setEmail(userDto.getEmail());
 			user.get().setUsername(userDto.getUsername());
@@ -90,7 +90,7 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		try {			
-			User user = userRepository.findByUsername(username).get();
+			ApplicationUser user = userRepository.findOneByUsername(username);
 			List<GrantedAuthority> authorities = new ArrayList<>();
 			authorities.add(new SimpleGrantedAuthority("ROLE_" + user.getRole()));
 			return new org.springframework.security.core.userdetails.User(username, user.getPassword(), true, true, true, true, authorities);			
@@ -100,26 +100,26 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 	}
 
 	@Override
-	public Optional<User> findByUsername(String username) {
-		return userRepository.findByUsername(username);
+	public ApplicationUser findByUsername(String username) {
+		return userRepository.findByUsernameAndActivatedTrue(username);
 	}
 
 	@Override
-	public Optional<User> findByEmail(String email) {
+	public Optional<ApplicationUser> findByEmail(String email) {
 		return userRepository.findOneByEmail(email);
 	}
 
 	@Override
 	public boolean activateUser(String token) {
 		
-		Optional<User> existingUser = userRepository.findOneByTokenAndActivatedFalse(token);
+		Optional<ApplicationUser> existingUser = userRepository.findOneByTokenAndActivatedFalse(token);
 		log.info("" + existingUser);
 		
 		if(!existingUser.isPresent()) {
 			return false;
 		}
 		
-		User user = existingUser.get();
+		ApplicationUser user = existingUser.get();
 		user.setActivated(true);
 		userRepository.save(user);
 		
@@ -129,7 +129,7 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 	@Override
 	public void updatePassword(UserDTO userDto) {
 		
-		Optional<User> user = userRepository.findById(userDto.getId());
+		Optional<ApplicationUser> user = userRepository.findById(userDto.getId());
 		if(user.isPresent()) {
 			user.get().setPassword(bCryptPasswordEncoder.encode(userDto.getPassword()));
 			userRepository.save(user.get());	

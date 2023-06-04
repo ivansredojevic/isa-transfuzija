@@ -28,14 +28,14 @@ import lombok.ToString;
 @AllArgsConstructor
 @DiscriminatorValue("personnel")
 @ToString
-public class Personnel extends User {
+public class Personnel extends ApplicationUser {
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "center_id", nullable = true)
+    @JoinColumn(name = "center_id", nullable = true)
 	private Center center;
 	
 	@ManyToMany( cascade = {CascadeType.ALL})
