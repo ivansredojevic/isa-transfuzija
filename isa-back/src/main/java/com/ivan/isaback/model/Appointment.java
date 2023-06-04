@@ -1,6 +1,5 @@
 package com.ivan.isaback.model;
 
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
@@ -16,8 +15,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -58,8 +55,11 @@ public class Appointment {
 	@Column
 	private int duration;
 	
+	@Column
+	private int priceEuro;
+	
 	@Column(nullable = true)
-	private boolean status;
+	private boolean taken;
 	
 	@Column(nullable = true)
 	private boolean approved;

@@ -25,16 +25,16 @@ insert into application_user (dtype, email, username, password, name, surname, a
 
 
 -- free appointments
-insert into appointment (center_id, application_user_id, modified_time, start_time, duration, status, approved) values (1, null, '2023-06-06 09:00:00', '2023-06-06 09:00:00', 45, false, false);
-insert into appointment (center_id, application_user_id, modified_time, start_time, duration, status, approved) values (1, null, '2023-06-06 10:00:00', '2023-06-06 10:00:00', 55, false, false);
-insert into appointment (center_id, application_user_id, modified_time, start_time, duration, status, approved) values (2, null, '2023-06-06 12:00:00', '2023-06-06 12:00:00', 45, false, false);
-insert into appointment (center_id, application_user_id, modified_time, start_time, duration, status, approved) values (2, null, '2023-06-06 11:00:00', '2023-06-06 11:00:00', 45, false, false);
+insert into appointment (center_id, application_user_id, modified_time, start_time, duration, price_euro, taken, approved) values (1, null, '2023-06-06 09:00:00', '2023-06-06 09:00:00', 45, 60, false, false);
+insert into appointment (center_id, application_user_id, modified_time, start_time, duration, price_euro, taken, approved) values (1, null, '2023-06-06 10:00:00', '2023-06-06 10:00:00', 55, 40, false, false);
+insert into appointment (center_id, application_user_id, modified_time, start_time, duration, price_euro, taken, approved) values (2, null, '2023-06-06 12:00:00', '2023-06-06 12:00:00', 45, 38, false, false);
+insert into appointment (center_id, application_user_id, modified_time, start_time, duration, price_euro, taken, approved) values (2, null, '2023-06-06 11:00:00', '2023-06-06 11:00:00', 45, 42, false, false);
 -- reserved appointments
-insert into appointment (center_id, application_user_id, modified_time, start_time, duration, status, approved) values (1, 2, '2023-06-08 11:00:00', '2023-06-08 11:00:00', 45, true, true);
-insert into appointment (center_id, application_user_id, modified_time, start_time, duration, status, approved) values (1, 3, '2023-06-08 12:00:00', '2023-06-08 12:00:00', 45, true, true);
-insert into appointment (center_id, application_user_id, modified_time, start_time, duration, status, approved) values (2, 3, '2023-06-08 11:00:00', '2023-06-08 11:00:00', 45, true, true);
-insert into appointment (center_id, application_user_id, modified_time, start_time, duration, status, approved) values (2, 2, '2023-06-08 12:00:00', '2023-06-08 12:00:00', 45, true, true);
-insert into appointment (center_id, application_user_id, modified_time, start_time, duration, status, approved) values (2, 4, '2023-06-08 16:00:00', '2023-06-08 16:00:00', 45, true, true);
+insert into appointment (center_id, application_user_id, modified_time, start_time, duration, price_euro, taken, approved) values (1, 2, '2023-06-08 11:00:00', '2023-06-08 11:00:00', 45, 49, true, true);
+insert into appointment (center_id, application_user_id, modified_time, start_time, duration, price_euro, taken, approved) values (1, 3, '2023-06-08 12:00:00', '2023-06-08 12:00:00', 45, 16, true, true);
+insert into appointment (center_id, application_user_id, modified_time, start_time, duration, price_euro, taken, approved) values (2, 3, '2023-06-08 11:00:00', '2023-06-08 11:00:00', 45, 82, true, true);
+insert into appointment (center_id, application_user_id, modified_time, start_time, duration, price_euro, taken, approved) values (2, 2, '2023-06-08 12:00:00', '2023-06-08 12:00:00', 45, 53, true, true);
+insert into appointment (center_id, application_user_id, modified_time, start_time, duration, price_euro, taken, approved) values (2, 4, '2023-06-08 16:00:00', '2023-06-08 16:00:00', 45, 19, true, true);
 
 
 --personnel on appointments

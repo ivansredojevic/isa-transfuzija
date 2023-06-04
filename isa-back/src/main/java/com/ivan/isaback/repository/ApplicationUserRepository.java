@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.ivan.isaback.model.ApplicationUser;
 
 @Repository
-public interface UserRepository extends JpaRepository<ApplicationUser, Integer>{
+public interface ApplicationUserRepository extends JpaRepository<ApplicationUser, Integer>{
 	
 	ApplicationUser findByEmail(String email);
 	ApplicationUser findByEmailAndActivatedTrue(String email);

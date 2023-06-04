@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 
 import com.ivan.isaback.model.ApplicationUser;
 import com.ivan.isaback.model.dto.UserDTO;
-import com.ivan.isaback.repository.UserRepository;
+import com.ivan.isaback.repository.ApplicationUserRepository;
 import com.ivan.isaback.service.UserService;
 import com.ivan.isaback.util.email.EmailDetails;
 import com.ivan.isaback.util.email.EmailService;
@@ -28,10 +28,10 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 	
 	private BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 	
-	private UserRepository userRepository;
+	private ApplicationUserRepository userRepository;
 	private EmailService emailService;
 	
-	public UserServiceImpl(UserRepository userRepository, EmailService emailService) {
+	public UserServiceImpl(ApplicationUserRepository userRepository, EmailService emailService) {
 		super();
 		this.userRepository = userRepository;
 		this.emailService = emailService;
