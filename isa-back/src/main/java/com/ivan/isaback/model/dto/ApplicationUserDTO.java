@@ -11,7 +11,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class UserDTO {
+public class ApplicationUserDTO {
 	
 	private int id;
 	private String email;

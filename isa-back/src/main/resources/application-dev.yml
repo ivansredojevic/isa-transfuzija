@@ -5,9 +5,9 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQL9Dialect
-        format_sql: true
+#        format_sql: true
         
-    show-sql: true
+#    show-sql: true
     defer-datasource-initialization: true
   datasource:
     url: jdbc:postgresql://localhost:5432/isaautogen

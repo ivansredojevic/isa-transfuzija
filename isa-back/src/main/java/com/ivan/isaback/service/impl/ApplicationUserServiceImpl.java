@@ -14,9 +14,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.ivan.isaback.model.ApplicationUser;
-import com.ivan.isaback.model.dto.UserDTO;
+import com.ivan.isaback.model.dto.ApplicationUserDTO;
 import com.ivan.isaback.repository.ApplicationUserRepository;
-import com.ivan.isaback.service.UserService;
+import com.ivan.isaback.service.ApplicationUserService;
 import com.ivan.isaback.util.email.EmailDetails;
 import com.ivan.isaback.util.email.EmailService;
 
@@ -24,14 +24,14 @@ import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
-public class UserServiceImpl implements UserService, UserDetailsService{
+public class ApplicationUserServiceImpl implements ApplicationUserService, UserDetailsService{
 	
 	private BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 	
 	private ApplicationUserRepository userRepository;
 	private EmailService emailService;
 	
-	public UserServiceImpl(ApplicationUserRepository userRepository, EmailService emailService) {
+	public ApplicationUserServiceImpl(ApplicationUserRepository userRepository, EmailService emailService) {
 		super();
 		this.userRepository = userRepository;
 		this.emailService = emailService;
@@ -68,7 +68,7 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 	}
 
 	@Override
-	public void updateUser(UserDTO userDto) {
+	public void updateUser(ApplicationUserDTO userDto) {
 		Optional<ApplicationUser> user = userRepository.findById(userDto.getId());
 		if(user.isPresent()) {
 			user.get().setEmail(userDto.getEmail());
@@ -127,7 +127,7 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 	}
 
 	@Override
-	public void updatePassword(UserDTO userDto) {
+	public void updatePassword(ApplicationUserDTO userDto) {
 		
 		Optional<ApplicationUser> user = userRepository.findById(userDto.getId());
 		if(user.isPresent()) {

@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -55,4 +57,8 @@ public class Questionnaire {
     
     @Column
     private boolean tatooed;
+    
+    @OneToOne
+    @JoinColumn(name = "application_user_id", nullable = true)
+    private ApplicationUser applicationUser;
 }

@@ -36,7 +36,7 @@ public class ApplicationUser {
 	@Column
 	private String password;
 
-	@Column
+	@Column(nullable = true)
 	private String name;
 
 	@Column(nullable = true)
@@ -78,8 +78,4 @@ public class ApplicationUser {
 	@Column(nullable = true)
 	private int penalty;
 	
-	@OneToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "questionnaire_id", nullable = true)
-	private Questionnaire questionnaire;
-
 }

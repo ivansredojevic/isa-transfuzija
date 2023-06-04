@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ivan.isaback.model.ApplicationUser;
-import com.ivan.isaback.model.dto.UserDTO;
-import com.ivan.isaback.service.UserService;
+import com.ivan.isaback.model.dto.ApplicationUserDTO;
+import com.ivan.isaback.service.ApplicationUserService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -25,11 +25,11 @@ import lombok.extern.slf4j.Slf4j;
 @CrossOrigin
 @Slf4j
 @RequestMapping("/api/users/")
-public class UserController {
+public class ApplicationUserController {
 	
-	private UserService userService;
+	private ApplicationUserService userService;
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
-	public UserController(UserService userService, BCryptPasswordEncoder bCryptPasswordEncoder) {
+	public ApplicationUserController(ApplicationUserService userService, BCryptPasswordEncoder bCryptPasswordEncoder) {
 		super();
 		this.userService = userService;
 		this.bCryptPasswordEncoder = bCryptPasswordEncoder;
@@ -48,14 +48,14 @@ public class UserController {
 	}
 	
 	@PutMapping("update/{id}")
-	public void updateUser(@RequestBody UserDTO userDto) {
+	public void updateUser(@RequestBody ApplicationUserDTO userDto) {
 		log.info("update " + userDto);
 		userService.updateUser(userDto);
 	}
 	
 	
 	@PutMapping("update-password/{id}")
-	public void updatePassword(@RequestBody UserDTO userDto) {
+	public void updatePassword(@RequestBody ApplicationUserDTO userDto) {
 		log.info("update password " + userDto);
 		userService.updatePassword(userDto);
 	}
