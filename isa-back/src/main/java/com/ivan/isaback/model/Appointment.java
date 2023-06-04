@@ -39,7 +39,6 @@ public class Appointment {
 	private Center center;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "application_user_id", nullable = true)
 	private ApplicationUser applicationUser;
 	
 	@ManyToMany(cascade = {CascadeType.ALL})
