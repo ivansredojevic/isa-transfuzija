@@ -83,6 +83,17 @@ public class ApplicationUserServiceImpl implements ApplicationUserService, UserD
 			user.get().setSex(userDto.getSex());
 			user.get().setOccupation(userDto.getOccupation());
 			user.get().setJobinformation(userDto.getJobinformation());
+			user.get().setPenalty(userDto.getPenalty());
+			userRepository.save(user.get());	
+		}
+	}
+	
+	@Override
+	public void addPenalty(ApplicationUserDTO userDto) {
+		
+		Optional<ApplicationUser> user = userRepository.findById(userDto.getId());
+		if(user.isPresent()) {
+			user.get().setPenalty(userDto.getPenalty() + 1);
 			userRepository.save(user.get());	
 		}
 	}

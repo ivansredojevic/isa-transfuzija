@@ -1,6 +1,7 @@
 package com.ivan.isaback.model.dto;
 
 import com.ivan.isaback.model.Center;
+import com.ivan.isaback.model.Personnel;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,6 +16,7 @@ import lombok.ToString;
 @ToString
 public class PersonnelDTO {
 	
+	private int id;
 	private String email;
 	private String username;
 	private String password;
@@ -29,5 +31,23 @@ public class PersonnelDTO {
 	private String occupation;
 	private String jobinformation;
 	private Center center;
+	
+	public PersonnelDTO(Personnel user) {
+		this.id = user.getId();
+		this.email = user.getEmail();
+		this.username = user.getUsername();
+		this.password = user.getPassword();
+		this.name = user.getName();
+		this.surname = user.getSurname();
+		this.address = user.getAddress();
+		this.city = user.getCity();
+		this.state = user.getState();
+		this.phone = user.getPhone();
+		this.jmbg = user.getJmbg();
+		this.sex = user.getSex();
+		this.occupation = user.getOccupation();
+		this.jobinformation = user.getJobinformation();
+		this.center = user.getCenter();
+	}
 	
 }

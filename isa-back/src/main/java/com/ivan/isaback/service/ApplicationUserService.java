@@ -10,6 +10,7 @@ public interface ApplicationUserService {
 	ApplicationUser registerUser(ApplicationUser user);
 	void deleteUser(int id);
 	void updateUser(ApplicationUserDTO user);
+	void addPenalty(ApplicationUserDTO user);
 	void updatePassword(ApplicationUserDTO user);
 	ApplicationUser findByUsername(String username);
 	Optional<ApplicationUser> findByEmail(String email);

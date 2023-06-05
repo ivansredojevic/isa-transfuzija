@@ -1,6 +1,7 @@
 package com.ivan.isaback.model.dto;
 
 import com.ivan.isaback.model.ApplicationUser;
+import com.ivan.isaback.model.Questionnaire;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,7 +16,7 @@ import lombok.ToString;
 @ToString
 public class QuestionnaireDTO {
 	
-
+	private int id;
     private int donationNumber;
     private boolean rejected;
     private boolean healthy;
@@ -25,6 +26,25 @@ public class QuestionnaireDTO {
     private boolean onTherapy;
     private boolean aspirin;
     private boolean tatooed;
-    private ApplicationUser applicationUser;
+    private ApplicationUserDTO applicationUser;
+	
+    public QuestionnaireDTO(Questionnaire quest) {
+		
+		this.id = quest.getId();
+		this.donationNumber = quest.getDonationNumber();
+		this.rejected = quest.isRejected();
+		this.healthy = quest.isHealthy();
+		this.dangerousOccupation = quest.isDangerousOccupation();
+		this.infectious = quest.isInfectious();
+		this.bloodPressureIssues = quest.isBloodPressureIssues();
+		this.onTherapy = quest.isOnTherapy();
+		this.aspirin = quest.isAspirin();
+		this.tatooed = quest.isTatooed();
+		this.applicationUser = new ApplicationUserDTO(quest.getApplicationUser());
+	}
+	
+   
+    
+    
 
 }

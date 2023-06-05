@@ -1,5 +1,11 @@
 package com.ivan.isaback.model.dto;
 
+import java.time.LocalDate;
+
+import javax.persistence.Column;
+
+import com.ivan.isaback.model.ApplicationUser;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,6 +33,33 @@ public class ApplicationUserDTO {
 	private String sex;
 	private String occupation;
 	private String jobinformation;
+	private Boolean activated;
 	private String role;
+	private int penalty;
+	
+	public ApplicationUserDTO(ApplicationUser user) {
+		this.id = user.getId();
+		this.email = user.getEmail();
+		this.username = user.getUsername();
+		this.password = user.getPassword();
+		this.name = user.getName();
+		this.surname = user.getSurname();
+		this.address = user.getAddress();
+		this.city = user.getCity();
+		this.state = user.getState();
+		this.phone = user.getPhone();
+		this.jmbg = user.getJmbg();
+		this.sex = user.getSex();
+		this.occupation = user.getOccupation();
+		this.jobinformation = user.getJobinformation();
+		this.activated = user.getActivated();
+		this.role = user.getRole();
+		this.penalty = user.getPenalty();
+	}
+	
+	
+
+	
+	
 	
 }

@@ -3,12 +3,9 @@ package com.ivan.isaback.model;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -19,12 +16,10 @@ import lombok.ToString;
 @Setter
 @ToString
 @DiscriminatorValue("application_user")
-//@Table(name = "user", schema = "isa")
 public class ApplicationUser {
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-//	@SequenceGenerator(name = "user_id_seq", sequenceName = "user_id_seq", allocationSize = 100, initialValue=1)
 	private int id;
 	
 	@Column

@@ -84,5 +84,10 @@ public class ApplicationUserController {
 		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
 	}
 	
+	@PutMapping("penalty/{id}")
+	public void addPenalty(@RequestBody ApplicationUserDTO userDto) {
+		log.info("add epnalty " + userDto);
+		userService.updateUser(userDto);
+	}
 	
 }
