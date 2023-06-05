@@ -10,5 +10,6 @@ public interface QuestionnaireService {
 	Questionnaire findByApplicationUserId(int id);
 	Questionnaire save(QuestionnaireDTO questionnaire);
 	List<Questionnaire> findAll();
+	void delete(int id);
 	
 }

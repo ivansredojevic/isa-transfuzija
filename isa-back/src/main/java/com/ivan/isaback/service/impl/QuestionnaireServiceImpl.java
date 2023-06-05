@@ -70,5 +70,10 @@ public class QuestionnaireServiceImpl implements QuestionnaireService{
 	public List<Questionnaire> findAll() {
 		return questionnaireRepository.findAll();
 	}
+
+	@Override
+	public void delete(int id) {
+		questionnaireRepository.deleteById(id);
+	}
 	
 }
