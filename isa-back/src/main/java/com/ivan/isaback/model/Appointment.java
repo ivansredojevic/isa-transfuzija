@@ -1,19 +1,13 @@
 package com.ivan.isaback.model;
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 import lombok.AllArgsConstructor;
@@ -40,10 +34,6 @@ public class Appointment {
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	private ApplicationUser applicationUser;
-	
-	@ManyToMany(cascade = {CascadeType.ALL})
-    @JoinTable(name = "appointment_personnel", joinColumns = @JoinColumn(name = "personnel_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "appointment_id", referencedColumnName = "id"))
-    private Set<Personnel> personnelList = new HashSet<Personnel>();
 	
 	@Column
 	private LocalDateTime modifiedTime;
