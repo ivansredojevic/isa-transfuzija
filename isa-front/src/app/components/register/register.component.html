@@ -1,32 +1,35 @@
-<mat-toolbar>
-    <span>Registration</span>
- </mat-toolbar>
- <mat-card class="my-card">
-    <mat-card-content>
-        <form class="my-form">
-           <mat-form-field class="full-width">
-                  <mat-label>Name</mat-label>
-                  <input  matInput  placeholder="First name"  name="fname"  required>
-               </mat-form-field>
-               <mat-form-field class="full-width">
-                  <mat-label>Last Name</mat-label>
-                  <input  matInput  placeholder="Last Name" name="lname"  required>
-               </mat-form-field>
-               <mat-form-field class="full-width">
-                  <mat-label>Address</mat-label>
-                  <input  matInput  placeholder="Address" name="address"  required>
-               </mat-form-field>
-               <mat-form-field class="full-width">
-                  <mat-label>Email</mat-label>
-                  <input  matInput  placeholder="Email" name="email">
-               </mat-form-field>
-               <mat-form-field class="full-width">
-                  <mat-label>Password</mat-label>
-                  <input  matInput  placeholder="Password"  name="password">
-               </mat-form-field>
-        </form>
-      </mat-card-content>
-    <mat-card-actions>
-      <!-- REGISTER BUTTON -->
-    </mat-card-actions>
- </mat-card>
+<form>
+<div class="login-container">
+    <div class="login-content">
+        <!-- <mat-toolbar class="login-toolbar" color="primary">REGISTER</mat-toolbar> -->
+        <mat-card>
+
+            <form [formGroup]="registerForm" #formDirective="ngForm" (ngSubmit)="onSubmit(registerForm, formDirective)">
+                <mat-form-field>
+                    <mat-icon matPrefix>email</mat-icon>
+                    <input autofocus type="email" matInput placeholder="Email *" formControlName="email">
+                </mat-form-field>
+
+
+                <mat-form-field>
+                    <mat-icon matPrefix>person_outline</mat-icon>
+                    <input autofocus type="text" matInput placeholder="Username *" formControlName="username">
+                </mat-form-field>
+
+
+                <mat-form-field>
+                    <mat-icon matPrefix>lock_outline</mat-icon>
+                    <input type="password" autocomplete="false" matInput placeholder="Password *"
+                        formControlName="password">
+                    <mat-hint>Choose a strong password</mat-hint>
+                </mat-form-field>
+
+                <hr>
+                <div class="socialMediaFlex">
+                    <button style="width:50%" [disabled]="registerForm.invalid" type="submit" mat-raised-button
+                        color="primary">Register</button>
+                </div>
+            </form>
+        </mat-card>
+    </div>
+</div>

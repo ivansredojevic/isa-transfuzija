@@ -17,9 +17,14 @@
         <span class="example-spacer"></span>
 
         <span class="spacer"></span>
-        <a mat-raised-button color="primary" routerLink="/register">Register</a>
-        <a mat-raised-button color="primary" routerLink="/login">Login</a><!-- dodati (click)="onLogOut()"-->
+        <div>
+            <!-- <ng-template> [ngIf] = "!authService.isAunthenticated()">   -->
+            <a mat-raised-button color="primary" routerLink="/register">Register</a>
+            <a mat-raised-button color="primary" routerLink="/login">Login</a><!-- dodati (click)="onLogOut()"-->
+            <!-- </ng-template> -->
+        </div>
         <!-- </div> -->
-
     </mat-toolbar-row>
+    
 </mat-toolbar>
+<router-outlet></router-outlet>
