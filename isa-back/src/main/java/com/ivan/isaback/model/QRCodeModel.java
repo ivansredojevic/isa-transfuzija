@@ -19,6 +19,6 @@ public class QRCodeModel {
 	
 	@Override
 	public String toString() {
-		return "User" + userDetails + ", time " + appointmentDate + ", at " + centerName + ", " + centerAddress + ".";
+		return "User " + userDetails + ", time " + appointmentDate + ", at " + centerName + ", " + centerAddress + ".";
 	}
 }
