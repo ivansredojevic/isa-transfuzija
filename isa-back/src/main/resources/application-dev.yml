@@ -1,4 +1,5 @@
 spring:
+  
   jpa:
     hibernate:
       ddl-auto: create
@@ -9,15 +10,16 @@ spring:
         
 #    show-sql: true
     defer-datasource-initialization: true
+  
   datasource:
     url: jdbc:postgresql://localhost:5432/isaautogen
     username: postgres
     password: 1234
     driverClassName: org.postgresql.Driver
+  
   sql:
     init:
-      mode: always
-    
+      mode: always 
     
   mail:
     properties:
@@ -30,7 +32,10 @@ spring:
     username: sokolicc.dji.acc@gmail.com
     password: dmpcnamghlyqqpto
     port: '587'
-    
+
+#logging:
+#  level:
+#    '[com.ivan]': trace
     
 server:
   port : 8089
