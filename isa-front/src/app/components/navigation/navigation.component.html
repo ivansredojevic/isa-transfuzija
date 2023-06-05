@@ -1,0 +1,25 @@
+<mat-toolbar color="primary">
+    <mat-toolbar-row>
+        <!-- <div *ngIf="!authenticationService.isLoggedIn()">
+                <a mat-list-item href="/login">Login</a>
+            </div> -->
+        <!-- <div *ngIf="authenticationService.isLoggedIn()"> -->
+        <!-- <div *ngIf="authenticationService.isLoggedIn()"> -->
+        <a mat-raised-button color="primary" routerLink="/centers">Centers</a>
+        <a mat-raised-button color="primary" routerLink="/appointments">Appointments</a>
+        <!-- <a mat-raised-button color="primary" routerLink="/users">Users</a> -->
+        <a mat-raised-button color="primary" routerLink="/history">History</a>
+        <a mat-raised-button color="primary" routerLink="/complaint">Complaints</a>
+        <!-- <a mat-raised-button color="primary" routerLink="/personnel">Personnel</a> -->
+        <!-- premestiti questionnaire u profil -->
+        <!-- <a mat-raised-button color="primary" routerLink="/questionnaire">Work order runs</a> -->
+        <a mat-raised-button color="primary" routerLink="/profile">Profile</a>
+        <span class="example-spacer"></span>
+
+        <span class="spacer"></span>
+        <a mat-raised-button color="primary" routerLink="/register">Register</a>
+        <a mat-raised-button color="primary" routerLink="/login">Login</a><!-- dodati (click)="onLogOut()"-->
+        <!-- </div> -->
+
+    </mat-toolbar-row>
+</mat-toolbar>

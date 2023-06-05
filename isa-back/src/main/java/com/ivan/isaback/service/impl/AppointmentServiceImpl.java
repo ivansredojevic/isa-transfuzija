@@ -61,7 +61,7 @@ public class AppointmentServiceImpl implements AppointmentService {
 		a.setDuration(appointmentDTO.getDuration());
 		a.setPriceEuro(appointmentDTO.getPriceEuro());
 		a.setTaken(false);
-		a.setApproved(true);
+		a.setApproved(false);
 		
 		log.info(a.toString());
 		
@@ -86,8 +86,8 @@ public class AppointmentServiceImpl implements AppointmentService {
 			a.setStartTime(appointmentDTO.getStartTime());
 			a.setDuration(appointmentDTO.getDuration());
 			a.setPriceEuro(appointmentDTO.getPriceEuro());
-			a.setTaken(appointmentDTO.isTaken());
-			a.setApproved(appointmentDTO.isApproved());
+			a.setTaken(false);
+			a.setApproved(true);
 		
 			log.info(a.toString());
 		
@@ -105,6 +105,7 @@ public class AppointmentServiceImpl implements AppointmentService {
 				qrCodeModel.setCenterAddress(a.getCenter().getAddress());
 				
 				emailService.sendQrCode(emailDetails, qrCodeModel);
+				
 				
 				return saved;
 			} catch (Exception e) {
