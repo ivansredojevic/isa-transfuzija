@@ -3,6 +3,8 @@ package com.ivan.isaback.service.impl;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.ivan.isaback.model.Complaint;
@@ -21,20 +23,10 @@ import lombok.extern.slf4j.Slf4j;
 public class ComplaintServiceImpl implements ComplaintService {
 	
 	private ComplaintRepository complaintRepository;
-	private CenterRepository centerRepository;
-	private ApplicationUserRepository applicationUserRepository;
-	private PersonnelRepository personnelRepository;
-	private AppointmentRepository appointmentRepository;
 	
-	public ComplaintServiceImpl(ComplaintRepository complaintRepository, CenterRepository centerRepository,
-			ApplicationUserRepository applicationUserRepository, PersonnelRepository personnelRepository,
-			AppointmentRepository appointmentRepository) {
+	public ComplaintServiceImpl(ComplaintRepository complaintRepository) {
 		super();
 		this.complaintRepository = complaintRepository;
-		this.centerRepository = centerRepository;
-		this.applicationUserRepository = applicationUserRepository;
-		this.personnelRepository = personnelRepository;
-		this.appointmentRepository = appointmentRepository;
 	}
 
 	@Override
@@ -103,6 +95,11 @@ public class ComplaintServiceImpl implements ComplaintService {
 	@Override
 	public List<Complaint> findByUnanswered() {
 		return complaintRepository.findAllByAdminIdIsNullAndReplyTextIsNull();
+	}
+	
+	@Override
+	public Page<Complaint> findByUserIdPageable(int userId, Pageable pageable) {
+		return complaintRepository.findAllByApplicationUserId(userId, pageable);
 	}
 
 }
