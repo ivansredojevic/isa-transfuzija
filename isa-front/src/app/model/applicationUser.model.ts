@@ -1,4 +1,5 @@
-export class ApplicationUser {
+export class ApplicationUserModel {
+
     id: number;
     username: string="";
     password: string="";
@@ -8,12 +9,13 @@ export class ApplicationUser {
     address: string;
     phone: string;
     jmbg: string;
-    sex: string;
+    sex: string="";
     occupation: string;
     jobinformation: string;
     activated: boolean = false;
     role: string;
     token: string;
     penalty: number;
+
   }
   

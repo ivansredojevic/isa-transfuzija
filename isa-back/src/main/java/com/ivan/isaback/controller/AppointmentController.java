@@ -74,22 +74,22 @@ public class AppointmentController {
 		}
 	}
 	
-	@GetMapping(value = "allPageable")
+	@GetMapping(value = "all-pageable")
 	public Page<Appointment> getAllPageable(Pageable pageable){
 		return appointmentService.findAllPageable(pageable);
 	}
 	
-	@GetMapping(value = "allByUserPageable/{id}")
+	@GetMapping(value = "all-by-user-pageable/{id}")
 	public Page<Appointment> getByUserId(@PathVariable int id, Pageable pageable){
 		return appointmentService.findByUserIdPageable(id, pageable);
 	}
 	
-	@GetMapping(value = "historyByUserPageable/{id}")
+	@GetMapping(value = "history-by-user-pageable/{id}")
 	public Page<Appointment> getByUserIdTaken(@PathVariable int id, Pageable pageable){
 		return appointmentService.findByUserIdTakenPageable(id, pageable);
 	}
 	
-	@GetMapping(value = "upcomingByUserPageable/{id}")
+	@GetMapping(value = "upcoming-by-user-pageable/{id}")
 	public Page<Appointment> getByUserIdNotTaken(@PathVariable int id, Pageable pageable){
 		return appointmentService.findByUserIdNotTakenPageable(id, pageable);
 	}
