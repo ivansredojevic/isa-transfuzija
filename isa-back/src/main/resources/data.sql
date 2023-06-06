@@ -5,6 +5,15 @@
 insert into center (center_name, address, rating, open_time, closed_time) values ('KCV', 'Ulica KCV 1, Novi Sad, Srbija', '4.0', '07:00', '23:00');
 insert into center (center_name, address, rating, open_time, closed_time) values ('Kamenica', 'Kamenica, Novi Sad, Srbija', '4.2', '05:00', '22:00');
 insert into center (center_name, address, rating, open_time, closed_time) values ('Urgentni', 'Cara Dusana 1, Novi Sad, Srbija', '3.5', '01:00', '23:00');
+insert into center (center_name, address, rating, open_time, closed_time) values ('KCV', 'Ulica KCV 1, Novi Sad, Srbija', '4.0', '07:00', '23:00');
+insert into center (center_name, address, rating, open_time, closed_time) values ('Kamenica', 'Kamenica, Novi Sad, Srbija', '4.2', '05:00', '22:00');
+insert into center (center_name, address, rating, open_time, closed_time) values ('Urgentni', 'Cara Dusana 1, Novi Sad, Srbija', '3.5', '01:00', '23:00');
+insert into center (center_name, address, rating, open_time, closed_time) values ('KCV', 'Ulica KCV 1, Novi Sad, Srbija', '4.0', '07:00', '23:00');
+insert into center (center_name, address, rating, open_time, closed_time) values ('Kamenica', 'Kamenica, Novi Sad, Srbija', '4.2', '05:00', '22:00');
+insert into center (center_name, address, rating, open_time, closed_time) values ('Urgentni', 'Cara Dusana 1, Novi Sad, Srbija', '3.5', '01:00', '23:00');
+insert into center (center_name, address, rating, open_time, closed_time) values ('KCV', 'Ulica KCV 1, Novi Sad, Srbija', '4.0', '07:00', '23:00');
+insert into center (center_name, address, rating, open_time, closed_time) values ('Kamenica', 'Kamenica, Novi Sad, Srbija', '4.2', '05:00', '22:00');
+insert into center (center_name, address, rating, open_time, closed_time) values ('Urgentni', 'Cara Dusana 1, Novi Sad, Srbija', '3.5', '01:00', '23:00');
 
 
 -- admin
