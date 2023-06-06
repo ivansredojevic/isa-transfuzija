@@ -1,7 +1,7 @@
 <form>
     <div class="login-container">
         <div class="login-content">
-            
+            <mat-toolbar class="login-toolbar" color="primary">LOGIN</mat-toolbar>
             <mat-card>
                 <form [formGroup]="loginForm" #formDirective="ngForm" (ngSubmit)="onSubmit(loginForm, formDirective)">
                     <mat-form-field>
@@ -15,6 +15,7 @@
                     </mat-form-field>
                     <button type="submit" mat-raised-button color="primary">LOGIN</button>
                 </form>
+                <hr>
                 <span> If You don't have a account yet please <a routerLink='/register'>REGISTER HERE</a></span>
             </mat-card>
         </div>

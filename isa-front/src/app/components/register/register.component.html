@@ -1,7 +1,7 @@
 <form>
     <div class="login-container">
         <div class="login-content">
-            <!-- <mat-toolbar class="login-toolbar" color="primary">REGISTER</mat-toolbar> -->
+            <mat-toolbar class="login-toolbar" color="primary">REGISTER</mat-toolbar>
             <mat-card>
 
                 <form [formGroup]="registerForm" #formDirective="ngForm"
@@ -65,15 +65,15 @@
                         <mat-icon matPrefix>person_outline</mat-icon>
                         <input autofocus type="text" matInput placeholder="UMCN" formControlName="jmbg">
                     </mat-form-field>
-
+                    <br>
                     <section>
-                        <label>Sex: </label>
+                        <label>Sex : </label>
                         <mat-radio-group formControlName="sex">
                             <mat-radio-button value="m">Male</mat-radio-button>
                             <mat-radio-button value="f">Female</mat-radio-button>
                         </mat-radio-group>
                     </section>
-
+                    <br>
                     <mat-form-field>
                         <mat-icon matPrefix>person_outline</mat-icon>
                         <input autofocus type="text" matInput placeholder="Occupation *" formControlName="occupation">
