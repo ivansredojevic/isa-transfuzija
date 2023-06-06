@@ -102,7 +102,7 @@ public class AppointmentController {
 		if(appointment != null) {
 			return ResponseEntity.ok(appointment);
 		} else {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
 		}
 	}
 	

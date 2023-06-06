@@ -64,7 +64,7 @@ public class CenterController {
 		if(center != null) {
 			return ResponseEntity.ok(center);
 		} else {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
 		}
 	}
 	
