@@ -73,8 +73,6 @@ public class PersonnelServiceImpl implements PersonnelService {
 			personnel.setName(p.getName());
 			personnel.setSurname(p.getSurname());
 			personnel.setAddress(p.getAddress());
-			personnel.setCity(p.getCity());
-			personnel.setState(p.getState());
 			personnel.setPhone(p.getPhone());
 			personnel.setJmbg(p.getJmbg());
 			personnel.setSex(p.getSex());

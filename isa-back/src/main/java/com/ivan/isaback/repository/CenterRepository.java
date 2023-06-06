@@ -2,6 +2,8 @@ package com.ivan.isaback.repository;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.ivan.isaback.model.Center;
@@ -9,6 +11,7 @@ import com.ivan.isaback.model.Center;
 public interface CenterRepository extends JpaRepository<Center, Integer>{
 	
 	List<Center> findAll();
+	Page<Center> findAll(Pageable pageable);
 	
 }
 

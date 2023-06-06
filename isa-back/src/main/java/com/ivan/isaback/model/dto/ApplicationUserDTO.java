@@ -26,8 +26,6 @@ public class ApplicationUserDTO {
 	private String name;
 	private String surname;
 	private String address;
-	private String city;
-	private String state;
 	private String phone;
 	private String jmbg;
 	private String sex;
@@ -45,8 +43,6 @@ public class ApplicationUserDTO {
 		this.name = user.getName();
 		this.surname = user.getSurname();
 		this.address = user.getAddress();
-		this.city = user.getCity();
-		this.state = user.getState();
 		this.phone = user.getPhone();
 		this.jmbg = user.getJmbg();
 		this.sex = user.getSex();

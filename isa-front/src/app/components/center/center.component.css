@@ -1,0 +1,14 @@
+.mat-row {
+    height: auto;
+  }
+  
+.mat-cell {
+    padding: 20px 20px 20px 0;
+    
+}
+
+table.mat-table {
+    table-layout: fixed;
+    width: 100%;
+    display: table;
+}

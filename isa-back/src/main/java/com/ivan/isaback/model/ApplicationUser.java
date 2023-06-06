@@ -22,7 +22,7 @@ public class ApplicationUser {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@Column
+	@Column(unique = true)
 	private String email;
 	
 	@Column(unique = true)
@@ -39,12 +39,6 @@ public class ApplicationUser {
 
 	@Column(nullable = true)
 	private String address;
-
-	@Column(nullable = true)
-	private String city;
-
-	@Column(nullable = true)
-	private String state;
 
 	@Column(nullable = true)
 	private String phone;

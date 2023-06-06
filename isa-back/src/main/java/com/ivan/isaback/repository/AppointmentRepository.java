@@ -2,6 +2,8 @@ package com.ivan.isaback.repository;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.ivan.isaback.model.Appointment;
@@ -17,5 +19,6 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Intege
 	List<Appointment> findAllByApplicationUserIdAndTakenFalse(int applicationUserId);
 	List<Appointment> findAllByApplicationUserIdAndTakenTrue(int applicationUserId);
 	
+	Page<Appointment> findAll(Pageable pageable);
 	
 }

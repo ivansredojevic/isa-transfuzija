@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators, FormGroupDirective } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormGroupDirective, ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
 
 
 @Component({
@@ -25,7 +25,7 @@ export class RegisterComponent implements OnInit {
         'username': new FormControl(null, [Validators.required]),
         'email': new FormControl(null, [Validators.required, Validators.pattern(emailregex)]),
         'password': new FormControl(null, [Validators.required, this.checkPassword]),
-        'passwordConfirm': new FormControl(null, [Validators.required, this.checkPassword]),
+        'passwordConfirm': new FormControl(null, [Validators.required]),
         'name': new FormControl(null, [Validators.required]),
         'surname': new FormControl(null, [Validators.required]),
         'address': new FormControl(null),
@@ -33,10 +33,10 @@ export class RegisterComponent implements OnInit {
         'state': new FormControl(null),
         'phone': new FormControl(null),
         'jmbg': new FormControl(null),
-        'sex' : new FormControl(null),
+        'sex' : new FormControl(null, [Validators.required]),
         'occupation': new FormControl(null),
         'jobinformation': new FormControl(null),
-      }
+      }, { validators: passwordMatchingValidatior}
     )
 
 
@@ -47,11 +47,10 @@ export class RegisterComponent implements OnInit {
     let passwordCheck = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{6,})/;
     return (!passwordCheck.test(enteredPassword) && enteredPassword) ? { 'requirements': true } : null;
   }
+
+
+
   
-  // checkValidation(input: string) {
-  //   const validation = this.registerForm.get(input).invalid && (this.registerForm.get(input).dirty || this.registerForm.get(input).touched)
-  //   return validation;
-  // }
   onSubmit(formData: FormGroup, formDirective: FormGroupDirective): void {
 
     const email = formData.value.email;
@@ -65,3 +64,10 @@ export class RegisterComponent implements OnInit {
   }
 
 }
+
+export const passwordMatchingValidatior: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
+  const password = control.get('password');
+  const passwordConfirm = control.get('passwordConfirm');
+
+  return password?.value === passwordConfirm?.value ? null : { notmatched: true };
+};

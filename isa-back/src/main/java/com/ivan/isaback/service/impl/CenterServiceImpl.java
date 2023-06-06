@@ -3,6 +3,8 @@ package com.ivan.isaback.service.impl;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.ivan.isaback.model.Center;
@@ -88,6 +90,11 @@ public class CenterServiceImpl implements CenterService {
 			return null;
 		}
 		
+	}
+
+	@Override
+	public Page<Center> findAllPageable(Pageable pageable) {
+		return centerRepository.findAll(pageable);
 	}
 
 }

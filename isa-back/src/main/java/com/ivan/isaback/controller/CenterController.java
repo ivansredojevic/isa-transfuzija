@@ -2,6 +2,8 @@ package com.ivan.isaback.controller;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -39,6 +41,11 @@ public class CenterController {
 		} else {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
 		}
+	}
+	
+	@GetMapping(value = "allPageable")
+	public Page<Center> getAllPageable(Pageable pageable){
+		return centerService.findAllPageable(pageable);
 	}
 	
 	@GetMapping(value = "{centerId}")
