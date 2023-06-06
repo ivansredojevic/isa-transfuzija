@@ -6,3 +6,16 @@
   color: white;
   font-weight:bool;
 }
+
+.navbar-buttons {
+  width: 159px;
+  margin: 3px;
+  text-align: left;
+  overflow: hidden;
+}
+
+.personal-buttons {
+  width: 117px;
+  margin: 3px;
+  text-align: left;
+}

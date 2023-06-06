@@ -12,12 +12,10 @@ export class AuthService {
   constructor(private http: HttpClient) { }
 
   getAuthHeader() : any {
-
     const headers = {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + localStorage.getItem("token")
     }
-
     return {
       headers: headers
     };
@@ -42,4 +40,5 @@ export class AuthService {
   deleteUser(user: any) : any {
     return this.http.delete(this.resourceUrl + "/users/delete" + user.id, this.getAuthHeader());
   }
+  
 }

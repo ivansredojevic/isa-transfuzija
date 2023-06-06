@@ -12,17 +12,12 @@ export class CenterService {
 
   constructor(private http: HttpClient) { }
 
+  //   addCenter(center: any): Observable<any>{
+  //     return  this.http.post<any>(this.apiHost + 'add', center, { headers: this.headers });
+  //   }
 
-
-
-//   addCenter(center: any): Observable<any>{
-//     return  this.http.post<any>(this.apiHost + 'add', center, { headers: this.headers });
-//   }
-
-  getAllPageable(page: number, size: number): Observable<any>{
-    return  this.http.get<any>(this.apiHost + 'all-pageable', { params: { page: (--page).toString(), size: size.toString() }});
+  getAllPageable(page: number, size: number): Observable<any> {
+    return this.http.get<any>(this.apiHost + 'all-pageable', { params: { page: page.toString(), size: size.toString() } });
   }
-
-
 
 }

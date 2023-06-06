@@ -37,6 +37,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { HistoryComponent } from './components/history/history.component';
 import { MatRadioModule } from '@angular/material/radio';
 import { FormsModule } from '@angular/forms';
+import { MakeAppointmentComponent } from './components/make-appointment/make-appointment.component';
 
 
 @NgModule({
@@ -53,6 +54,7 @@ import { FormsModule } from '@angular/forms';
     PersonnelComponent,
     ProfileComponent,
     HistoryComponent,
+    MakeAppointmentComponent,
 
   ],
   imports: [

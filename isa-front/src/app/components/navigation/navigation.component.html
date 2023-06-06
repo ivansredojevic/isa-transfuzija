@@ -1,31 +1,37 @@
-<mat-toolbar color="primary">ISA App</mat-toolbar>
-<mat-toolbar color="primary">
+<mat-toolbar color="accent">
+    <mat-toolbar-row>
+        <span style="text-align: center; margin-left: 15px;">ISA Application 2022/2023</span>
+    </mat-toolbar-row>
+</mat-toolbar>
+<mat-toolbar color="accent">
     <mat-toolbar-row>
         <!-- <div *ngIf="!authenticationService.isLoggedIn()">
                 <a mat-list-item href="/login">Login</a>
             </div> -->
         <!-- <div *ngIf="authenticationService.isLoggedIn()"> -->
         <!-- <div *ngIf="authenticationService.isLoggedIn()"> -->
-        <a mat-raised-button color="primary" routerLink="/centers">Centers</a>
-        <a mat-raised-button color="primary" routerLink="/appointments">Appointments</a>
+        <a class="navbar-buttons" mat-raised-button color="primary" routerLink="/centers">Centers</a>
+        <a class="navbar-buttons" mat-raised-button color="primary" routerLink="/make-appointment">Make appointment</a>
+        <a class="navbar-buttons" mat-raised-button color="primary" routerLink="/my-appointments">My Appointments</a>
         <!-- <a mat-raised-button color="primary" routerLink="/users">Users</a> -->
-        <a mat-raised-button color="primary" routerLink="/history">History</a>
-        <a mat-raised-button color="primary" routerLink="/complaint">Complaints</a>
+        <a class="navbar-buttons" mat-raised-button color="primary" routerLink="/history">Appointment History</a>
+        <a class="navbar-buttons" mat-raised-button color="primary" routerLink="/complaint">My Complaints</a>
         <!-- <a mat-raised-button color="primary" routerLink="/personnel">Personnel</a> -->
         <!-- premestiti questionnaire u profil -->
         <!-- <a mat-raised-button color="primary" routerLink="/questionnaire">Work order runs</a> -->
-        <a mat-raised-button color="primary" routerLink="/profile">Profile</a>
-        <span class="example-spacer"></span>
-
         <span class="spacer"></span>
+        <a class="personal-buttons" mat-raised-button color="primary" routerLink="/profile">My profile</a>
         <div>
             <!-- <ng-template> [ngIf] = "!authService.isAunthenticated()">   -->
-            <a mat-raised-button color="primary" routerLink="/register" routerLinkActive="active">Register</a>
-            <a mat-raised-button color="primary" routerLink="/login">Login</a><!-- dodati (click)="onLogOut()"-->
+            <!-- <a class="personal-buttons" mat-raised-button color="primary" routerLink="/register"
+                routerLinkActive="active">Register</a> -->
+            <a class="personal-buttons" mat-raised-button color="primary"
+                routerLink="/login">Login</a><!-- dodati (click)="onLogOut()"-->
+            <a mat-raised-button color="warn" routerLink="/login" >Logout</a> <!--*ngIf="authenticated() (click)="onLogout()""-->
             <!-- </ng-template> -->
         </div>
         <!-- </div> -->
     </mat-toolbar-row>
-    
+
 </mat-toolbar>
 <router-outlet></router-outlet>

@@ -14,24 +14,12 @@ export class CenterComponent implements OnInit {
 
   // public dataSource = new MatTableDataSource<Center>();
   public displayedColumns = ['id', 'centerName', 'address', 'rating', 'openTime', 'closedTime'];
-  public columnsToDisplay = this.displayedColumns.slice();
   public centers: CenterModel[] = [];
-  public errorMessage: string;
+
   dataSource: MatTableDataSource<CenterModel>;
   totalElements: number;
-  // sizes: number[] = [5, 10];
-  // size: number = 5;
-  // page: number = 0;
-
   pageIndex: number = 1;
   pageSize: number = 5;
-
-  // @ViewChild(MatPaginator, { static: false })
-  // set paginator(value: MatPaginator) {
-  //   if (this.dataSource) {
-  //     this.dataSource.paginator = value;
-  //   }
-  // }
 
   constructor(public centerService: CenterService) { }
 
@@ -50,9 +38,6 @@ export class CenterComponent implements OnInit {
       this.dataSource = new MatTableDataSource(data.content);
       this.pageIndex = data.pageIndex;
       this.pageSize = data.pageSize;
-      console.log("total elements: " + this.totalElements);
-      console.log("size: " + data.size);
-      console.log(this.centers);
     },
     error => {
       console.log(error);
@@ -60,7 +45,7 @@ export class CenterComponent implements OnInit {
   }
 
   nextPage(event: PageEvent) {
-    this.getCentersPageable(++event.pageIndex, event.pageSize);
+    this.getCentersPageable(event.pageIndex, event.pageSize);
 }
 
 }

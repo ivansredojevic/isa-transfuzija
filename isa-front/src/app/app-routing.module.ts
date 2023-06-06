@@ -10,6 +10,7 @@ import { QuestionnaireComponent } from './components/questionnaire/questionnaire
 import { ProfileComponent } from './components/profile/profile.component';
 import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
+import { MakeAppointmentComponent } from './components/make-appointment/make-appointment.component';
 
 const routes: Routes = [
   {
@@ -17,7 +18,11 @@ const routes: Routes = [
     component: CenterComponent
   },
   {
-    path: "appointments",
+    path: "make-appointment",
+    component: MakeAppointmentComponent
+  },
+  {
+    path: "my-appointments",
     component: AppointmentComponent
   },
   {
