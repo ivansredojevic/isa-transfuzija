@@ -14,6 +14,10 @@ import { MakeAppointmentComponent } from './components/make-appointment/make-app
 
 const routes: Routes = [
   {
+    path: "",
+    component: LoginComponent
+  },
+  {
     path: "centers",
     component: CenterComponent
   },
@@ -64,17 +68,3 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
-
-
-// <a mat-list-item href="/centers">Centers</a>
-//           <a mat-list-item href="/appointments">Appointments</a>
-//           <!-- <a mat-list-item href="/users">Users</a> -->
-//           <a mat-list-item href="/history">History</a>
-//           <a mat-list-item href="/complaint">Complaints</a>
-//           <!-- <a mat-list-item href="/personnel">Personnel</a> -->
-//           <!-- premestiti questionnaire u profil -->
-//           <!-- <a mat-list-item href="/questionnaire">Work order runs</a> -->
-//           <a mat-list-item href="/profile">Profile</a>
-//           <span fxFlex></span>
-//           <a mat-list-item href="/register">Register</a>
-//           <a mat-list-item href="/login" >Login</a> <!-- dodati (click)="onLogOut()"-->
