@@ -2,6 +2,8 @@ package com.ivan.isaback.controller;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -42,7 +44,7 @@ public class AppointmentController {
 		}
 	}
 	
-	@GetMapping(value = "user-id/{id}")
+	@GetMapping(value = "all-by-user/{id}")
 	public ResponseEntity<List<Appointment>> getByUserId(@PathVariable int id){
 		List<Appointment> appointments = appointmentService.findByUserId(id);
 		if(!appointments.isEmpty()) {
@@ -52,7 +54,7 @@ public class AppointmentController {
 		}
 	}
 	
-	@GetMapping(value = "user-id-past/{id}")
+	@GetMapping(value = "history-by-user/{id}")
 	public ResponseEntity<List<Appointment>> getByUserIdTaken(@PathVariable int id){
 		List<Appointment> appointments = appointmentService.findByUserIdTaken(id);
 		if(!appointments.isEmpty()) {
@@ -62,7 +64,7 @@ public class AppointmentController {
 		}
 	}
 	
-	@GetMapping(value = "user-id-upcoming/{id}")
+	@GetMapping(value = "upcoming-by-user/{id}")
 	public ResponseEntity<List<Appointment>> getByUserIdNotTaken(@PathVariable int id){
 		List<Appointment> appointments = appointmentService.findByUserIdAndNotTaken(id);
 		if(!appointments.isEmpty()) {
@@ -71,6 +73,28 @@ public class AppointmentController {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
 		}
 	}
+	
+	@GetMapping(value = "allPageable")
+	public Page<Appointment> getAllPageable(Pageable pageable){
+		return appointmentService.findAllPageable(pageable);
+	}
+	
+	@GetMapping(value = "allByUserPageable/{id}")
+	public Page<Appointment> getByUserId(@PathVariable int id, Pageable pageable){
+		return appointmentService.findByUserIdPageable(id, pageable);
+	}
+	
+	@GetMapping(value = "historyByUserPageable/{id}")
+	public Page<Appointment> getByUserIdTaken(@PathVariable int id, Pageable pageable){
+		return appointmentService.findByUserIdTakenPageable(id, pageable);
+	}
+	
+	@GetMapping(value = "upcomingByUserPageable/{id}")
+	public Page<Appointment> getByUserIdNotTaken(@PathVariable int id, Pageable pageable){
+		return appointmentService.findByUserIdNotTakenPageable(id, pageable);
+	}
+	
+	
 	
 	@PostMapping(value = "add")
 	public ResponseEntity<Appointment> addAppointment(@RequestBody AppointmentDTO dto){

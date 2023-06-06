@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.ivan.isaback.model.Appointment;
@@ -116,6 +118,26 @@ public class AppointmentServiceImpl implements AppointmentService {
 			log.error("No appointment found with ID = " + appointmentDTO.getId() + ".");
 			return null;
 		}
+	}
+
+	@Override
+	public Page<Appointment> findAllPageable(Pageable pageable) {
+		return appointmentRepository.findAll(pageable);
+	}
+
+	@Override
+	public Page<Appointment> findByUserIdPageable(int id, Pageable pageable) {
+		return appointmentRepository.findAllByApplicationUserIdOrderByStartTimeDesc(id, pageable);
+	}
+
+	@Override
+	public Page<Appointment> findByUserIdTakenPageable(int id, Pageable pageable) {
+		return appointmentRepository.findAllByApplicationUserIdAndTakenTrue(id, pageable);
+	}
+
+	@Override
+	public Page<Appointment> findByUserIdNotTakenPageable(int id, Pageable pageable) {
+		return appointmentRepository.findAllByApplicationUserIdAndTakenFalse(id, pageable);
 	}
 
 }

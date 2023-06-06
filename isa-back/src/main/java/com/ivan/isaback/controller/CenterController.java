@@ -43,7 +43,7 @@ public class CenterController {
 		}
 	}
 	
-	@GetMapping(value = "allPageable")
+	@GetMapping(value = "all-pageable")
 	public Page<Center> getAllPageable(Pageable pageable){
 		return centerService.findAllPageable(pageable);
 	}

@@ -21,7 +21,7 @@ export class CenterService {
 //   }
 
   getAllPageable(page: number, size: number): Observable<any>{
-    return  this.http.get<any>(this.apiHost + 'allPageable', { params: { page: (--page).toString(), size: size.toString() }});
+    return  this.http.get<any>(this.apiHost + 'all-pageable', { params: { page: (--page).toString(), size: size.toString() }});
   }
 
 

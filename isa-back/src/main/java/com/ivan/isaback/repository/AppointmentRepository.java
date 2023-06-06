@@ -20,5 +20,11 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Intege
 	List<Appointment> findAllByApplicationUserIdAndTakenTrue(int applicationUserId);
 	
 	Page<Appointment> findAll(Pageable pageable);
-	
+	Page<Appointment> findAllByCenterId(int centerId, Pageable pageable);
+	//https://stackoverflow.com/questions/19733464/order-by-date-asc-with-spring-data
+	Page<Appointment> findAllByOrderByStartTimeAsc(Pageable pageable);
+	Page<Appointment> findAllByApplicationUserIdOrderByStartTimeDesc(int applicationUserId, Pageable pageable);
+	Page<Appointment> findAllByApplicationUserId(int applicationUserId, Pageable pageable);
+	Page<Appointment> findAllByApplicationUserIdAndTakenFalse(int applicationUserId, Pageable pageable);
+	Page<Appointment> findAllByApplicationUserIdAndTakenTrue(int applicationUserId, Pageable pageable);
 }
