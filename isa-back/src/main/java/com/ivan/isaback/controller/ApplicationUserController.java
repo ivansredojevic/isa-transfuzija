@@ -28,11 +28,9 @@ import lombok.extern.slf4j.Slf4j;
 public class ApplicationUserController {
 	
 	private ApplicationUserService userService;
-	private BCryptPasswordEncoder bCryptPasswordEncoder;
-	public ApplicationUserController(ApplicationUserService userService, BCryptPasswordEncoder bCryptPasswordEncoder) {
+	public ApplicationUserController(ApplicationUserService userService) {
 		super();
 		this.userService = userService;
-		this.bCryptPasswordEncoder = bCryptPasswordEncoder;
 	}
 
 	@PostMapping("register")
@@ -40,7 +38,6 @@ public class ApplicationUserController {
 		if (userService.findByEmail(user.getEmail()).isPresent()) {
 			return ResponseEntity.ok("User with email '" + user.getEmail() + "' already exists.");			
 		}
-		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
 		log.info("insert: " + user);
 		ApplicationUser u = userService.registerUser(user);
 		log.info("" + u);

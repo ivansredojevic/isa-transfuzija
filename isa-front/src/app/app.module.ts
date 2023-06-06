@@ -35,6 +35,9 @@ import { QuestionnaireComponent } from './components/questionnaire/questionnaire
 import { PersonnelComponent } from './components/personnel/personnel.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { HistoryComponent } from './components/history/history.component';
+import { MatRadioModule } from '@angular/material/radio';
+import { FormsModule } from '@angular/forms';
+
 
 @NgModule({
   declarations: [
@@ -75,7 +78,9 @@ import { HistoryComponent } from './components/history/history.component';
     MatInputModule,
     MatDialogModule,
     MatSnackBarModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatRadioModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

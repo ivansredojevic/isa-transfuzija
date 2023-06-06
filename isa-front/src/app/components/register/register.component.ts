@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormGroupDirective } from '@angular/forms';
 
+
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -8,8 +9,10 @@ import { FormGroup, FormControl, Validators, FormGroupDirective } from '@angular
 })
 export class RegisterComponent implements OnInit {
 
+  sex: String;
   registerForm: FormGroup;
   fieldRequired: string = "This field is required"
+
   constructor() { }
 
   ngOnInit() {
@@ -22,6 +25,17 @@ export class RegisterComponent implements OnInit {
         'username': new FormControl(null, [Validators.required]),
         'email': new FormControl(null, [Validators.required, Validators.pattern(emailregex)]),
         'password': new FormControl(null, [Validators.required, this.checkPassword]),
+        'passwordConfirm': new FormControl(null, [Validators.required, this.checkPassword]),
+        'name': new FormControl(null, [Validators.required]),
+        'surname': new FormControl(null, [Validators.required]),
+        'address': new FormControl(null),
+        'city': new FormControl(null),
+        'state': new FormControl(null),
+        'phone': new FormControl(null),
+        'jmbg': new FormControl(null),
+        'sex' : new FormControl(null),
+        'occupation': new FormControl(null),
+        'jobinformation': new FormControl(null),
       }
     )
 
@@ -42,7 +56,9 @@ export class RegisterComponent implements OnInit {
 
     const email = formData.value.email;
     const password = formData.value.password;
+    const passwordConfirm = formData.value.passwordConfirm;
     const username = formData.value.username;
+    const sex = formData.value.sex;
     // this.auth.registerUSer(email, password, username);
     formDirective.resetForm();
     this.registerForm.reset();

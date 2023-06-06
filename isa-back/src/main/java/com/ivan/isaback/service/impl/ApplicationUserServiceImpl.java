@@ -45,10 +45,11 @@ public class ApplicationUserServiceImpl implements ApplicationUserService, UserD
 		if(existingUser.isPresent()) {
 			return null;
 		}
-		
+		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
 		user.setToken(UUID.randomUUID().toString());
 		user.setRole("ROLE_USER");
 		user.setActivated(false);
+		user.setPenalty(0);
 		ApplicationUser savedUser = userRepository.save(user);
 		
 		EmailDetails emailDetails = new EmailDetails();
