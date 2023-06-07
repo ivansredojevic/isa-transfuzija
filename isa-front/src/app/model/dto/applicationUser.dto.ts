@@ -1,4 +1,4 @@
-export class ApplicationUserModel {
+export class ApplicationUserDTO {
 
     id: number;
     username: string="";

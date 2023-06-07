@@ -47,6 +47,10 @@ export class AuthService {
     localStorage.removeItem('token');
   }
 
+  getUserDetails(username: string){
+    return this.http.get<any>(this.resourceUrl + '/users/get/' + username, this.getAuthHeader());
+  }
+
   authenticated() {
     return localStorage.getItem('token') != null;
   }

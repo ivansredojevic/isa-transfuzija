@@ -12,19 +12,15 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Intege
 	
 	List<Appointment> findAll();
 	List<Appointment> findAllByCenterId(int centerId);
-	//https://stackoverflow.com/questions/19733464/order-by-date-asc-with-spring-data
-	List<Appointment> findAllByOrderByStartTimeAsc();
-	List<Appointment> findAllByApplicationUserIdOrderByStartTimeDesc(int applicationUserId);
-	List<Appointment> findAllByApplicationUserId(int applicationUserId);
-	List<Appointment> findAllByApplicationUserIdAndTakenFalse(int applicationUserId);
-	List<Appointment> findAllByApplicationUserIdAndTakenTrue(int applicationUserId);
+	
+	List<Appointment> findAllByApplicationUserUsername(String username);
+	List<Appointment> findAllByApplicationUserUsernameAndTakenFalse(String username);
+	List<Appointment> findAllByApplicationUserUsernameAndTakenTrue(String username);
 	
 	Page<Appointment> findAll(Pageable pageable);
+	Page<Appointment> findAllByApprovedFalse(Pageable pageable);
 	Page<Appointment> findAllByCenterId(int centerId, Pageable pageable);
-	//https://stackoverflow.com/questions/19733464/order-by-date-asc-with-spring-data
-	Page<Appointment> findAllByOrderByStartTimeAsc(Pageable pageable);
-	Page<Appointment> findAllByApplicationUserIdOrderByStartTimeDesc(int applicationUserId, Pageable pageable);
-	Page<Appointment> findAllByApplicationUserId(int applicationUserId, Pageable pageable);
-	Page<Appointment> findAllByApplicationUserIdAndTakenFalse(int applicationUserId, Pageable pageable);
-	Page<Appointment> findAllByApplicationUserIdAndTakenTrue(int applicationUserId, Pageable pageable);
+	Page<Appointment> findAllByApplicationUserUsername(String username, Pageable pageable);
+	Page<Appointment> findAllByApplicationUserUsernameAndTakenFalse(String username, Pageable pageable);
+	Page<Appointment> findAllByApplicationUserUsernameAndTakenTrue(String username, Pageable pageable);
 }

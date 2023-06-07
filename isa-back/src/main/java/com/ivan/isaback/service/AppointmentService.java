@@ -7,21 +7,20 @@ import org.springframework.data.domain.Pageable;
 
 import com.ivan.isaback.model.Appointment;
 import com.ivan.isaback.model.dto.AppointmentDTO;
+import com.ivan.isaback.model.dto.AppointmentResponseDTO;
 
 public interface AppointmentService {
 	
-	List<Appointment> findAll();
-	List<Appointment> findByUserId(int id);
-	List<Appointment> findByUserIdTaken(int id);
-	List<Appointment> findByUserIdAndNotTaken(int id);
-	Appointment save(AppointmentDTO appointmentDTO);
-	Appointment make(AppointmentDTO appointmentDTO);
+	List<AppointmentResponseDTO> findAll();
 	
+	List<Appointment> findByUserTaken(String username);
+	List<Appointment> findByUserAndNotTaken(String username);
+	AppointmentResponseDTO save(Appointment appointment) throws Exception;
+	AppointmentResponseDTO make(AppointmentDTO appointmentDTO) throws Exception;;
 	
-	Page<Appointment> findAllPageable(Pageable pageable);
-	Page<Appointment> findByUserIdPageable(int id, Pageable pageable);
-	Page<Appointment> findByUserIdTakenPageable(int id, Pageable pageable);
-	Page<Appointment> findByUserIdNotTakenPageable(int id, Pageable pageable);
+	Page<AppointmentResponseDTO> findFreePageable(Pageable pageable);
+	Page<AppointmentResponseDTO> findByUserTakenPageable(String username, Pageable pageable);
+	Page<AppointmentResponseDTO> findByUserNotTakenPageable(String username, Pageable pageable);
 	
 	
 	

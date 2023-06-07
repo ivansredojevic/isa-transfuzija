@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ivan.isaback.model.Appointment;
 import com.ivan.isaback.model.Complaint;
 import com.ivan.isaback.model.dto.AppointmentDTO;
+import com.ivan.isaback.model.dto.AppointmentResponseDTO;
 import com.ivan.isaback.service.AppointmentService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -35,8 +36,8 @@ public class AppointmentController {
 	}
 	
 	@GetMapping(value = "all")
-	public ResponseEntity<List<Appointment>> getAll(){
-		List<Appointment> appointments = appointmentService.findAll();
+	public ResponseEntity<List<AppointmentResponseDTO>> getAll(){
+		List<AppointmentResponseDTO> appointments = appointmentService.findAll();
 		if(!appointments.isEmpty()) {
 			return ResponseEntity.ok(appointments);
 		} else {
@@ -44,75 +45,67 @@ public class AppointmentController {
 		}
 	}
 	
-	@GetMapping(value = "all-by-user/{id}")
-	public ResponseEntity<List<Appointment>> getByUserId(@PathVariable int id){
-		List<Appointment> appointments = appointmentService.findByUserId(id);
-		if(!appointments.isEmpty()) {
-			return ResponseEntity.ok(appointments);
-		} else {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-		}
+	
+//	@GetMapping(value = "history-by-user/{username}")
+//	public ResponseEntity<List<Appointment>> getByUserTaken(@PathVariable String username){
+//		List<Appointment> appointments = appointmentService.findByUserTaken(username);
+//		if(!appointments.isEmpty()) {
+//			return ResponseEntity.ok(appointments);
+//		} else {
+//			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+//		}
+//	}
+//	
+//	@GetMapping(value = "upcoming-by-user/{username}")
+//	public ResponseEntity<List<Appointment>> getByUserNotTaken(@PathVariable String username){
+//		List<Appointment> appointments = appointmentService.findByUserAndNotTaken(username);
+//		if(!appointments.isEmpty()) {
+//			return ResponseEntity.ok(appointments);
+//		} else {
+//			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+//		}
+//	}
+	
+	
+	@GetMapping(value = "free-pageable")
+	public Page<AppointmentResponseDTO> getFreePageable(Pageable pageable){
+		return appointmentService.findFreePageable(pageable);
 	}
 	
-	@GetMapping(value = "history-by-user/{id}")
-	public ResponseEntity<List<Appointment>> getByUserIdTaken(@PathVariable int id){
-		List<Appointment> appointments = appointmentService.findByUserIdTaken(id);
-		if(!appointments.isEmpty()) {
-			return ResponseEntity.ok(appointments);
-		} else {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-		}
+	
+	@GetMapping(value = "history-by-user-pageable/{username}")
+	public Page<AppointmentResponseDTO> getByUserTaken(@PathVariable String username, Pageable pageable){
+		return appointmentService.findByUserTakenPageable(username, pageable);
 	}
 	
-	@GetMapping(value = "upcoming-by-user/{id}")
-	public ResponseEntity<List<Appointment>> getByUserIdNotTaken(@PathVariable int id){
-		List<Appointment> appointments = appointmentService.findByUserIdAndNotTaken(id);
-		if(!appointments.isEmpty()) {
-			return ResponseEntity.ok(appointments);
-		} else {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-		}
-	}
-	
-	@GetMapping(value = "all-pageable")
-	public Page<Appointment> getAllPageable(Pageable pageable){
-		return appointmentService.findAllPageable(pageable);
-	}
-	
-	@GetMapping(value = "all-by-user-pageable/{id}")
-	public Page<Appointment> getByUserId(@PathVariable int id, Pageable pageable){
-		return appointmentService.findByUserIdPageable(id, pageable);
-	}
-	
-	@GetMapping(value = "history-by-user-pageable/{id}")
-	public Page<Appointment> getByUserIdTaken(@PathVariable int id, Pageable pageable){
-		return appointmentService.findByUserIdTakenPageable(id, pageable);
-	}
-	
-	@GetMapping(value = "upcoming-by-user-pageable/{id}")
-	public Page<Appointment> getByUserIdNotTaken(@PathVariable int id, Pageable pageable){
-		return appointmentService.findByUserIdNotTakenPageable(id, pageable);
+	@GetMapping(value = "upcoming-by-user-pageable/{username}")
+	public Page<AppointmentResponseDTO> getByUserNotTaken(@PathVariable String username, Pageable pageable){
+		return appointmentService.findByUserNotTakenPageable(username, pageable);
 	}
 	
 	
 	
 	@PostMapping(value = "add")
-	public ResponseEntity<Appointment> addAppointment(@RequestBody AppointmentDTO dto){
-		Appointment appointment = appointmentService.save(dto);
-		if(appointment != null) {
-			return ResponseEntity.ok(appointment);
-		} else {
+	public ResponseEntity<String> addAppointment(@RequestBody Appointment appointment){
+		AppointmentResponseDTO appoint;
+		try {
+			appoint = appointmentService.save(appointment);
+			return ResponseEntity.ok("Appointment added");
+		} catch (Exception e) {
+			log.error(e.getMessage());
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
 		}
 	}
 	
 	@PostMapping(value = "make")
-	public ResponseEntity<Appointment> makeAppointment(@RequestBody AppointmentDTO dto){
-		Appointment appointment = appointmentService.make(dto);
-		if(appointment != null) {
-			return ResponseEntity.ok(appointment);
-		} else {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+	public ResponseEntity<String> makeAppointment(@RequestBody AppointmentDTO dto){
+		AppointmentResponseDTO appointment;
+		try {
+			appointment = appointmentService.make(dto);
+			return ResponseEntity.ok("Appointment made for user: " + appointment.getUsername() + ".");
+		} catch (Exception e) {
+			log.error(e.getMessage());
+			return ResponseEntity.internalServerError().body(null);
 		}
 	}
 	

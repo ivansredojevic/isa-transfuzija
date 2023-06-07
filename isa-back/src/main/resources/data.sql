@@ -2,18 +2,18 @@
  
 
 -- centers
-insert into center (center_name, address, rating, open_time, closed_time) values ('KCV', 'Ulica KCV 1, Novi Sad, Srbija', '4.0', '07:00', '23:00');
-insert into center (center_name, address, rating, open_time, closed_time) values ('Kamenica', 'Kamenica, Novi Sad, Srbija', '4.2', '05:00', '22:00');
-insert into center (center_name, address, rating, open_time, closed_time) values ('A Urgentni', 'Cara Dusana 1, Novi Sad, Srbija', '3.5', '01:00', '23:00');
-insert into center (center_name, address, rating, open_time, closed_time) values ('B KCV', 'Ulica KCV 1, Novi Sad, Srbija', '4.8', '07:00', '23:00');
-insert into center (center_name, address, rating, open_time, closed_time) values ('C Kamenica', 'Kamenica, Novi Sad, Srbija', '3.2', '05:00', '22:00');
-insert into center (center_name, address, rating, open_time, closed_time) values ('E Urgentni', 'Cara Dusana 1, Novi Sad, Srbija', '3.5', '01:00', '23:00');
-insert into center (center_name, address, rating, open_time, closed_time) values ('E KCV', 'Ulica KCV 1, Novi Sad, Srbija', '4.6', '07:00', '23:00');
-insert into center (center_name, address, rating, open_time, closed_time) values ('F Kamenica', 'Kamenica, Novi Sad, Srbija', '2.2', '05:00', '22:00');
-insert into center (center_name, address, rating, open_time, closed_time) values ('Urgentni', 'Cara Dusana 1, Novi Sad, Srbija', '3.1', '01:00', '23:00');
-insert into center (center_name, address, rating, open_time, closed_time) values ('KCV', 'Ulica KCV 1, Novi Sad, Srbija', '4.0', '07:00', '23:00');
-insert into center (center_name, address, rating, open_time, closed_time) values ('Kamenica', 'Kamenica, Novi Sad, Srbija', '9.2', '05:00', '22:00');
-insert into center (center_name, address, rating, open_time, closed_time) values ('Urgentni', 'Cara Dusana 1, Novi Sad, Srbija', '1.5', '01:00', '23:00');
+insert into center (center_name, address, rating, open_time, closed_time) values ('KCV', '45.253248, 19.822806', '4.0', '07:00', '23:00');
+insert into center (center_name, address, rating, open_time, closed_time) values ('Kamenica', '45.226622, 19.874706', '4.2', '05:00', '22:00');
+insert into center (center_name, address, rating, open_time, closed_time) values ('A Urgentni', '45.250061, 19.820405', '3.5', '01:00', '23:00');
+insert into center (center_name, address, rating, open_time, closed_time) values ('B KCV', '45.253248, 19.822806', '4.8', '07:00', '23:00');
+insert into center (center_name, address, rating, open_time, closed_time) values ('C Kamenica', '45.226622, 19.874706', '3.2', '05:00', '22:00');
+insert into center (center_name, address, rating, open_time, closed_time) values ('E Urgentni', '45.250061, 19.820405', '3.5', '01:00', '23:00');
+insert into center (center_name, address, rating, open_time, closed_time) values ('E KCV', '45.253248, 19.822806', '4.6', '07:00', '23:00');
+insert into center (center_name, address, rating, open_time, closed_time) values ('F Kamenica', '45.226622, 19.874706', '2.2', '05:00', '22:00');
+insert into center (center_name, address, rating, open_time, closed_time) values ('Urgentni', '45.250061, 19.820405', '3.1', '01:00', '23:00');
+insert into center (center_name, address, rating, open_time, closed_time) values ('KCV', '45.253248, 19.822806', '4.0', '07:00', '23:00');
+insert into center (center_name, address, rating, open_time, closed_time) values ('Kamenica', '45.226622, 19.874706', '9.2', '05:00', '22:00');
+insert into center (center_name, address, rating, open_time, closed_time) values ('Urgentni', '45.250061, 19.820405', '1.5', '01:00', '23:00');
 
 
 -- admin
@@ -49,6 +49,11 @@ insert into appointment (center_id, application_user_id, modified_time, start_ti
 --personnel on appointments
 insert into appointment_personnel (personnel_id, appointment_id) values (4, 5);
 insert into appointment_personnel (personnel_id, appointment_id) values (5, 6);
+insert into appointment_personnel (personnel_id, appointment_id) values (4, 6);
+insert into appointment_personnel (personnel_id, appointment_id) values (5, 5);
+
+
+
 
 insert into complaint (complaint_text, reply_text, admin_id, appointment_id, application_user_id, personnel_user_id, center_id) values ('Bad attitude', null, null, 5, 2, 4, null);
 insert into complaint (complaint_text, reply_text, admin_id, appointment_id, application_user_id, personnel_user_id, center_id) values ('Bad office', null, null, 6, 3, null, 1);

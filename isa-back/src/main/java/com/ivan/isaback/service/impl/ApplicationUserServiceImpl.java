@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -41,12 +40,8 @@ public class ApplicationUserServiceImpl implements ApplicationUserService, UserD
 	@Override
 	public ApplicationUser registerUser(ApplicationUser user) {
 		
-		
-
-		
 		Optional<ApplicationUser> existingEmail= userRepository.findOneByEmail(user.getEmail());
 		Optional<ApplicationUser> existingUsername = userRepository.findOneByUsername(user.getUsername());
-		
 		
 		if(existingEmail.isPresent() || existingUsername.isPresent()) {
 			return null;
@@ -143,12 +138,12 @@ public class ApplicationUserServiceImpl implements ApplicationUserService, UserD
 	}
 
 	@Override
-	public void updatePassword(ApplicationUserDTO userDto) {
+	public void updatePassword(ApplicationUser user) {
 		
-		Optional<ApplicationUser> user = userRepository.findById(userDto.getId());
-		if(user.isPresent()) {
-			user.get().setPassword(bCryptPasswordEncoder.encode(userDto.getPassword()));
-			userRepository.save(user.get());	
+		Optional<ApplicationUser> userOpt = userRepository.findById(user.getId());
+		if(userOpt.isPresent()) {
+			userOpt.get().setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+			userRepository.save(userOpt.get());	
 		}
 	}
 }

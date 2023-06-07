@@ -22,7 +22,6 @@ import com.google.zxing.WriterException;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
-import com.ivan.isaback.model.QRCodeModel;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -60,12 +59,12 @@ public class EmailServiceImpl implements EmailService {
 	}
 
 	@Override
-	public String sendQrCode(EmailDetails details, QRCodeModel code) throws Exception {
+	public String sendQrCode(EmailDetails details, String code) throws Exception {
 		
 		QRCodeWriter barcodeWriter = new QRCodeWriter();
 	    BitMatrix bitMatrix = null;
 		try {
-			bitMatrix = barcodeWriter.encode(code.toString(), BarcodeFormat.QR_CODE, 200, 200);
+			bitMatrix = barcodeWriter.encode(code, BarcodeFormat.QR_CODE, 200, 200);
 		} catch (WriterException e) {
 			log.error(e.getMessage());
 		}

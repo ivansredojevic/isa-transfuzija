@@ -52,9 +52,9 @@ public class ApplicationUserController {
 	
 	
 	@PutMapping("update-password/{id}")
-	public void updatePassword(@RequestBody ApplicationUserDTO userDto) {
-		log.info("update password " + userDto);
-		userService.updatePassword(userDto);
+	public void updatePassword(@RequestBody ApplicationUser user) {
+		log.info("update password " + user);
+		userService.updatePassword(user);
 	}
 	
 	@DeleteMapping("delete/{id}")

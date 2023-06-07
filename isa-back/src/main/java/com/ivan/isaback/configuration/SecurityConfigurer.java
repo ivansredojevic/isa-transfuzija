@@ -18,7 +18,7 @@ import com.ivan.isaback.filter.JwtRequestFilter;
 @SuppressWarnings("deprecation")
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
+//@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfigurer extends WebSecurityConfigurerAdapter{
 	
 	private UserDetailsService userDetailsService;
@@ -37,6 +37,11 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter{
 			.authorizeRequests()			
 			.antMatchers("/api/auth/generate-token").permitAll()
 			.antMatchers("/api/center/all-pageable").permitAll()
+			.antMatchers("/api/users").permitAll()
+			.antMatchers("/api/appointment").permitAll()
+			.antMatchers("/api/complaint").permitAll()
+			.antMatchers("/api/personnel").permitAll()
+			.antMatchers("/api/questionnaire").permitAll()
 			.anyRequest().authenticated().and()
 			.sessionManagement()
 			.sessionCreationPolicy(SessionCreationPolicy.STATELESS);

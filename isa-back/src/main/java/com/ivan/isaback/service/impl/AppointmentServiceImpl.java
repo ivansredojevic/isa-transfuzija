@@ -1,6 +1,7 @@
 package com.ivan.isaback.service.impl;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -8,9 +9,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.ivan.isaback.model.ApplicationUser;
 import com.ivan.isaback.model.Appointment;
-import com.ivan.isaback.model.QRCodeModel;
 import com.ivan.isaback.model.dto.AppointmentDTO;
+import com.ivan.isaback.model.dto.AppointmentResponseDTO;
+import com.ivan.isaback.repository.ApplicationUserRepository;
 import com.ivan.isaback.repository.AppointmentRepository;
 import com.ivan.isaback.service.AppointmentService;
 import com.ivan.isaback.util.email.EmailDetails;
@@ -23,6 +26,7 @@ import lombok.extern.slf4j.Slf4j;
 public class AppointmentServiceImpl implements AppointmentService {
 	
 	private AppointmentRepository appointmentRepository;
+	private ApplicationUserRepository applicationUserRepository;
 	private EmailService emailService;
 	
 	public AppointmentServiceImpl(AppointmentRepository appointmentRepository, EmailService emailService) {
@@ -32,65 +36,51 @@ public class AppointmentServiceImpl implements AppointmentService {
 	}
 
 	@Override
-	public List<Appointment> findAll() {
-		return appointmentRepository.findAll();
+	public List<AppointmentResponseDTO> findAll() {
+		List<Appointment> appointments = appointmentRepository.findAll();
+		List<AppointmentResponseDTO> appointmentResponseDTOs = new ArrayList<>();
+		for (Appointment a : appointments) {
+			AppointmentResponseDTO arDto = new AppointmentResponseDTO(a);
+			appointmentResponseDTOs.add(arDto);
+		}
+		return appointmentResponseDTOs;
+		
 	}
 
 	@Override
-	public List<Appointment> findByUserId(int id) {
-		return appointmentRepository.findAllByApplicationUserIdOrderByStartTimeDesc(id);
+	public List<Appointment> findByUserTaken(String username) {
+		return appointmentRepository.findAllByApplicationUserUsernameAndTakenTrue(username);
 	}
 
 	@Override
-	public List<Appointment> findByUserIdTaken(int id) {
-		return appointmentRepository.findAllByApplicationUserIdAndTakenTrue(id);
+	public List<Appointment> findByUserAndNotTaken(String username) {
+		return appointmentRepository.findAllByApplicationUserUsernameAndTakenFalse(username);
 	}
 
 	@Override
-	public List<Appointment> findByUserIdAndNotTaken(int id) {
-		return appointmentRepository.findAllByApplicationUserIdAndTakenFalse(id);
-	}
-
-	@Override
-	public Appointment save(AppointmentDTO appointmentDTO) {
-		
-		Appointment a = new Appointment();
-		
-		a.setCenter(appointmentDTO.getCenter());
-		
-		a.setModifiedTime(LocalDateTime.now());
-		a.setStartTime(appointmentDTO.getStartTime());
-		a.setDuration(appointmentDTO.getDuration());
-		a.setPriceEuro(appointmentDTO.getPriceEuro());
-		a.setTaken(false);
-		a.setApproved(false);
-		
-		log.info(a.toString());
-		
+	public AppointmentResponseDTO save(Appointment appointment) throws Exception {
 		try {
-			Appointment saved = appointmentRepository.save(a);
-			return saved;
+			Appointment saved = appointmentRepository.save(appointment);
+			return new AppointmentResponseDTO(saved);
 		} catch (Exception e) {
 			log.error(e.getMessage());
-			return null;
+			throw new Exception("Error: Appointment not added.");
 		}
 	}
 
 	@Override
-	public Appointment make(AppointmentDTO appointmentDTO) {
+	public AppointmentResponseDTO make(AppointmentDTO appointmentDTO) throws Exception {
 		Optional<Appointment> appointmentOpt = appointmentRepository.findById(appointmentDTO.getId());
+		
 		if(appointmentOpt.isPresent()) {
 			Appointment a = appointmentOpt.get();
 			
-			a.setCenter(appointmentDTO.getCenter());
-			a.setApplicationUser(appointmentDTO.getApplicationUser());
+			ApplicationUser applicationUser = applicationUserRepository.findByUsernameAndActivatedTrue(appointmentDTO.getUsername());
+			
 			a.setModifiedTime(LocalDateTime.now());
-			a.setStartTime(appointmentDTO.getStartTime());
-			a.setDuration(appointmentDTO.getDuration());
-			a.setPriceEuro(appointmentDTO.getPriceEuro());
+			a.setApplicationUser(applicationUser);
 			a.setTaken(false);
 			a.setApproved(true);
-		
 			log.info(a.toString());
 		
 			try {
@@ -100,44 +90,45 @@ public class AppointmentServiceImpl implements AppointmentService {
 				emailDetails.setRecipient(saved.getApplicationUser().getEmail());
 				emailDetails.setSubject("ISA Appointment mail");
 				
-				QRCodeModel qrCodeModel = new QRCodeModel();
-				qrCodeModel.setUserDetails(a.getApplicationUser().getName() + " " + a.getApplicationUser().getSurname());
-				qrCodeModel.setAppointmentDate(a.getStartTime().toString());
-				qrCodeModel.setCenterName(a.getCenter().getCenterName());
-				qrCodeModel.setCenterAddress(a.getCenter().getAddress());
+				emailService.sendQrCode(emailDetails, a.getCenter().getAddress());
 				
-				emailService.sendQrCode(emailDetails, qrCodeModel);
-				
-				
-				return saved;
+				return new AppointmentResponseDTO(saved);
 			} catch (Exception e) {
 				log.error(e.getMessage());
-				return null;
+				throw new Exception("Error: Appointment not made.");
 			}
 		} else {
 			log.error("No appointment found with ID = " + appointmentDTO.getId() + ".");
 			return null;
 		}
 	}
+	
+	
+	public AppointmentResponseDTO convertToDto(Appointment app){
+	    return new AppointmentResponseDTO(app);
+	}
+	
 
 	@Override
-	public Page<Appointment> findAllPageable(Pageable pageable) {
-		return appointmentRepository.findAll(pageable);
+	public Page<AppointmentResponseDTO> findByUserTakenPageable(String username, Pageable pageable) {
+		
+		Page<Appointment> pageables = appointmentRepository.findAllByApplicationUserUsernameAndTakenTrue(username, pageable);
+		Page<AppointmentResponseDTO> appointmentsPage = pageables.map(appoint -> convertToDto(appoint));
+		return appointmentsPage;
 	}
 
 	@Override
-	public Page<Appointment> findByUserIdPageable(int id, Pageable pageable) {
-		return appointmentRepository.findAllByApplicationUserIdOrderByStartTimeDesc(id, pageable);
+	public Page<AppointmentResponseDTO> findByUserNotTakenPageable(String username, Pageable pageable) {
+		Page<Appointment> pageables = appointmentRepository.findAllByApplicationUserUsernameAndTakenFalse(username, pageable);
+		Page<AppointmentResponseDTO> appointmentsPage = pageables.map(appoint -> convertToDto(appoint));
+		return appointmentsPage;
 	}
 
 	@Override
-	public Page<Appointment> findByUserIdTakenPageable(int id, Pageable pageable) {
-		return appointmentRepository.findAllByApplicationUserIdAndTakenTrue(id, pageable);
+	public Page<AppointmentResponseDTO> findFreePageable(Pageable pageable) {
+		Page<Appointment> pageables = appointmentRepository.findAllByApprovedFalse(pageable);
+		Page<AppointmentResponseDTO> appointmentsPage = pageables.map(appoint -> convertToDto(appoint));
+		return appointmentsPage;
 	}
-
-	@Override
-	public Page<Appointment> findByUserIdNotTakenPageable(int id, Pageable pageable) {
-		return appointmentRepository.findAllByApplicationUserIdAndTakenFalse(id, pageable);
-	}
-
+	
 }

@@ -11,7 +11,7 @@ public interface ApplicationUserService {
 	void deleteUser(int id);
 	void updateUser(ApplicationUserDTO user);
 	void addPenalty(ApplicationUserDTO user);
-	void updatePassword(ApplicationUserDTO user);
+	void updatePassword(ApplicationUser user);
 	ApplicationUser findByUsername(String username);
 	Optional<ApplicationUser> findByEmail(String email);
 	boolean activateUser(String token);

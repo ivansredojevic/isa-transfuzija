@@ -15,7 +15,6 @@ import { tap } from 'rxjs/operators';
 export class CenterComponent implements OnInit {
 
   public displayedColumns = ['id', 'centerName', 'address', 'rating', 'openTime', 'closedTime'];
-  public centers: CenterModel[] = [];
 
   dataSource: MatTableDataSource<CenterModel>;
 
@@ -76,7 +75,7 @@ export class CenterComponent implements OnInit {
   getCentersPageable(sort: string, page: number, size: number) {
     this.centerService.getAllPageable(sort, page, size)
       .subscribe(data => {
-        this.centers = data.content;
+        
         this.totalElements = data.totalElements;
         this.dataSource = new MatTableDataSource(data.content);
       },

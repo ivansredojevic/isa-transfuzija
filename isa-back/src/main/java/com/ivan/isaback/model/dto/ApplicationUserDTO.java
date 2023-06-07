@@ -22,7 +22,6 @@ public class ApplicationUserDTO {
 	private int id;
 	private String email;
 	private String username;
-	private String password;
 	private String name;
 	private String surname;
 	private String address;
@@ -39,7 +38,6 @@ public class ApplicationUserDTO {
 		this.id = user.getId();
 		this.email = user.getEmail();
 		this.username = user.getUsername();
-		this.password = user.getPassword();
 		this.name = user.getName();
 		this.surname = user.getSurname();
 		this.address = user.getAddress();
