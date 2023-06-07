@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { CenterModel } from 'src/app/model/center.model';
 import { CenterService } from 'src/app/services/center.service';
@@ -15,6 +16,10 @@ export class CenterComponent implements OnInit {
   public centers: CenterModel[] = [];
 
   dataSource: MatTableDataSource<CenterModel>;
+
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
+  
   totalElements: number;
   pageIndex: number = 0;
   pageSize: number = 5;
@@ -43,6 +48,7 @@ export class CenterComponent implements OnInit {
   }
 
   nextPage(event: PageEvent) {
+    console.log(event);
     this.getCentersPageable(event.pageIndex, event.pageSize);
 }
 

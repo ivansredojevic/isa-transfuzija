@@ -13,6 +13,7 @@ import { AuthService } from 'src/app/services/auth.service';
 export class NavigationComponent implements OnInit {
 
   loggedIn = false;
+  username: string;
 
   constructor(private breakpointObserver: BreakpointObserver,
     private overlayContainer: OverlayContainer, private authService: AuthService) { }
@@ -27,12 +28,17 @@ export class NavigationComponent implements OnInit {
 
   onLogout() {
     this.loggedIn = false;
+    this.username = "";
     this.authService.logout();
   }
 
   authenticated() {
     this.loggedIn = this.authService.authenticated();
     return this.loggedIn;
+  }
+
+  getUsername() {
+    this.username = this.authService.getUsername();
   }
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
