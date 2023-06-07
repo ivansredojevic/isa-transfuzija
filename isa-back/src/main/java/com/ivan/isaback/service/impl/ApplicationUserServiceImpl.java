@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -40,14 +41,19 @@ public class ApplicationUserServiceImpl implements ApplicationUserService, UserD
 	@Override
 	public ApplicationUser registerUser(ApplicationUser user) {
 		
-		Optional<ApplicationUser> existingUser = userRepository.findOneByEmail(user.getEmail());
 		
-		if(existingUser.isPresent()) {
+
+		
+		Optional<ApplicationUser> existingEmail= userRepository.findOneByEmail(user.getEmail());
+		Optional<ApplicationUser> existingUsername = userRepository.findOneByUsername(user.getUsername());
+		
+		
+		if(existingEmail.isPresent() || existingUsername.isPresent()) {
 			return null;
 		}
 		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
 		user.setToken(UUID.randomUUID().toString());
-		user.setRole("ROLE_USER");
+		user.setRole(user.getRole());
 		user.setActivated(false);
 		user.setPenalty(0);
 		ApplicationUser savedUser = userRepository.save(user);

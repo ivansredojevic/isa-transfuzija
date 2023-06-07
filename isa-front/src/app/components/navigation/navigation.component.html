@@ -5,9 +5,9 @@
 </mat-toolbar>
 <mat-toolbar color="primary">
     <mat-toolbar-row>
-        <!-- <div *ngIf="!authenticationService.isLoggedIn()">
-                <a mat-list-item href="/login">Login</a>
-            </div> -->
+        <!-- <div mat-list-item *ngIf="!authenticationService.isLoggedIn()">
+            <a class="personal-buttons" mat-raised-button color="primary" routerLink="/login">Login</a>
+        </div> -->
         <!-- <div *ngIf="authenticationService.isLoggedIn()"> -->
         <a class="navbar-buttons" mat-raised-button color="primary" routerLink="/centers">Centers</a>
         <a class="navbar-buttons" mat-raised-button color="primary" routerLink="/make-appointment">Make appointment</a>
@@ -20,14 +20,9 @@
         <!-- <a mat-raised-button color="primary" routerLink="/questionnaire">Work order runs</a> -->
         <span class="spacer"></span>
         <a class="personal-buttons" mat-raised-button color="primary" routerLink="/profile">My profile</a>
-        <div>
-            <!-- <ng-template> [ngIf] = "!authService.isAunthenticated()">   -->
-            <!-- <a class="personal-buttons" mat-raised-button color="primary" routerLink="/register"
-                routerLinkActive="active">Register</a> -->
+        <!-- <div *ngIf="authenticated() (click)="onLogout()> -->
             <a class="personal-buttons" mat-raised-button color="primary" routerLink="/login">Login</a>
             <a mat-raised-button class="personal-buttons" color="warn" routerLink="/login" >Logout</a> <!--*ngIf="authenticated() (click)="onLogout()""-->
-            <!-- </ng-template> -->
-        </div>
         <!-- </div> -->
     </mat-toolbar-row>
 

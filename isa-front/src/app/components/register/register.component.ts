@@ -24,7 +24,7 @@ export class RegisterComponent implements OnInit {
       {
         'username': new FormControl(null, [Validators.required]),
         'email': new FormControl(null, [Validators.required, Validators.pattern(emailregex)]),
-        'password': new FormControl(null, [Validators.required, this.checkPassword]),
+        'password': new FormControl(null, [Validators.required, Validators.minLength(4)]),
         'passwordConfirm': new FormControl(null, [Validators.required]),
         'name': new FormControl(null, [Validators.required]),
         'surname': new FormControl(null, [Validators.required]),
@@ -33,24 +33,21 @@ export class RegisterComponent implements OnInit {
         'state': new FormControl(null),
         'phone': new FormControl(null),
         'jmbg': new FormControl(null),
-        'sex' : new FormControl(null, [Validators.required]),
+        'sex': new FormControl(null, [Validators.required]),
         'occupation': new FormControl(null),
         'jobinformation': new FormControl(null),
-      }, { validators: passwordMatchingValidatior}
+      }, { validators: passwordMatchingValidatior }
     )
 
 
   }
 
-  checkPassword(control: { value: any; }) {
-    let enteredPassword = control.value
-    let passwordCheck = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{6,})/;
-    return (!passwordCheck.test(enteredPassword) && enteredPassword) ? { 'requirements': true } : null;
-  }
+  // checkPassword(control: { value: any; }) {
+  //   let enteredPassword = control.value
+  //   let passwordCheck = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{6,})/;
+  //   return (!passwordCheck.test(enteredPassword) && enteredPassword) ? { 'requirements': true } : null;
+  // }
 
-
-
-  
   onSubmit(formData: FormGroup, formDirective: FormGroupDirective): void {
 
     const email = formData.value.email;
@@ -59,8 +56,8 @@ export class RegisterComponent implements OnInit {
     const username = formData.value.username;
     const sex = formData.value.sex;
     // this.auth.registerUSer(email, password, username);
-    formDirective.resetForm();
-    this.registerForm.reset();
+    // formDirective.resetForm();
+    // this.registerForm.reset();
   }
 
 }

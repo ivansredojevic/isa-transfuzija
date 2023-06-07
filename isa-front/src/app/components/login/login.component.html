@@ -3,7 +3,7 @@
         <div class="login-content">
             <mat-toolbar class="login-toolbar" color="primary">LOGIN</mat-toolbar>
             <mat-card>
-                <form [formGroup]="loginForm" #formDirective="ngForm" (ngSubmit)="onSubmit(loginForm, formDirective)">
+                <form [formGroup]="loginForm" #formDirective="ngForm" (ngSubmit)="onSubmit()">
                     <mat-form-field>
                         <mat-icon matPrefix>person_outline</mat-icon>
                         <input autofocus type="text" matInput placeholder="Username" formControlName="username">
@@ -14,7 +14,7 @@
                             formControlName="password">
                     </mat-form-field>
                     <div class="socialMediaFlex">
-                        <button type="submit" mat-raised-button color="primary">LOGIN</button>
+                        <button type="submit" mat-raised-button color="primary" (click)="onSubmit()">LOGIN</button>
                     </div>
                 </form>
                 <hr>

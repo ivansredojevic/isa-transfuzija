@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
-import { error } from 'console';
 import { CenterModel } from 'src/app/model/center.model';
 import { CenterService } from 'src/app/services/center.service';
 
@@ -11,14 +10,13 @@ import { CenterService } from 'src/app/services/center.service';
   styleUrls: ['./center.component.css']
 })
 export class CenterComponent implements OnInit {
-
-  // public dataSource = new MatTableDataSource<Center>();
+  
   public displayedColumns = ['id', 'centerName', 'address', 'rating', 'openTime', 'closedTime'];
   public centers: CenterModel[] = [];
 
   dataSource: MatTableDataSource<CenterModel>;
   totalElements: number;
-  pageIndex: number = 1;
+  pageIndex: number = 0;
   pageSize: number = 5;
 
   constructor(public centerService: CenterService) { }

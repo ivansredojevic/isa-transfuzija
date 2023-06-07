@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -17,6 +18,7 @@ import com.ivan.isaback.filter.JwtRequestFilter;
 @SuppressWarnings("deprecation")
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfigurer extends WebSecurityConfigurerAdapter{
 	
 	private UserDetailsService userDetailsService;
@@ -32,9 +34,11 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter{
 	protected void configure(HttpSecurity http) throws Exception { 
 		
 		http.csrf().disable()
-			.authorizeRequests()
+			.authorizeRequests()			
 			.antMatchers("/api/auth/generate-token").permitAll()
-			.and().sessionManagement()
+//			.antMatchers("/api/center").hasRole("ADMIN")
+			.anyRequest().authenticated().and()
+			.sessionManagement()
 			.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		
 		http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
