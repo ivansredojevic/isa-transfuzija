@@ -1,12 +1,14 @@
 export class CenterModel {
 
-    id: number;
-    centerName: string;
-    address: string;
-    rating: number;
-    openTime: string;
-    closedTime: string;
-
+    public selected = false;
+    
+    constructor(
+        public id: number,
+        public centerName: string,
+        public address: string,
+        public rating: number,
+        public openTime: string,
+        public closedTime: string) {}
 
 	// constructor(object?: any) {
     //     if(object) {

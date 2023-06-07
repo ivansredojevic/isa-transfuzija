@@ -36,7 +36,7 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter{
 		http.csrf().disable()
 			.authorizeRequests()			
 			.antMatchers("/api/auth/generate-token").permitAll()
-//			.antMatchers("/api/center").hasRole("ADMIN")
+			.antMatchers("/api/center/all-pageable").permitAll()
 			.anyRequest().authenticated().and()
 			.sessionManagement()
 			.sessionCreationPolicy(SessionCreationPolicy.STATELESS);

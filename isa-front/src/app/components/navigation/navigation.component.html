@@ -2,9 +2,11 @@
     <mat-toolbar-row>
         <span style="text-align: center; margin-left: 15px;">ISA Application 2022/2023</span>
         <span class="spacer"></span>
-        <div>
-            Welcome, <a class="personal-buttons" color="primary" routerLink="/profile">{{username}}</a>!
-        </div>
+        <span>
+            <a *ngIf="authenticated()" routerLink="/profile" style="color: white;"> {{username}}</a>
+            <mat-icon *ngIf="authenticated()" class="logged-user">account_circle</mat-icon>
+            <mat-icon *ngIf="!authenticated()" class="logged-user">lock</mat-icon>
+        </span>
     </mat-toolbar-row>
 </mat-toolbar>
 <mat-toolbar color="primary">
@@ -14,19 +16,20 @@
         </div> -->
         <!-- <div *ngIf="authenticationService.isLoggedIn()"> -->
         <a class="navbar-buttons" mat-raised-button color="primary" routerLink="/centers">Centers</a>
-        <a class="navbar-buttons" mat-raised-button color="primary" routerLink="/make-appointment">Make appointment</a>
-        <a class="navbar-buttons" mat-raised-button color="primary" routerLink="/my-appointments">My Appointments</a>
-        <!-- <a mat-raised-button color="primary" routerLink="/users">Users</a> -->
-        <a class="navbar-buttons" mat-raised-button color="primary" routerLink="/history">Appointment History</a>
-        <a class="navbar-buttons" mat-raised-button color="primary" routerLink="/complaint">My Complaints</a>
+        
+        <a class="navbar-buttons" *ngIf="authenticated()" mat-raised-button color="primary" routerLink="/make-appointment">Make appointment</a>
+        <a class="navbar-buttons" *ngIf="authenticated()" mat-raised-button color="primary" routerLink="/my-appointments">My Appointments</a>
+        <a class="navbar-buttons" *ngIf="authenticated()"mat-raised-button color="primary" routerLink="/history">Appointment History</a>
+        <a class="navbar-buttons" *ngIf="authenticated()"mat-raised-button color="primary" routerLink="/complaint">My Complaints</a>
         <!-- <a mat-raised-button color="primary" routerLink="/personnel">Personnel</a> -->
         <!-- premestiti questionnaire u profil -->
         <!-- <a mat-raised-button color="primary" routerLink="/questionnaire">Work order runs</a> -->
         <span class="spacer"></span>
-        <a class="personal-buttons" mat-raised-button color="primary" routerLink="/profile">My profile</a>
+        <a class="personal-buttons" *ngIf="authenticated()"mat-raised-button color="primary" routerLink="/profile">My profile</a>
         <!-- <div *ngIf="authenticated() (click)="onLogout()> -->
-            <a class="personal-buttons" mat-raised-button color="primary" routerLink="/login">Login</a>
-            <a mat-raised-button class="personal-buttons" color="warn" routerLink="/login" >Logout</a> <!--*ngIf="authenticated() (click)="onLogout()""-->
+            <a class="personal-buttons" *ngIf="!authenticated()"mat-raised-button color="primary" routerLink="/register">Register</a>
+        <a class="personal-buttons" *ngIf="!authenticated()" mat-raised-button color="primary" routerLink="/login">Login</a>
+        <a mat-raised-button class="personal-buttons" *ngIf="authenticated()" color="warn" (click)="onLogout()" routerLink="/login">Logout</a> <!--*ngIf="authenticated() (click)="onLogout()""-->
         <!-- </div> -->
     </mat-toolbar-row>
 

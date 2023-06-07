@@ -38,7 +38,8 @@ export class AuthService {
     if (jwt) {
       let jwtData = jwt.split('.')[1];
       let decodedJwtJsonData = window.atob(jwtData);
-      return JSON.parse(decodedJwtJsonData);
+      console.log(JSON.parse(decodedJwtJsonData).sub);
+      return JSON.parse(decodedJwtJsonData).sub;
     }
   }
 

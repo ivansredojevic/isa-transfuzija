@@ -1,8 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs/internal/Observable';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { map, shareReplay } from 'rxjs/operators';
-import { OverlayContainer } from '@angular/cdk/overlay';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -13,38 +9,22 @@ import { AuthService } from 'src/app/services/auth.service';
 export class NavigationComponent implements OnInit {
 
   loggedIn = false;
-  username: string;
+  username: string = "";
+  user: any;
 
-  constructor(private breakpointObserver: BreakpointObserver,
-    private overlayContainer: OverlayContainer, private authService: AuthService) { }
+  constructor(private authService: AuthService) { }
 
   ngOnInit() {
   }
 
-
-  onLogOut() {
-    localStorage.removeItem('token');
-  }
-
   onLogout() {
     this.loggedIn = false;
-    this.username = "";
     this.authService.logout();
   }
 
   authenticated() {
-    this.loggedIn = this.authService.authenticated();
-    return this.loggedIn;
+    this.username = this.authService.getUsername();    
+    return this.authService.authenticated();
   }
-
-  getUsername() {
-    this.username = this.authService.getUsername();
-  }
-
-  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
-    .pipe(
-      map(result => result.matches),
-      shareReplay()
-    );
 
 }

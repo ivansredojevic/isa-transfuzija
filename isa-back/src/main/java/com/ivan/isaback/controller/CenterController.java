@@ -44,9 +44,10 @@ public class CenterController {
 		}
 	}
 	
-	@PreAuthorize("hasAnyRole('ADMIN', 'USER')")
+//	@PreAuthorize("hasAnyRole('ADMIN', 'USER')")
 	@GetMapping(value = "all-pageable")
 	public Page<Center> getAllPageable(Pageable pageable){
+//		log.info(pageable.toString());
 		return centerService.findAllPageable(pageable);
 	}
 	

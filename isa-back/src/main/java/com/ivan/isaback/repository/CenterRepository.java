@@ -5,13 +5,13 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 import com.ivan.isaback.model.Center;
 
-public interface CenterRepository extends JpaRepository<Center, Integer>{
+public interface CenterRepository extends JpaRepository<Center, Integer>, JpaSpecificationExecutor<Center>{
 	
 	List<Center> findAll();
-	Page<Center> findAll(Pageable pageable);
 	
 }
 

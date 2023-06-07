@@ -5,7 +5,7 @@
         </mat-card-title>
     </mat-card>
     <div style="max-height: calc(100vh - 155px)">
-        <mat-table matSort [dataSource]="dataSource" class="mat-elevation-z8">
+        <mat-table matSort [dataSource]="dataSource" class="mat-elevation-z8" multiTemplateDataRows>
             
             <ng-container matColumnDef="id">
                 <mat-header-cell *matHeaderCellDef mat-sort-header> ID </mat-header-cell>
@@ -38,9 +38,11 @@
             </ng-container>
 
             <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-            <mat-row *matRowDef="let row; columns: displayedColumns;">
+            <mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{'highlight': selectedRowIndex == row.id}"
+            (click)="highlight(row)">
             </mat-row>
- 
+        
+        
         </mat-table>
     </div>
 
