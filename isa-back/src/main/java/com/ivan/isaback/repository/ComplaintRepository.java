@@ -13,7 +13,7 @@ public interface ComplaintRepository extends JpaRepository<com.ivan.isaback.mode
 	List<Complaint> findAllByApplicationUserId(int id);
 	List<Complaint> findAllByAdminIdIsNullAndReplyTextIsNull();
 	
-	Page<Complaint> findAllByApplicationUserId(int id, Pageable pageable);
+	Page<Complaint> findAllByApplicationUserUsername(String username, Pageable pageable);
 	Page<Complaint> findAllByAdminIdIsNullAndReplyTextIsNull(Pageable pageable);
 	
 }

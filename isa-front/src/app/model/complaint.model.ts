@@ -1,11 +1,12 @@
 export class ComplaintModel {
 
     id: number;
-    centerName: string;
-    address: string;
-    rating: number;
-    openTime: string;
-    closedTime: string;
+    complaintText: string;
+    replyText: string;
+    admin: string;
+    appointment: string;
+    personnelUser: string;
+    center: string;
 
 
 }

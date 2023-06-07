@@ -16,7 +16,9 @@ public interface AppointmentService {
 	List<Appointment> findByUserTaken(String username);
 	List<Appointment> findByUserAndNotTaken(String username);
 	AppointmentResponseDTO save(Appointment appointment) throws Exception;
-	AppointmentResponseDTO make(AppointmentDTO appointmentDTO) throws Exception;;
+	AppointmentResponseDTO make(AppointmentDTO appointmentDTO) throws Exception;
+
+	String cancel(AppointmentDTO appointmentDTO) throws Exception;
 	
 	Page<AppointmentResponseDTO> findFreePageable(Pageable pageable);
 	Page<AppointmentResponseDTO> findByUserTakenPageable(String username, Pageable pageable);

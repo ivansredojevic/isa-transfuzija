@@ -50,30 +50,30 @@ public class ComplaintController {
 		}
 	}
 	
-	@GetMapping(value = "user-pageable/{userId}")
-	public Page<Complaint> getByUser(@PathVariable int userId, Pageable pageable){
-		return complaintService.findByUserIdPageable(userId, pageable);
+	@GetMapping(value = "user-pageable/{username}")
+	public Page<ComplaintDTO> getByUser(@PathVariable String username, Pageable pageable){
+		return complaintService.findByUserIdPageable(username, pageable);
 	}
 	
-	@PostMapping(value = "add")
-	public ResponseEntity<Complaint> addComplaint(@RequestBody ComplaintDTO complaintDTO){
-		Complaint complaint = complaintService.save(complaintDTO);
-		if(complaint != null) {
-			return ResponseEntity.ok(complaint);
-		} else {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-		}
-	}
+//	@PostMapping(value = "add")
+//	public ResponseEntity<Complaint> addComplaint(@RequestBody ComplaintDTO complaintDTO){
+//		Complaint complaint = complaintService.save(complaintDTO);
+//		if(complaint != null) {
+//			return ResponseEntity.ok(complaint);
+//		} else {
+//			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+//		}
+//	}
 	
-	@PostMapping(value = "update")
-	public ResponseEntity<Complaint> updateComplaint(@RequestBody ComplaintDTO complaintDTO){
-		Complaint complaint = complaintService.update(complaintDTO);
-		if(complaint != null) {
-			return ResponseEntity.ok(complaint);
-		} else {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-		}
-	}
+//	@PostMapping(value = "update")
+//	public ResponseEntity<Complaint> updateComplaint(@RequestBody ComplaintDTO complaintDTO){
+//		Complaint complaint = complaintService.update(complaintDTO);
+//		if(complaint != null) {
+//			return ResponseEntity.ok(complaint);
+//		} else {
+//			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+//		}
+//	}
 	
 	
 }

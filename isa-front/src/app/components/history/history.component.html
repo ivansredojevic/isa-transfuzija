@@ -4,6 +4,74 @@
             <span>Appointment history</span>
         </mat-card-title>
     </mat-card>
-    
+    <!-- 
+    'id', 
+    'center', 
+    'startTime', 
+    'duration', 
+    'priceEuro', 
+    'approved', 
+    'doctors' 
+-->
+
+    <div style="max-height: calc(100vh - 155px)">
+        <mat-table matSort [dataSource]="dataSource" class="mat-elevation-z8" multiTemplateDataRows>
+
+            <ng-container matColumnDef="id">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> ID </mat-header-cell>
+                <mat-cell *matCellDef="let row"> {{row.id}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="center">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Center </mat-header-cell>
+                <mat-cell *matCellDef="let row"> {{row.center}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="startTime">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Start time </mat-header-cell>
+                <mat-cell *matCellDef="let row"> {{row.startTime}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="duration">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Duration </mat-header-cell>
+                <mat-cell *matCellDef="let row"> {{row.duration}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="priceEuro">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Price (€) </mat-header-cell>
+                <mat-cell *matCellDef="let row"> {{row.priceEuro}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="taken">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Status </mat-header-cell>
+                <mat-cell *matCellDef="let row"> {{row.taken}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="approved">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Availability </mat-header-cell>
+                <mat-cell *matCellDef="let row"> {{row.approved}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="doctors">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Medical staff </mat-header-cell>
+                <mat-cell *matCellDef="let row"> {{row.doctors}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="complain">
+                <th mat-header-cell *matHeaderCellDef></th>
+                <td mat-cell *matCellDef="let row"><button mat-raised-button color="accent" (click)="onComplain(row)">Complain</button></td>
+              </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"
+                [ngClass]="{'highlight': selectedRowIndex == row.id}" (click)="highlight(row)">
+            </mat-row>
+
+        </mat-table>
+    </div>
+
+    <mat-paginator [pageSizeOptions]="[5, 10]" [pageIndex]="pageIndex" [pageSize]="pageSize" [length]="totalElements"
+        (page)="nextPage($event)" showFirstLastButtons>
+    </mat-paginator>
 
 </div>

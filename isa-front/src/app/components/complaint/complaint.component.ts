@@ -1,4 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+import { AppointmentModel } from 'src/app/model/appointment.model';
+import { AppointmentService } from 'src/app/services/appointment.service';
+import { merge } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import { AuthService } from 'src/app/services/auth.service';
+import { AppointmentDTO } from 'src/app/model/dto/appointment.dto';
+import { Router } from '@angular/router';
+import { ComplaintModel } from 'src/app/model/complaint.model';
+import { ComplaintService } from 'src/app/services/complaint.service';
 
 @Component({
   selector: 'app-complaint',
@@ -7,9 +19,81 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ComplaintComponent implements OnInit {
 
-  constructor() { }
+  public displayedColumns = ['id', 'complaintText', 'replyText', 'admin', 'appointment', 'personnelUser', 'center'];
+
+  dataSource: MatTableDataSource<ComplaintModel>;
+
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
+
+  totalElements: number;
+  pageIndex: number = 0;
+  pageSize: number = 5;
+  selectedRowIndex = -1;
+
+  errorMessage: string = "";
+  username: string;
+
+  constructor(public complaintService: ComplaintService, public authService: AuthService) { }
 
   ngOnInit(): void {
+    this.dataSource = new MatTableDataSource;
+    this.username = this.authService.getUsername();
+    this.loadPage();
+    console.log(this.dataSource);
+  }
+
+  ngAfterViewInit(): void {
+    this.sort.sortChange.subscribe(() => {
+      this.paginator.pageIndex = 0;
+    });
+    this.dataSource.paginator = this.paginator;
+
+    merge(this.sort.sortChange, this.paginator.page)
+      .pipe(
+        tap(() => this.loadPage())
+      ).subscribe();
+  }
+
+  highlight(row: ComplaintModel) {
+    this.selectedRowIndex = row.id;
+  }
+
+  loadPage() {
+    let sort = "id,asc";
+    if (this.sort) {
+      let sortActive = "id";
+      let sortDirection = "asc";
+      if (this.sort.active) {
+        sortActive = this.sort.active;
+        sortDirection = this.sort.direction;
+      }
+      sort = sortActive + "," + sortDirection;
+      console.log(sort);
+    }
+
+    let pageIndex = 0;
+    let pageSize = 5;
+    if (this.paginator) {
+      pageIndex = this.paginator.pageIndex;
+      pageSize = this.paginator.pageSize;
+    }
+    this.getMyComplaintsPageable(this.username, sort, pageIndex, pageSize);
+  }
+
+  getMyComplaintsPageable(username: string, sort: string, page: number, size: number) {
+    this.complaintService.getMyComplaintsPageable(username, sort, page, size)
+      .subscribe(data => {
+        this.totalElements = data.totalElements;
+        this.dataSource = new MatTableDataSource(data.content);
+      },
+        error => {
+          console.log(error);
+        });
+  }
+
+  nextPage(event: PageEvent) {
+    this.loadPage();
   }
 
 }

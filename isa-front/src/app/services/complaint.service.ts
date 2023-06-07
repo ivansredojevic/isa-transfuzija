@@ -1,16 +1,31 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
     providedIn: 'root'
 })
 
 export class ComplaintService {
-
-    apiHost: string = 'http://localhost:8089/api/center/';
-    headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
+    private resourceUrl = `${environment.API_URL}`;
 
     constructor(private http: HttpClient) { }
+
+    getMyComplaintsPageable(username: string, sort = 'id,asc', page: number, size: number): Observable<any> {
+        const headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': `Bearer ` + localStorage.getItem('token') });
+        
+        console.log(headers);
+        return this.http.get<any>(
+            this.resourceUrl + '/complaint/user-pageable/' + username,
+            {
+                params: {
+                    sort: sort,
+                    page: page.toString(),
+                    size: size.toString()
+                },
+                headers: headers
+            });
+    }
 
 }

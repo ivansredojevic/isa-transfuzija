@@ -1,11 +1,9 @@
-import { ApplicationUserModel } from "./applicationUser.model";
-import { CenterModel } from "./center.model";
-import { PersonnelModel } from "./personnel.model";
-
 export class AppointmentModel {
 
     id: number;
+    username: string;
     center: string;
+    centerId: number;
     modifiedTime: string;
     startTime: string;
     duration: number;
@@ -13,5 +11,6 @@ export class AppointmentModel {
     taken: boolean;
     approved: boolean;
     doctors: string;
+    doctorIds: number[];
 
 }

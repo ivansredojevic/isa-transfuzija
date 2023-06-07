@@ -5,5 +5,59 @@
         </mat-card-title>
     </mat-card>
     
+    <div style="max-height: calc(100vh - 155px)">
+        <mat-table matSort [dataSource]="dataSource" class="mat-elevation-z8" multiTemplateDataRows>
+
+            <ng-container matColumnDef="id">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> ID </mat-header-cell>
+                <mat-cell *matCellDef="let row"> {{row.id}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="complaintText">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Text </mat-header-cell>
+                <mat-cell *matCellDef="let row"> {{row.complaintText}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="replyText">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Reply </mat-header-cell>
+                <mat-cell *matCellDef="let row"> {{row.replyText}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="admin">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Admin </mat-header-cell>
+                <mat-cell *matCellDef="let row"> {{row.admin}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="appointment">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Appointment </mat-header-cell>
+                <mat-cell *matCellDef="let row"> {{row.appointment}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="personnelUser">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Doctor </mat-header-cell>
+                <mat-cell *matCellDef="let row"> {{row.personnelUser}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="center">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Center </mat-header-cell>
+                <mat-cell *matCellDef="let row"> {{row.center}} </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"
+                [ngClass]="{'highlight': selectedRowIndex == row.id}" (click)="highlight(row)">
+            </mat-row>
+
+        </mat-table>
+    </div>
+
+    <mat-paginator 
+        [pageSizeOptions]="[5, 10]"
+        [pageIndex]="pageIndex" 
+        [pageSize]="pageSize" 
+        [length]="totalElements" 
+        (page)="nextPage($event)"
+        showFirstLastButtons>
+    </mat-paginator>
 
 </div>

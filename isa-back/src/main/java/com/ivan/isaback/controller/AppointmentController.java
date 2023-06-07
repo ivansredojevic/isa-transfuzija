@@ -46,15 +46,15 @@ public class AppointmentController {
 	}
 	
 	
-//	@GetMapping(value = "history-by-user/{username}")
-//	public ResponseEntity<List<Appointment>> getByUserTaken(@PathVariable String username){
-//		List<Appointment> appointments = appointmentService.findByUserTaken(username);
-//		if(!appointments.isEmpty()) {
-//			return ResponseEntity.ok(appointments);
-//		} else {
-//			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-//		}
-//	}
+	@GetMapping(value = "history-by-user/{username}")
+	public ResponseEntity<List<Appointment>> getByUserTaken(@PathVariable String username){
+		List<Appointment> appointments = appointmentService.findByUserTaken(username);
+		if(!appointments.isEmpty()) {
+			return ResponseEntity.ok(appointments);
+		} else {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+		}
+	}
 //	
 //	@GetMapping(value = "upcoming-by-user/{username}")
 //	public ResponseEntity<List<Appointment>> getByUserNotTaken(@PathVariable String username){
@@ -97,12 +97,24 @@ public class AppointmentController {
 		}
 	}
 	
-	@PostMapping(value = "make")
-	public ResponseEntity<String> makeAppointment(@RequestBody AppointmentDTO dto){
+	@PostMapping(value = "reserve")
+	public ResponseEntity<String> reserveAppointment(@RequestBody AppointmentDTO dto){
 		AppointmentResponseDTO appointment;
 		try {
 			appointment = appointmentService.make(dto);
-			return ResponseEntity.ok("Appointment made for user: " + appointment.getUsername() + ".");
+			return ResponseEntity.ok("Appointment reserved for user: " + appointment.getUsername() + ".");
+		} catch (Exception e) {
+			log.error(e.getMessage());
+			return ResponseEntity.internalServerError().body(null);
+		}
+	}
+	
+	@PostMapping(value = "cancel")
+	public ResponseEntity<String> cancelAppointment(@RequestBody AppointmentDTO dto){
+		try {
+			String response = appointmentService.cancel(dto);
+			log.info(response);
+			return ResponseEntity.ok("Appointment cancelled for user: " + dto.getUsername() + ".");
 		} catch (Exception e) {
 			log.error(e.getMessage());
 			return ResponseEntity.internalServerError().body(null);

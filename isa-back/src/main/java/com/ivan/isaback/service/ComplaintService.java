@@ -11,14 +11,14 @@ import com.ivan.isaback.model.dto.ComplaintDTO;
 public interface ComplaintService {
 		
 	List<Complaint> findAll();
-	Complaint save(ComplaintDTO complaintDTO);
-	Complaint update(ComplaintDTO complaintDTO);
+	Complaint save(Complaint comp);
+	Complaint update(Complaint comp);
 	List<Complaint> findByUserId(int userId);
 	// for admin, to reply to complaint
 	List<Complaint> findByUnanswered();
 	
 	// get by user id pageable
 	// rest of the metods is not currently needed
-	Page<Complaint> findByUserIdPageable(int userId, Pageable pageable);
+	Page<ComplaintDTO> findByUserIdPageable(String username, Pageable pageable);
 	
 }

@@ -28,10 +28,12 @@ public class AppointmentServiceImpl implements AppointmentService {
 	private AppointmentRepository appointmentRepository;
 	private ApplicationUserRepository applicationUserRepository;
 	private EmailService emailService;
-	
-	public AppointmentServiceImpl(AppointmentRepository appointmentRepository, EmailService emailService) {
+
+	public AppointmentServiceImpl(AppointmentRepository appointmentRepository,
+			ApplicationUserRepository applicationUserRepository, EmailService emailService) {
 		super();
 		this.appointmentRepository = appointmentRepository;
+		this.applicationUserRepository = applicationUserRepository;
 		this.emailService = emailService;
 	}
 
@@ -46,6 +48,8 @@ public class AppointmentServiceImpl implements AppointmentService {
 		return appointmentResponseDTOs;
 		
 	}
+
+
 
 	@Override
 	public List<Appointment> findByUserTaken(String username) {
@@ -76,13 +80,14 @@ public class AppointmentServiceImpl implements AppointmentService {
 			Appointment a = appointmentOpt.get();
 			
 			ApplicationUser applicationUser = applicationUserRepository.findByUsernameAndActivatedTrue(appointmentDTO.getUsername());
-			
-			a.setModifiedTime(LocalDateTime.now());
-			a.setApplicationUser(applicationUser);
-			a.setTaken(false);
-			a.setApproved(true);
+			if (applicationUser != null) {
+				a.setModifiedTime(LocalDateTime.now());
+				a.setApplicationUser(applicationUser);
+				a.setTaken(false);
+				a.setApproved(true);
+			}
 			log.info(a.toString());
-		
+
 			try {
 				Appointment saved = appointmentRepository.save(a);
 				
@@ -129,6 +134,27 @@ public class AppointmentServiceImpl implements AppointmentService {
 		Page<Appointment> pageables = appointmentRepository.findAllByApprovedFalse(pageable);
 		Page<AppointmentResponseDTO> appointmentsPage = pageables.map(appoint -> convertToDto(appoint));
 		return appointmentsPage;
+	}
+
+	@Override
+	public String cancel(AppointmentDTO appointmentDTO) {
+		Optional<Appointment> appointmentOpt = appointmentRepository.findById(appointmentDTO.getId());
+
+		if (appointmentOpt.isPresent()) {
+			Appointment a = appointmentOpt.get();
+
+			a.setModifiedTime(LocalDateTime.now());
+			a.setApplicationUser(null);
+			a.setTaken(false);
+			a.setApproved(false);
+
+			log.info(a.toString());
+			appointmentRepository.save(a);
+			return "Appointment cancelled";
+		} else {
+			log.error("No appointment found with ID = " + appointmentDTO.getId() + ".");
+			return null;
+		}
 	}
 	
 }

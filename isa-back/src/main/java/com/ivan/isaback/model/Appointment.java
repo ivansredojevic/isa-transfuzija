@@ -40,7 +40,8 @@ public class Appointment {
 	@ManyToOne
 	private Center center;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(optional = true, fetch = FetchType.EAGER)
+//	@JsonIgnoreProperties("appointmentList")
 	private ApplicationUser applicationUser;
 	
 	@Column

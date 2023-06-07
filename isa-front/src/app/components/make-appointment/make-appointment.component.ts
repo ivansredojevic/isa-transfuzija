@@ -7,6 +7,8 @@ import { AppointmentService } from 'src/app/services/appointment.service';
 import { merge } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth.service';
+import { AppointmentDTO } from 'src/app/model/dto/appointment.dto';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-make-appointment',
@@ -15,8 +17,7 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class MakeAppointmentComponent implements OnInit {
 
-  public displayedColumns = ['id', 'center', 'startTime', 'duration', 'priceEuro', 'approved', 'doctors'];
-  public freeAppointments: AppointmentModel[] = [];
+  public displayedColumns = ['id', 'center', 'startTime', 'duration', 'priceEuro', 'taken', 'approved', 'doctors', 'makeAppointment'];
 
   dataSource: MatTableDataSource<AppointmentModel>;
 
@@ -28,14 +29,15 @@ export class MakeAppointmentComponent implements OnInit {
   pageSize: number = 5;
   selectedRowIndex = -1;
 
+  errorMessage: string = "";
   username: string;
 
-  constructor(public appointmentService: AppointmentService, public authService: AuthService) { }
+  constructor(public appointmentService: AppointmentService, public authService: AuthService, public router: Router) { }
 
   ngOnInit(): void {
     this.dataSource = new MatTableDataSource;
-    this.username = this.getUsername();
-    
+    this.username = this.authService.getUsername();
+
     this.loadPage();
     console.log("DATASOURCE");
     console.log(this.dataSource);
@@ -57,16 +59,20 @@ export class MakeAppointmentComponent implements OnInit {
     this.selectedRowIndex = row.id;
   }
 
-  getUsername() {
-    let jwt = localStorage.getItem('token');
-    if (jwt) {
-      let jwtData = jwt.split('.')[1];
-      let decodedJwtJsonData = window.atob(jwtData);
-      console.log(JSON.parse(decodedJwtJsonData).sub);
-      return JSON.parse(decodedJwtJsonData).sub;
-    }
+  onMake(appointment: AppointmentModel) {
+    console.log("Make appointment");
+    let appointmentDto: AppointmentDTO = new AppointmentDTO();
+    appointmentDto.id = appointment.id;
+    appointmentDto.username = this.username;
+    this.appointmentService.reserveAppointment(appointmentDto)
+      .subscribe((data) => {
+        console.log(data);
+        this.router.navigate(["my-appointments"]);
+      },
+        (error) => console.log("75: " + error)
+      );
   }
-
+  
   loadPage() {
     let sort = "id,asc";
     if (this.sort) {
