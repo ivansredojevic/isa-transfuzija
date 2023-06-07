@@ -9,6 +9,8 @@ import { tap } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth.service';
 import { AppointmentDTO } from 'src/app/model/dto/appointment.dto';
 import { Router } from '@angular/router';
+import { ComplaintService } from 'src/app/services/complaint.service';
+import { InsertComplaintDTO } from 'src/app/model/dto/insert.complaint.dto';
 
 @Component({
   selector: 'app-history',
@@ -32,7 +34,7 @@ export class HistoryComponent implements OnInit {
   errorMessage: string = "";
   username: string;
 
-  constructor(public appointmentService: AppointmentService, public authService: AuthService, public router: Router) { }
+  constructor(public appointmentService: AppointmentService, public authService: AuthService, public complaintService: ComplaintService, public router: Router) { }
 
   ngOnInit(): void {
     this.dataSource = new MatTableDataSource;
@@ -57,20 +59,25 @@ export class HistoryComponent implements OnInit {
 
   highlight(row: AppointmentModel) {
     this.selectedRowIndex = row.id;
+    console.log(row);
   }
 
   onComplain(appointment: AppointmentModel) {
-    console.log("Make appointment");
-    let appointmentDto: AppointmentDTO = new AppointmentDTO();
-    appointmentDto.id = appointment.id;
-    appointmentDto.username = this.username;
-    this.appointmentService.reserveAppointment(appointmentDto)
-      .subscribe((data) => {
-        console.log(data);
-        this.router.navigate(["my-appointments"]);
-      },
-        (error) => console.log("75: " + error)
-      );
+    console.log("Make complaint");
+    console.log(appointment);
+    let complaintDto = new InsertComplaintDTO();
+    // complaintDto.username = this.username;
+    // complaintDto.appointmentId = appointment.id;
+    // complaintDto.a
+
+
+    // this.complaintService.reserveAppointment(appointment)
+    //   .subscribe((data) => {
+    //     console.log(data);
+    //     this.router.navigate(["my-appointments"]);
+    //   },
+    //     (error) => console.log("75: " + error)
+    //   );
   }
 
   loadPage() {

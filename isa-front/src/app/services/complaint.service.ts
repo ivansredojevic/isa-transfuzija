@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { AppointmentModel } from '../model/appointment.model';
 
 @Injectable({
     providedIn: 'root'
@@ -24,6 +25,16 @@ export class ComplaintService {
                     page: page.toString(),
                     size: size.toString()
                 },
+                headers: headers
+            });
+    }
+
+    reserveAppointment(appointment: AppointmentModel): Observable<any> {
+        const headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': `Bearer ` + localStorage.getItem('token') });
+        return this.http.post<any>(
+            this.resourceUrl + '/complaint/add', 
+            appointment,
+            {
                 headers: headers
             });
     }

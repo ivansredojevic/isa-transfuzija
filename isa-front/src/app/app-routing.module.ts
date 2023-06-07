@@ -11,6 +11,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
 import { MakeAppointmentComponent } from './components/make-appointment/make-appointment.component';
+import { CreateComplaintComponent } from './components/create-complaint/create-complaint.component';
 
 const routes: Routes = [
   {
@@ -28,6 +29,10 @@ const routes: Routes = [
   {
     path: "my-appointments",
     component: AppointmentComponent
+  },
+  {
+    path: "create-complaint",
+    component: CreateComplaintComponent
   },
   {
     path: "users",

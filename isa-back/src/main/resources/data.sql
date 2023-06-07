@@ -74,6 +74,8 @@ insert into appointment_personnel (personnel_id, appointment_id) values (4, 6);
 insert into appointment_personnel (personnel_id, appointment_id) values (5, 5);
 insert into appointment_personnel (personnel_id, appointment_id) values (4, 7);
 insert into appointment_personnel (personnel_id, appointment_id) values (5, 7);
+insert into appointment_personnel (personnel_id, appointment_id) values (4, 8);
+insert into appointment_personnel (personnel_id, appointment_id) values (5, 8);
 
 
 

@@ -15,8 +15,8 @@ public class InsertComplaintDTO {
 	
 	private String username;
 	private String complaintText;
+	private int appointmentId;
 	private int centerId;
 	private int personnelId;
-	private int appointmentId;
 
 }
