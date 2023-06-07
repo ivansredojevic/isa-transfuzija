@@ -7,13 +7,14 @@ import org.springframework.data.domain.Pageable;
 
 import com.ivan.isaback.model.Complaint;
 import com.ivan.isaback.model.dto.ComplaintDTO;
+import com.ivan.isaback.model.dto.InsertComplaintDTO;
 
 public interface ComplaintService {
 		
 	List<Complaint> findAll();
-	Complaint save(Complaint comp);
+	Complaint save(InsertComplaintDTO comp);
 	Complaint update(Complaint comp);
-	List<Complaint> findByUserId(int userId);
+//	List<Complaint> findByUserId(int userId);
 	// for admin, to reply to complaint
 	List<Complaint> findByUnanswered();
 	

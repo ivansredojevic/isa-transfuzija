@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ivan.isaback.model.Complaint;
 import com.ivan.isaback.model.dto.ComplaintDTO;
+import com.ivan.isaback.model.dto.InsertComplaintDTO;
 import com.ivan.isaback.service.ComplaintService;
 
 @RestController
@@ -40,30 +41,30 @@ public class ComplaintController {
 		}
 	}
 	
-	@GetMapping(value = "user/{userId}")
-	public ResponseEntity<List<Complaint>> getByUser(@PathVariable int userId){
-		List<Complaint> complaints = complaintService.findByUserId(userId);
-		if(!complaints.isEmpty()) {
-			return ResponseEntity.ok(complaints);
-		} else {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-		}
-	}
+//	@GetMapping(value = "user/{userId}")
+//	public ResponseEntity<List<Complaint>> getByUser(@PathVariable int userId){
+//		List<Complaint> complaints = complaintService.findByUserId(userId);
+//		if(!complaints.isEmpty()) {
+//			return ResponseEntity.ok(complaints);
+//		} else {
+//			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+//		}
+//	}
 	
 	@GetMapping(value = "user-pageable/{username}")
 	public Page<ComplaintDTO> getByUser(@PathVariable String username, Pageable pageable){
 		return complaintService.findByUserIdPageable(username, pageable);
 	}
 	
-//	@PostMapping(value = "add")
-//	public ResponseEntity<Complaint> addComplaint(@RequestBody ComplaintDTO complaintDTO){
-//		Complaint complaint = complaintService.save(complaintDTO);
-//		if(complaint != null) {
-//			return ResponseEntity.ok(complaint);
-//		} else {
-//			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-//		}
-//	}
+	@PostMapping(value = "add")
+	public ResponseEntity<String> addComplaint(@RequestBody InsertComplaintDTO complaintDTO){
+		Complaint complaint = complaintService.save(complaintDTO);
+		if(complaint != null) {
+			return ResponseEntity.ok("Complaint added!");
+		} else {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+		}
+	}
 	
 //	@PostMapping(value = "update")
 //	public ResponseEntity<Complaint> updateComplaint(@RequestBody ComplaintDTO complaintDTO){

@@ -7,10 +7,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.ivan.isaback.model.ApplicationUser;
 import com.ivan.isaback.model.Appointment;
+import com.ivan.isaback.model.Center;
 import com.ivan.isaback.model.Complaint;
-import com.ivan.isaback.model.dto.AppointmentResponseDTO;
+import com.ivan.isaback.model.Personnel;
+import com.ivan.isaback.model.dto.AppointmentItemDTO;
 import com.ivan.isaback.model.dto.ComplaintDTO;
+import com.ivan.isaback.model.dto.InsertComplaintDTO;
 import com.ivan.isaback.repository.ApplicationUserRepository;
 import com.ivan.isaback.repository.AppointmentRepository;
 import com.ivan.isaback.repository.CenterRepository;
@@ -25,10 +29,20 @@ import lombok.extern.slf4j.Slf4j;
 public class ComplaintServiceImpl implements ComplaintService {
 	
 	private ComplaintRepository complaintRepository;
+	private CenterRepository centerRepository;
+	private PersonnelRepository personnelRepository;
+	private ApplicationUserRepository applicationUserRepository;
+	private AppointmentRepository appointmentRepository;
 	
-	public ComplaintServiceImpl(ComplaintRepository complaintRepository) {
+	public ComplaintServiceImpl(ComplaintRepository complaintRepository, CenterRepository centerRepository,
+			PersonnelRepository personnelRepository, ApplicationUserRepository applicationUserRepository,
+			AppointmentRepository appointmentRepository) {
 		super();
 		this.complaintRepository = complaintRepository;
+		this.centerRepository = centerRepository;
+		this.personnelRepository = personnelRepository;
+		this.applicationUserRepository = applicationUserRepository;
+		this.appointmentRepository = appointmentRepository;
 	}
 
 	@Override
@@ -37,15 +51,48 @@ public class ComplaintServiceImpl implements ComplaintService {
 	}
 	
 	@Override
-	public Complaint save(Complaint comp) {
+	public Complaint save(InsertComplaintDTO comp) {
 		
 		log.info(comp.toString());
-		
-		try {
-			Complaint saved = complaintRepository.save(comp);
-			return saved;
-		} catch (Exception e) {
-			log.error(e.getMessage());
+
+		Optional<ApplicationUser> appUser = applicationUserRepository.findOneByUsername(comp.getUsername());
+		if (appUser.isPresent()) {
+			Optional<Appointment> apt = appointmentRepository.findById(comp.getAppointmentId());
+			if(!apt.isPresent()) {
+				log.error("Appointment doesn't exist.");
+				return null;
+			}
+			Complaint complaint = new Complaint();
+			complaint.setAdmin(null);
+			complaint.setApplicationUser(appUser.get());
+			complaint.setAppointment(apt.get());
+			complaint.setComplaintText(comp.getComplaintText());
+			complaint.setReplyText(null);
+
+			if (comp.getCenterId() != 0) {
+				Optional<Center> cent = centerRepository.findById(comp.getCenterId());
+				if(!cent.isPresent()) {
+					log.error("Center not found.");
+					return null;
+				}
+				complaint.setCenter(cent.get());
+			} else if (comp.getPersonnelId() != 0) {
+				Optional<Personnel> pers = personnelRepository.findById(comp.getPersonnelId());
+				if(!pers.isPresent()) {
+					log.error("Doctor not found");
+					return null;
+				}
+				complaint.setPersonnelUser(pers.get());
+			}
+			try {
+				Complaint saved = complaintRepository.save(complaint);
+				return saved;
+			} catch (Exception e) {
+				log.error(e.getMessage());
+				return null;
+			}
+		} else {
+			log.error("Error while creating complaint" );
 			return null;
 		}
 	}
@@ -79,12 +126,7 @@ public class ComplaintServiceImpl implements ComplaintService {
 		}
 		
 	}
-
-	@Override
-	public List<Complaint> findByUserId(int userId) {
-		return complaintRepository.findAllByApplicationUserId(userId);
-	}
-
+	
 	@Override
 	public List<Complaint> findByUnanswered() {
 		return complaintRepository.findAllByAdminIdIsNullAndReplyTextIsNull();
