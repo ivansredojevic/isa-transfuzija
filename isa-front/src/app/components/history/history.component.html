@@ -4,15 +4,6 @@
             <span>Appointment history</span>
         </mat-card-title>
     </mat-card>
-    <!-- 
-    'id', 
-    'center', 
-    'startTime', 
-    'duration', 
-    'priceEuro', 
-    'approved', 
-    'doctors' 
--->
 
     <div style="max-height: calc(100vh - 155px)">
         <mat-table matSort [dataSource]="dataSource" class="mat-elevation-z8" multiTemplateDataRows>
@@ -57,10 +48,10 @@
                 <mat-cell *matCellDef="let row"> {{row.doctors}} </mat-cell>
             </ng-container>
 
-            <ng-container matColumnDef="complain">
+            <ng-container matColumnDef="complainButton">
                 <th mat-header-cell *matHeaderCellDef></th>
-                <td mat-cell *matCellDef="let row"><button mat-raised-button color="accent" (click)="onComplain(row)">Complain</button></td>
-              </ng-container>
+                <td mat-cell *matCellDef="let row"><button mat-raised-button color="accent" (click)="onComplain(row.id)">Complain</button></td>
+            </ng-container>
 
             <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
             <mat-row *matRowDef="let row; columns: displayedColumns;"

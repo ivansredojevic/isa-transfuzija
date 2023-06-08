@@ -67,7 +67,8 @@ export class MakeAppointmentComponent implements OnInit {
     this.appointmentService.reserveAppointment(appointmentDto)
       .subscribe((data) => {
         console.log(data);
-        this.router.navigate(["my-appointments"]);
+        this.router.navigate(['my-appointments']);
+
       },
         (error) => console.log("75: " + error)
       );

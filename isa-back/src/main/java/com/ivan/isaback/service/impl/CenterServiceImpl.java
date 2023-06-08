@@ -7,14 +7,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.ivan.isaback.model.Center;
 import com.ivan.isaback.model.dto.CenterDTO;
 import com.ivan.isaback.repository.CenterRepository;
-import com.ivan.isaback.repository.specification.FilterSpecification;
 import com.ivan.isaback.service.CenterService;
 
 import lombok.extern.slf4j.Slf4j;

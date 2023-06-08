@@ -1,6 +1,5 @@
 package com.ivan.isaback.model.dto;
 
-import com.ivan.isaback.model.ApplicationUser;
 import com.ivan.isaback.model.Questionnaire;
 
 import lombok.AllArgsConstructor;

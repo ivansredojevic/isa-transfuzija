@@ -19,7 +19,7 @@ import { InsertComplaintDTO } from 'src/app/model/dto/insert.complaint.dto';
 })
 export class HistoryComponent implements OnInit {
 
-  public displayedColumns = ['id', 'center', 'startTime', 'duration', 'priceEuro', 'taken', 'approved', 'doctors', 'complain'];
+  public displayedColumns = ['id', 'center', 'startTime', 'duration', 'priceEuro', 'taken', 'approved', 'doctors', 'complainButton'];
 
   dataSource: MatTableDataSource<AppointmentModel>;
 
@@ -62,22 +62,12 @@ export class HistoryComponent implements OnInit {
     console.log(row);
   }
 
-  onComplain(appointment: AppointmentModel) {
+  onComplain(appointmentId: number) {
     console.log("Make complaint");
-    console.log(appointment);
-    let complaintDto = new InsertComplaintDTO();
-    // complaintDto.username = this.username;
-    // complaintDto.appointmentId = appointment.id;
-    // complaintDto.a
-
-
-    // this.complaintService.reserveAppointment(appointment)
-    //   .subscribe((data) => {
-    //     console.log(data);
-    //     this.router.navigate(["my-appointments"]);
-    //   },
-    //     (error) => console.log("75: " + error)
-    //   );
+    console.log(appointmentId);
+    this.router.navigate(['create-complaint'], {
+      queryParams: { aptId: appointmentId},
+    });
   }
 
   loadPage() {

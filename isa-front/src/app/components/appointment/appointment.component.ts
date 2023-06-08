@@ -67,7 +67,7 @@ export class AppointmentComponent implements OnInit {
     this.appointmentService.cancelAppointment(appointmentDto)
       .subscribe((data) => {
         console.log(data);
-        this.router.navigate(["make-appointment"]);
+        this.router.navigate(['make-appointment']);
       },
         (error) => console.log("75: " + error)
       );

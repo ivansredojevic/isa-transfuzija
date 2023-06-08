@@ -1,9 +1,5 @@
 package com.ivan.isaback.model.dto;
 
-import java.time.LocalDate;
-
-import javax.persistence.Column;
-
 import com.ivan.isaback.model.ApplicationUser;
 
 import lombok.AllArgsConstructor;

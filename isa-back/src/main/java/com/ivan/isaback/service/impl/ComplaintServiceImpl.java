@@ -12,7 +12,6 @@ import com.ivan.isaback.model.Appointment;
 import com.ivan.isaback.model.Center;
 import com.ivan.isaback.model.Complaint;
 import com.ivan.isaback.model.Personnel;
-import com.ivan.isaback.model.dto.AppointmentItemDTO;
 import com.ivan.isaback.model.dto.ComplaintDTO;
 import com.ivan.isaback.model.dto.InsertComplaintDTO;
 import com.ivan.isaback.repository.ApplicationUserRepository;

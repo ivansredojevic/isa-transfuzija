@@ -48,9 +48,18 @@ public class AppointmentServiceImpl implements AppointmentService {
 		return appointmentResponseDTOs;
 		
 	}
-
-
-
+	
+	@Override
+	public AppointmentItemDTO findOne(int id) {
+		Optional<Appointment> appointmentOpt = appointmentRepository.findById(id);
+		if(appointmentOpt.isPresent()) {
+			return new AppointmentItemDTO(appointmentOpt.get());
+		} else {
+			log.error("Appointment not found.");
+			return null;
+		}
+	}
+	
 	@Override
 	public List<Appointment> findByUserTaken(String username) {
 		return appointmentRepository.findAllByApplicationUserUsernameAndTakenTrue(username);
@@ -86,10 +95,10 @@ public class AppointmentServiceImpl implements AppointmentService {
 				a.setTaken(false);
 				a.setApproved(true);
 			}
-			log.info(a.toString());
 
 			try {
 				Appointment saved = appointmentRepository.save(a);
+				log.info("" + saved.getId());
 				
 				EmailDetails emailDetails = new EmailDetails();
 				emailDetails.setRecipient(saved.getApplicationUser().getEmail());
@@ -137,7 +146,7 @@ public class AppointmentServiceImpl implements AppointmentService {
 	}
 
 	@Override
-	public String cancel(AppointmentDTO appointmentDTO) {
+	public AppointmentDTO cancel(AppointmentDTO appointmentDTO) {
 		Optional<Appointment> appointmentOpt = appointmentRepository.findById(appointmentDTO.getId());
 
 		if (appointmentOpt.isPresent()) {
@@ -148,9 +157,9 @@ public class AppointmentServiceImpl implements AppointmentService {
 			a.setTaken(false);
 			a.setApproved(false);
 
-			log.info(a.toString());
-			appointmentRepository.save(a);
-			return "Appointment cancelled";
+			Appointment saved = appointmentRepository.save(a);
+			log.info("" + saved.getId());
+			return new AppointmentDTO(saved);
 		} else {
 			log.error("No appointment found with ID = " + appointmentDTO.getId() + ".");
 			return null;

@@ -62,6 +62,18 @@ public class AppointmentController {
 		return appointmentService.findFreePageable(pageable);
 	}
 	
+	@GetMapping(value = "get/{id}")
+	public ResponseEntity<AppointmentItemDTO> getOne(@PathVariable int id){
+		AppointmentItemDTO appointmentItemDTO;
+		try {
+			appointmentItemDTO = appointmentService.findOne(id);
+			return ResponseEntity.ok(appointmentItemDTO);
+		} catch (Exception e) {
+			log.error(e.getMessage());
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+		}
+	}
+	
 	
 	@GetMapping(value = "history-by-user-pageable/{username}")
 	public Page<AppointmentItemDTO> getByUserTaken(@PathVariable String username, Pageable pageable){
@@ -86,11 +98,11 @@ public class AppointmentController {
 	}
 	
 	@PostMapping(value = "reserve")
-	public ResponseEntity<String> reserveAppointment(@RequestBody AppointmentDTO dto){
+	public ResponseEntity<AppointmentItemDTO> reserveAppointment(@RequestBody AppointmentDTO dto){
 		AppointmentItemDTO appointment;
 		try {
 			appointment = appointmentService.make(dto);
-			return ResponseEntity.ok("Appointment reserved for user: " + appointment.getUsername() + ".");
+			return ResponseEntity.ok(appointment);
 		} catch (Exception e) {
 			log.error(e.getMessage());
 			return ResponseEntity.internalServerError().body(null);
@@ -98,11 +110,11 @@ public class AppointmentController {
 	}
 	
 	@PostMapping(value = "cancel")
-	public ResponseEntity<String> cancelAppointment(@RequestBody AppointmentDTO dto){
+	public ResponseEntity<AppointmentDTO> cancelAppointment(@RequestBody AppointmentDTO dto){
 		try {
-			String response = appointmentService.cancel(dto);
-			log.info(response);
-			return ResponseEntity.ok("Appointment cancelled for user: " + dto.getUsername() + ".");
+			AppointmentDTO response = appointmentService.cancel(dto);
+			log.info(response.toString());
+			return ResponseEntity.ok(response);
 		} catch (Exception e) {
 			log.error(e.getMessage());
 			return ResponseEntity.internalServerError().body(null);
