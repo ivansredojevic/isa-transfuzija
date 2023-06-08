@@ -11,7 +11,6 @@ export class RegisterComponent implements OnInit {
 
   sex: String;
   registerForm: FormGroup;
-  fieldRequired: string = "This field is required"
 
   constructor() { }
 

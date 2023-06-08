@@ -10,6 +10,8 @@ export class AppointmentModel {
     priceEuro: number;
     taken: boolean;
     approved: boolean;
+    complainPers: boolean;
+    complainCenter: boolean;
     doctors: string;
     doctorIds: number[];
 

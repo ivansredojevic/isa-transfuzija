@@ -6,23 +6,23 @@
                 <form [formGroup]="loginForm" #formDirective="ngForm" (ngSubmit)="onSubmit()">
                     <mat-form-field>
                         <mat-icon matPrefix>person_outline</mat-icon>
-                        <input autofocus type="text" matInput placeholder="Username" formControlName="username">
+                        <input  type="text" matInput placeholder="Username" formControlName="username">
                     </mat-form-field>
                     <mat-form-field>
                         <mat-icon matPrefix>lock_outline</mat-icon>
                         <input type="password" autocomplete="false" matInput placeholder="Password"
                             formControlName="password">
                     </mat-form-field>
-                    <div class="socialMediaFlex">
+                    <div class="submit-button">
                         <button type="submit" mat-raised-button color="primary" (click)="onSubmit()">LOGIN</button>
                     </div>
                 </form>
                 <hr>
                 <br>
-                <div class="socialMediaFlex">
+                <div class="submit-button">
                     <span style="text-align: center;">Or you can</span>
                 </div>
-                <div class="socialMediaFlex">
+                <div class="submit-button">
                     <button type="submit" mat-raised-button color="accent" routerLink='/register'>REGISTER</button>
                     <!-- <a mat-raised-button color="accent" routerLink='/register'>REGISTER HERE</a> -->
                 </div>

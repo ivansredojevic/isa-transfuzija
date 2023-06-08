@@ -57,10 +57,10 @@ public class ComplaintController {
 	}
 	
 	@PostMapping(value = "add")
-	public ResponseEntity<String> addComplaint(@RequestBody InsertComplaintDTO complaintDTO){
+	public ResponseEntity<Complaint> addComplaint(@RequestBody InsertComplaintDTO complaintDTO){
 		Complaint complaint = complaintService.save(complaintDTO);
 		if(complaint != null) {
-			return ResponseEntity.ok("Complaint added!");
+			return ResponseEntity.ok(complaint);
 		} else {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
 		}

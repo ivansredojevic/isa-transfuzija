@@ -75,6 +75,7 @@ public class ComplaintServiceImpl implements ComplaintService {
 					return null;
 				}
 				complaint.setCenter(cent.get());
+				apt.get().setComplainCenter(true);
 			} else if (comp.getPersonnelId() != 0) {
 				Optional<Personnel> pers = personnelRepository.findById(comp.getPersonnelId());
 				if(!pers.isPresent()) {
@@ -82,9 +83,11 @@ public class ComplaintServiceImpl implements ComplaintService {
 					return null;
 				}
 				complaint.setPersonnelUser(pers.get());
+				apt.get().setComplainPers(true);
 			}
 			try {
 				Complaint saved = complaintRepository.save(complaint);
+				Appointment appoint = appointmentRepository.save(apt.get());
 				return saved;
 			} catch (Exception e) {
 				log.error(e.getMessage());

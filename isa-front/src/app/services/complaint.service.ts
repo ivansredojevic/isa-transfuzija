@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { AppointmentModel } from '../model/appointment.model';
+import { InsertComplaintDTO } from '../model/dto/insert.complaint.dto';
 
 @Injectable({
     providedIn: 'root'
@@ -29,11 +30,11 @@ export class ComplaintService {
             });
     }
 
-    reserveAppointment(appointment: AppointmentModel): Observable<any> {
+    addComplaint(complaint: InsertComplaintDTO): Observable<any> {
         const headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': `Bearer ` + localStorage.getItem('token') });
         return this.http.post<any>(
             this.resourceUrl + '/complaint/add', 
-            appointment,
+            complaint,
             {
                 headers: headers
             });

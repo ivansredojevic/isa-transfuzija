@@ -28,6 +28,8 @@ public class AppointmentItemDTO {
 	private String priceEuro;
 	private String taken;
 	private String approved;
+	private boolean complainPers;
+	private boolean complainCenter;
 	private String doctors;
 	private ArrayList<Integer> doctorIds;
 
@@ -46,6 +48,8 @@ public class AppointmentItemDTO {
 		this.priceEuro = String.valueOf(a.getPriceEuro());
 		this.taken = a.isTaken() ? "Done" : "Upcoming";
 		this.approved = a.isApproved() ? "Not available" : "Available";
+		this.complainPers = a.isComplainPers();
+		this.complainCenter = a.isComplainCenter();
 		String s = "";
 		if (!a.getDoctors().isEmpty()) {
 			doctorIds = new ArrayList<>();

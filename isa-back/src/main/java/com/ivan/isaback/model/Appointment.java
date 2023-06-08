@@ -60,6 +60,12 @@ public class Appointment {
 	@Column(nullable = true)
 	private boolean approved;
 	
+	@Column(nullable = true)
+	private boolean complainPers;
+	
+	@Column(nullable = true)
+	private boolean complainCenter;
+	
 	@ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "appointment_personnel", joinColumns = @JoinColumn(name = "appointment_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "personnel_id", referencedColumnName = "id"))
 //	@JsonIgnoreProperties("appointments")

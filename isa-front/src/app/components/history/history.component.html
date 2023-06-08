@@ -48,9 +48,18 @@
                 <mat-cell *matCellDef="let row"> {{row.doctors}} </mat-cell>
             </ng-container>
 
-            <ng-container matColumnDef="complainButton">
-                <th mat-header-cell *matHeaderCellDef></th>
-                <td mat-cell *matCellDef="let row"><button mat-raised-button color="accent" (click)="onComplain(row.id)">Complain</button></td>
+            <ng-container matColumnDef="complainCenter">
+                <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                <mat-cell *matCellDef="let row">
+                    <button [disabled]="row.complainCenter" mat-raised-button color="accent" (click)="onComplainCenter(row.id)">Center complaint</button>
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="complainDoctor">
+                <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                <mat-cell *matCellDef="let row">
+                    <button [disabled]="row.complainPers" mat-raised-button color="accent" (click)="onComplainDoctor(row.id)">Doctor complaint</button>
+                </mat-cell>
             </ng-container>
 
             <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

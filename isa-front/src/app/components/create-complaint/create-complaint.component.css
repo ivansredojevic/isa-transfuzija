@@ -31,7 +31,7 @@ form {
     margin-top: 15px;
 }
 
-.socialMediaFlex {
+.submit-button {
     display: flex;
     justify-content: space-around;
 }

@@ -51,8 +51,8 @@
             </ng-container>
 
             <ng-container matColumnDef="cancelAppointment">
-                <th mat-header-cell *matHeaderCellDef></th>
-                <td mat-cell *matCellDef="let row"><button mat-raised-button color="warn" (click)="onCancel(row)">Cancel</button></td>
+                <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                <mat-cell *matCellDef="let row"><button mat-raised-button color="warn" (click)="onCancel(row)">Cancel</button></mat-cell>
               </ng-container>
 
             <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

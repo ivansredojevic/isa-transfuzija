@@ -1,9 +1,11 @@
 export class InsertComplaintDTO {
 
-	username: string;
-	complaintText: string;
-	appointmentId: number;
-	centerId: number;
-	personnelId: number;
+	constructor(
+
+		public username: string,
+		public complaintText: string,
+		public appointmentId: number,
+		public centerId: number,
+		public personnelId: number) {}
 
 }

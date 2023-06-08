@@ -56,15 +56,17 @@
                         <mat-icon matPrefix>tag</mat-icon>
                         <input autofocus type="text" matInput placeholder="JMBG" formControlName="jmbg">
                     </mat-form-field>
+
                     <br>
                     <section>
-                        <label>Sex : </label>
+                        <label>Sex :</label>
                         <mat-radio-group formControlName="sex">
                             <mat-radio-button value="m">Male</mat-radio-button>
                             <mat-radio-button value="f">Female</mat-radio-button>
                         </mat-radio-group>
                     </section>
                     <br>
+
                     <mat-form-field>
                         <mat-icon matPrefix>work</mat-icon>
                         <input autofocus type="text" matInput placeholder="Occupation" formControlName="occupation">
@@ -76,7 +78,7 @@
                             formControlName="jobinformation">
                     </mat-form-field>
                     <br>
-                    <div class="socialMediaFlex">
+                    <div class="submit-button">
                         <button [disabled]="registerForm.invalid" type="submit" mat-raised-button
                             color="primary">Register</button>
                     </div>
