@@ -29,6 +29,17 @@ export class AppointmentService {
             });
     }
 
+    getOne(id: number): Observable<any> {
+        const headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': `Bearer ` + localStorage.getItem('token') });
+        
+        console.log(headers);
+        return this.http.get<any>(
+            this.resourceUrl + '/appointment/get/' + id,
+            {
+                headers: headers
+            });
+    }
+
     reserveAppointment(appointmentDto: AppointmentDTO): Observable<any> {
         const headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': `Bearer ` + localStorage.getItem('token') });
         return this.http.post<any>(
