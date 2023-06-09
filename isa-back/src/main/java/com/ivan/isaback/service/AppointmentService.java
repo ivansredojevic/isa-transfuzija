@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import com.ivan.isaback.model.Appointment;
 import com.ivan.isaback.model.dto.AppointmentDTO;
 import com.ivan.isaback.model.dto.AppointmentItemDTO;
+import com.ivan.isaback.model.dto.AppointmentItemResponseDTO;
 
 public interface AppointmentService {
 	
@@ -16,7 +17,7 @@ public interface AppointmentService {
 	List<Appointment> findByUserTaken(String username);
 	List<Appointment> findByUserAndNotTaken(String username);
 	AppointmentItemDTO save(Appointment appointment) throws Exception;
-	AppointmentItemDTO make(AppointmentDTO appointmentDTO) throws Exception;
+	AppointmentItemResponseDTO make(AppointmentDTO appointmentDTO) throws Exception;
 	
 
 	AppointmentItemDTO findOne(int id);

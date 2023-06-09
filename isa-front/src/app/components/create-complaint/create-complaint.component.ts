@@ -9,6 +9,7 @@ import { InsertComplaintDTO } from 'src/app/model/dto/insert.complaint.dto';
 import { AppointmentService } from 'src/app/services/appointment.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { ComplaintService } from 'src/app/services/complaint.service';
+import { SnackService } from 'src/app/services/snackHelper.service';
 
 @Component({
   selector: 'app-create-complaint',
@@ -34,16 +35,12 @@ export class CreateComplaintComponent implements OnInit {
   doctor: string = '';
   center: string = '';
 
-  constructor(private authService: AuthService, private router: Router, private snackBar: MatSnackBar, private route: ActivatedRoute, private complaintService: ComplaintService, private appointmentService: AppointmentService) {
-
-    this.route.queryParams.subscribe(params => {
-      console.log(params);
-      this.appointmentId = params['aptId'];
-      this.subject = params['subject']
-    });
-  }
+  constructor(private authService: AuthService, private router: Router, private snackService: SnackService, 
+    private complaintService: ComplaintService, private appointmentService: AppointmentService) { }
 
   ngOnInit(): void {
+    this.appointmentId = history.state.aptId;
+    this.subject = history.state.subject;
     this.getOne();
     this.createForm();
     if (this.subject == 'center') {
@@ -91,22 +88,17 @@ export class CreateComplaintComponent implements OnInit {
 
     this.complaintService.addComplaint(this.complaintDto)
       .subscribe(data => {
-        this.router.navigate(["/complaint"]);
+        this.router.navigate(["/complaint"], {
+          state: { addComplaintResponse: "Complaint added." }
+        })
       },
         error => {
           console.log(error);
-          this.openSnackBar(error, "OK");
+          this.snackService.showSnack(error, "OK");
         }
       );
 
     this.complaintForm.reset();
-  }
-
-  openSnackBar(redirectReason: string, action: string) {
-    const config = new MatSnackBarConfig();
-    config.verticalPosition = 'top';
-    config.duration = 3000;
-    this.snackBar.open(redirectReason, action, config);
   }
 
 }

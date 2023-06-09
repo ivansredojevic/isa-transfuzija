@@ -6,8 +6,8 @@ import { CenterModel } from 'src/app/model/center.model';
 import { CenterService } from 'src/app/services/center.service';
 import { merge } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
+import { SnackService } from 'src/app/services/snackHelper.service';
 
 @Component({
   selector: 'app-center',
@@ -30,7 +30,7 @@ export class CenterComponent implements OnInit {
   pageSize: number = 5;
   selectedRowIndex = -1;
 
-  constructor(public centerService: CenterService, private snackBar: MatSnackBar, private route: ActivatedRoute) {
+  constructor(public centerService: CenterService, private route: ActivatedRoute, public snackService: SnackService) {
     this.route.queryParams.subscribe(params => {
       console.log(params);
       this.redirectReason = params['redirected'];
@@ -41,7 +41,7 @@ export class CenterComponent implements OnInit {
     this.dataSource = new MatTableDataSource;
     this.loadPage();
     if(!!this.redirectReason){
-      this.openSnackBar("Requested page does not exist", "DISMISS");
+      this.snackService.showSnack("Requested page does not exist", "OK");
     }
   }
 
@@ -55,13 +55,6 @@ export class CenterComponent implements OnInit {
       .pipe(
         tap(() => this.loadPage())
       ).subscribe();
-  }
-
-  openSnackBar(redirectReason: string, action: string) {
-    const config = new MatSnackBarConfig();
-    config.verticalPosition = 'top';
-    config.duration = 3000;
-    this.snackBar.open(redirectReason, action, config);
   }
 
   highlight(row: CenterModel) {

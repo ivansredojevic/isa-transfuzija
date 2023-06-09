@@ -14,6 +14,7 @@ import com.ivan.isaback.model.ApplicationUser;
 import com.ivan.isaback.model.Appointment;
 import com.ivan.isaback.model.dto.AppointmentDTO;
 import com.ivan.isaback.model.dto.AppointmentItemDTO;
+import com.ivan.isaback.model.dto.AppointmentItemResponseDTO;
 import com.ivan.isaback.repository.ApplicationUserRepository;
 import com.ivan.isaback.repository.AppointmentRepository;
 import com.ivan.isaback.service.AppointmentService;
@@ -83,7 +84,7 @@ public class AppointmentServiceImpl implements AppointmentService {
 	}
 
 	@Override
-	public AppointmentItemDTO make(AppointmentDTO appointmentDTO) throws Exception {
+	public AppointmentItemResponseDTO make(AppointmentDTO appointmentDTO) throws Exception {
 		Optional<Appointment> appointmentOpt = appointmentRepository.findById(appointmentDTO.getId());
 
 		if (appointmentOpt.isPresent()) {
@@ -118,8 +119,9 @@ public class AppointmentServiceImpl implements AppointmentService {
 					log.info("new end after old start" + newEnd.isAfter(oldStart));
 					
 					if (newStart.isBefore(oldEnd) && newEnd.isAfter(oldStart)) {
-						log.error("Appointment overlap with your upcoming appointment " + appointment.getId() + ".");
-						return null;
+						log.error("Appointment overlaps with your upcoming appointment " + appointment.getId() + ".");
+						// vrati na bekend 0 da signalizira da ne treba da se prebaci na drugu stranicu
+						return new AppointmentItemResponseDTO(0, "Appointment overlaps with your upcoming appointment " + appointment.getId() + ".");
 					}
 				}
 			}
@@ -134,14 +136,14 @@ public class AppointmentServiceImpl implements AppointmentService {
 
 				emailService.sendQrCode(emailDetails, a.getCenter().getAddress());
 
-				return new AppointmentItemDTO(saved);
+				return new AppointmentItemResponseDTO(appointmentDTO.getId(), "Appointment " + appointmentDTO.getId() + " reserved.");
 			} catch (Exception e) {
 				log.error(e.getMessage());
 				throw new Exception("Error: Appointment not made.");
 			}
 		} else {
 			log.error("No appointment found with ID = " + appointmentDTO.getId() + ".");
-			return null;
+			return new AppointmentItemResponseDTO(0, "No appointment found with ID = " + appointmentDTO.getId() + ".");
 		}
 	}
 

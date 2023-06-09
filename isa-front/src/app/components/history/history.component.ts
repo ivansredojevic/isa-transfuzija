@@ -7,10 +7,8 @@ import { AppointmentService } from 'src/app/services/appointment.service';
 import { merge } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth.service';
-import { AppointmentDTO } from 'src/app/model/dto/appointment.dto';
 import { Router } from '@angular/router';
 import { ComplaintService } from 'src/app/services/complaint.service';
-import { InsertComplaintDTO } from 'src/app/model/dto/insert.complaint.dto';
 
 @Component({
   selector: 'app-history',
@@ -62,14 +60,14 @@ export class HistoryComponent implements OnInit {
   onComplainCenter(appointmentId: number) {
     console.log("Make center complaint");
     this.router.navigate(['create-complaint'], {
-      queryParams: { aptId: appointmentId, subject: 'center'},
+      state: { aptId: appointmentId, subject: 'center'},
     });
   }
 
   onComplainDoctor(appointmentId: number) {
     console.log("Make doctor complaint");
     this.router.navigate(['create-complaint'], {
-      queryParams: { aptId: appointmentId, subject: 'doctor'},
+      state: { aptId: appointmentId, subject: 'doctor'},
     });
   }
 

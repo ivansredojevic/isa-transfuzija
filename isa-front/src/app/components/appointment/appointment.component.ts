@@ -8,7 +8,9 @@ import { merge } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth.service';
 import { AppointmentDTO } from 'src/app/model/dto/appointment.dto';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
+import { SnackService } from 'src/app/services/snackHelper.service';
 
 @Component({
   selector: 'app-appointment',
@@ -28,16 +30,21 @@ export class AppointmentComponent implements OnInit {
   pageIndex: number = 0;
   pageSize: number = 5;
   selectedRowIndex = -1;
+  snackMessage: string = "";
 
   errorMessage: string = "";
   username: string;
 
-  constructor(public appointmentService: AppointmentService, public authService: AuthService, public router: Router) { }
+  constructor(public appointmentService: AppointmentService, public authService: AuthService, 
+    public router: Router, public snackService: SnackService) { }
 
   ngOnInit(): void {
     this.dataSource = new MatTableDataSource;
     this.username = this.authService.getUsername();
-
+    this.snackMessage = history.state.makeAppointmentResult;
+    if(!!this.snackMessage){
+      this.snackService.showSnack(this.snackMessage, "OK");
+    }
     this.loadPage();
   }
 
@@ -65,12 +72,16 @@ export class AppointmentComponent implements OnInit {
     this.appointmentService.cancelAppointment(appointmentDto)
       .subscribe((data) => {
         console.log(data);
-        this.router.navigate(['make-appointment']);
+        this.router.navigate(['make-appointment'], {
+          state: { cancelAppointmentResult: "Appointment " + appointmentDto.id + " cancelled."},
+        });
       },
-        (error) => console.log("Error cancelling appointment, " +error)
+        (error) => { console.log("Error cancelling appointment, " + error);
+        this.snackService.showSnack("Error cancelling appointment", "OK");
+      }
       );
   }
-  
+
   loadPage() {
     let sort = "id,asc";
     if (this.sort) {

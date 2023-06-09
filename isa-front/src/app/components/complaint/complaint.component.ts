@@ -11,6 +11,7 @@ import { AppointmentDTO } from 'src/app/model/dto/appointment.dto';
 import { Router } from '@angular/router';
 import { ComplaintModel } from 'src/app/model/complaint.model';
 import { ComplaintService } from 'src/app/services/complaint.service';
+import { SnackService } from 'src/app/services/snackHelper.service';
 
 @Component({
   selector: 'app-complaint',
@@ -33,12 +34,17 @@ export class ComplaintComponent implements OnInit {
 
   errorMessage: string = "";
   username: string;
+  addComplaintResponse: string = "";
 
-  constructor(public complaintService: ComplaintService, public authService: AuthService) { }
+  constructor(public complaintService: ComplaintService, public authService: AuthService, public snackService: SnackService) { }
 
   ngOnInit(): void {
     this.dataSource = new MatTableDataSource;
     this.username = this.authService.getUsername();
+    this.addComplaintResponse = history.state.addComplaintResponse;
+    if (!!this.addComplaintResponse) {
+      this.snackService.showSnack(this.addComplaintResponse, "OK");
+    }
     this.loadPage();
   }
 

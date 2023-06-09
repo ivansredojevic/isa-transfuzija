@@ -18,6 +18,7 @@ import com.ivan.isaback.model.Appointment;
 import com.ivan.isaback.model.Complaint;
 import com.ivan.isaback.model.dto.AppointmentDTO;
 import com.ivan.isaback.model.dto.AppointmentItemDTO;
+import com.ivan.isaback.model.dto.AppointmentItemResponseDTO;
 import com.ivan.isaback.service.AppointmentService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -98,8 +99,8 @@ public class AppointmentController {
 	}
 	
 	@PostMapping(value = "reserve")
-	public ResponseEntity<AppointmentItemDTO> reserveAppointment(@RequestBody AppointmentDTO dto){
-		AppointmentItemDTO appointment;
+	public ResponseEntity<AppointmentItemResponseDTO> reserveAppointment(@RequestBody AppointmentDTO dto){
+		AppointmentItemResponseDTO appointment;
 		try {
 			appointment = appointmentService.make(dto);
 			return ResponseEntity.ok(appointment);
