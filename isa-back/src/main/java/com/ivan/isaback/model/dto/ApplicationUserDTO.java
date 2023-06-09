@@ -28,7 +28,7 @@ public class ApplicationUserDTO {
 	private String jobinformation;
 	private String role;
 	private int penalty;
-	private int questionaireId;
+	private int questionnaireId;
 	private boolean canDonate;
 	
 	public ApplicationUserDTO(ApplicationUser user, boolean canDonate, int questId) {
@@ -45,7 +45,7 @@ public class ApplicationUserDTO {
 		this.jobinformation = user.getJobinformation();
 		this.role = user.getRole();
 		this.penalty = user.getPenalty();
-		this.questionaireId = questId;
+		this.questionnaireId = questId;
 		this.canDonate = canDonate;
 	}
 	

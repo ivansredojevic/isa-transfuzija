@@ -31,8 +31,41 @@ public class AppointmentItemDTO {
 	private boolean complainPers;
 	private boolean complainCenter;
 	private String doctors;
-	private ArrayList<Integer> doctorIds;
+	private ArrayList<Integer> doctorIds = new ArrayList<>();
+    private boolean canReserve;
+    private boolean canCancel;
 
+	public AppointmentItemDTO(Appointment a, boolean canReserve, boolean canCancel) {
+		this.id = a.getId();
+		if (a.getApplicationUser() != null) {
+			this.username = a.getApplicationUser().getUsername();
+		} else {
+			this.username = "";
+		}
+		this.center = a.getCenter().getCenterName();
+		this.centerId = a.getCenter().getId();
+		this.modifiedTime = a.getModifiedTime().toString();
+		this.startTime = a.getStartTime().toString();
+		this.duration = String.valueOf(a.getDuration());
+		this.priceEuro = String.valueOf(a.getPriceEuro());
+		this.taken = a.isTaken() ? "Done" : "Upcoming";
+		this.approved = a.isApproved() ? "Not available" : "Available";
+		this.complainPers = a.isComplainPers();
+		this.complainCenter = a.isComplainCenter();
+		String s = "";
+		if (!a.getDoctors().isEmpty()) {
+			for (Personnel p : a.getDoctors()) {
+				s += ", " + p.getName();
+				doctorIds.add(p.getId());
+			}
+			this.doctors = s.substring(2);
+		} else {
+			this.doctors = "";
+		}
+		this.canReserve = canReserve;
+		this.canCancel = canCancel;
+	}
+	
 	public AppointmentItemDTO(Appointment a) {
 		this.id = a.getId();
 		if (a.getApplicationUser() != null) {
@@ -52,16 +85,17 @@ public class AppointmentItemDTO {
 		this.complainCenter = a.isComplainCenter();
 		String s = "";
 		if (!a.getDoctors().isEmpty()) {
-			doctorIds = new ArrayList<>();
 			for (Personnel p : a.getDoctors()) {
 				s += ", " + p.getName();
 				doctorIds.add(p.getId());
 			}
 			this.doctors = s.substring(2);
 		} else {
+			doctorIds = new ArrayList<>();
 			this.doctors = "";
-			
 		}
+		this.canReserve = true;
+		this.canCancel = true;
 	}
 
 }

@@ -118,7 +118,7 @@ public class ApplicationUserServiceImpl implements ApplicationUserService, UserD
 
 
 	@Override
-	public ApplicationUserDTO loadByUsername(String username) {
+	public ApplicationUserDTO getCurrentByUsername(String username) {
 		ApplicationUser user = userRepository.findByUsernameAndActivatedTrue(username);
 		Optional<Questionnaire> questionnaireOpt = questionnaireRepository.findOneByApplicationUserId(user.getId());
 		int questId = 0;

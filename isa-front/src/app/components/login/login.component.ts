@@ -4,8 +4,7 @@ import { AuthUserModel } from 'src/app/model/auth.user.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
 import { ApplicationUserService } from 'src/app/services/application.user.service';
-import { ApplicationUserModel } from 'src/app/model/applicationUser.model';
-import { StorageService } from 'src/app/services/storage.service';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +18,7 @@ export class LoginComponent implements OnInit {
   private user: AuthUserModel = new AuthUserModel();
 
   constructor(public authService: AuthService, private router: Router, 
-      public userService: ApplicationUserService) { }
+      public userService: ApplicationUserService, private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.createForm();
@@ -46,9 +45,17 @@ export class LoginComponent implements OnInit {
         },
         error => {
           console.log(error);
-          alert('Login failed!\nUsername and password not matching or account is not activated.\nPlease check your email.');
+          this.openSnackBar("Login failed!\nUsername and password not matching or account is not activated.\nPlease check your email.", "DISMISS");
           localStorage.removeItem('token');
         }
     );
   }
+
+  openSnackBar(redirectReason: string, action: string) {
+    const config = new MatSnackBarConfig();
+    config.verticalPosition = 'top';
+    config.duration = 5000;
+    this.snackBar.open(redirectReason, action, config);
+  }
+
 }

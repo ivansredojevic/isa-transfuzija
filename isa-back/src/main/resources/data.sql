@@ -66,6 +66,30 @@ values (2, 2, '2023-06-08 12:00:00', '2023-06-08 12:00:00', 45, 53, true, true, 
 
 /* insert into appointment (center_id, application_user_id, modified_time, start_time, duration, price_euro, taken, approved, complain_pers, complain_center)values (2, 4, '2023-06-08 16:00:00', '2023-06-08 16:00:00', 45, 19, true, true); */
 
+insert into appointment (center_id, application_user_id, modified_time, start_time, duration, price_euro, taken, approved, complain_pers, complain_center)
+values (1, null, '2023-06-06 09:00:00', '2023-06-08 11:45:01', 45, 60, false, false, false, false);
+
+insert into appointment (center_id, application_user_id, modified_time, start_time, duration, price_euro, taken, approved, complain_pers, complain_center)
+values (1, null, '2023-06-06 10:00:00', '2023-06-08 10:14:59', 45, 40, false, false, false, false);
+
+insert into appointment (center_id, application_user_id, modified_time, start_time, duration, price_euro, taken, approved, complain_pers, complain_center)
+values (2, null, '2023-06-06 12:00:00', '2023-06-08 11:44:59', 45, 38, false, false, false, false);
+
+insert into appointment (center_id, application_user_id, modified_time, start_time, duration, price_euro, taken, approved, complain_pers, complain_center)
+values (2, null, '2023-06-06 11:00:00', '2023-06-08 10:16:00', 45, 42, false, false, false, false);
+
+-- test overlaping appointment for new user that will register
+insert into appointment (center_id, application_user_id, modified_time, start_time, duration, price_euro, taken, approved, complain_pers, complain_center)
+values (1, null, '2023-06-08 11:00:00', '2023-06-08 11:00:00', 45, 49, false, false, false, false);
+
+
+
+
+/* 2023-06-06T09:00
+45
+
+ 2023-06-08T11:00
+ 45 */
 
 --personnel on appointments
 insert into appointment_personnel (personnel_id, appointment_id) values (4, 5);

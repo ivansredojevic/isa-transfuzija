@@ -14,5 +14,7 @@ export class AppointmentModel {
     complainCenter: boolean;
     doctors: string;
     doctorIds: number[];
+    canReserve: boolean;
+    canCancel: boolean;
 
 }

@@ -1,24 +1,17 @@
 <div class="container">
     <mat-card style="display: flex; justify-content: center;">
         <mat-card-title>
-            <span>My Appointments</span>
+            <span>My appointments</span>
         </mat-card-title>
     </mat-card>
     
     <div>
         <mat-table matSort [dataSource]="dataSource" class="mat-elevation-z8" multiTemplateDataRows>
     
-            <!-- ['id', 'center', 'startTime', 'duration', 'priceEuro', 'approved', 'doctors', 'cancelAppointment']; -->
-
             <ng-container matColumnDef="id">
                 <mat-header-cell *matHeaderCellDef mat-sort-header> ID </mat-header-cell>
                 <mat-cell *matCellDef="let row"> {{row.id}} </mat-cell>
             </ng-container>
-
-            <!-- <ng-container matColumnDef="username">
-                <mat-header-cell *matHeaderCellDef mat-sort-header> User </mat-header-cell>
-                <mat-cell *matCellDef="let row"> {{row.username}} </mat-cell>
-            </ng-container> -->
 
             <ng-container matColumnDef="center">
                 <mat-header-cell *matHeaderCellDef mat-sort-header> Center </mat-header-cell>

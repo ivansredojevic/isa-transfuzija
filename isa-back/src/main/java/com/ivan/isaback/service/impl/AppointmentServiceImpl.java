@@ -1,5 +1,6 @@
 package com.ivan.isaback.service.impl;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +25,7 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 @Slf4j
 public class AppointmentServiceImpl implements AppointmentService {
-	
+
 	private AppointmentRepository appointmentRepository;
 	private ApplicationUserRepository applicationUserRepository;
 	private EmailService emailService;
@@ -42,24 +43,24 @@ public class AppointmentServiceImpl implements AppointmentService {
 		List<Appointment> appointments = appointmentRepository.findAll();
 		List<AppointmentItemDTO> appointmentResponseDTOs = new ArrayList<>();
 		for (Appointment a : appointments) {
-			AppointmentItemDTO arDto = new AppointmentItemDTO(a);
+			AppointmentItemDTO arDto = new AppointmentItemDTO(a, true, true);
 			appointmentResponseDTOs.add(arDto);
 		}
 		return appointmentResponseDTOs;
-		
+
 	}
-	
+
 	@Override
 	public AppointmentItemDTO findOne(int id) {
 		Optional<Appointment> appointmentOpt = appointmentRepository.findById(id);
-		if(appointmentOpt.isPresent()) {
-			return new AppointmentItemDTO(appointmentOpt.get());
+		if (appointmentOpt.isPresent()) {
+			return new AppointmentItemDTO(appointmentOpt.get(), false, false);
 		} else {
 			log.error("Appointment not found.");
 			return null;
 		}
 	}
-	
+
 	@Override
 	public List<Appointment> findByUserTaken(String username) {
 		return appointmentRepository.findAllByApplicationUserUsernameAndTakenTrue(username);
@@ -84,28 +85,55 @@ public class AppointmentServiceImpl implements AppointmentService {
 	@Override
 	public AppointmentItemDTO make(AppointmentDTO appointmentDTO) throws Exception {
 		Optional<Appointment> appointmentOpt = appointmentRepository.findById(appointmentDTO.getId());
-		
-		if(appointmentOpt.isPresent()) {
+
+		if (appointmentOpt.isPresent()) {
 			Appointment a = appointmentOpt.get();
-			
+
 			ApplicationUser applicationUser = applicationUserRepository.findByUsernameAndActivatedTrue(appointmentDTO.getUsername());
+			
 			if (applicationUser != null) {
 				a.setModifiedTime(LocalDateTime.now());
 				a.setApplicationUser(applicationUser);
 				a.setTaken(false);
 				a.setApproved(true);
+
+				// provera da li korisnik ima nesto zakazano u ovo vreme
+
+				LocalDateTime newStart = a.getStartTime();
+				LocalDateTime newEnd = a.getStartTime().plusMinutes(a.getDuration());
+
+				List<Appointment> appointments = appointmentRepository.findAllByApplicationUserUsernameAndTakenFalse(appointmentDTO.getUsername());
+				
+				for (Appointment appointment : appointments) {
+					
+					log.info("new start: " + newStart);
+					log.info("new end:   " + newEnd);
+					
+					LocalDateTime oldStart = appointment.getStartTime();
+					LocalDateTime oldEnd = appointment.getStartTime().plusMinutes(appointment.getDuration());
+					log.info("old start: " + oldStart);
+					log.info("old end:   " + oldEnd);
+					log.info("new start before old end" + newStart.isBefore(oldEnd));
+
+					log.info("new end after old start" + newEnd.isAfter(oldStart));
+					
+					if (newStart.isBefore(oldEnd) && newEnd.isAfter(oldStart)) {
+						log.error("Appointment overlap with your upcoming appointment " + appointment.getId() + ".");
+						return null;
+					}
+				}
 			}
 
 			try {
 				Appointment saved = appointmentRepository.save(a);
 				log.info("" + saved.getId());
-				
+
 				EmailDetails emailDetails = new EmailDetails();
 				emailDetails.setRecipient(saved.getApplicationUser().getEmail());
 				emailDetails.setSubject("ISA Appointment mail");
-				
+
 				emailService.sendQrCode(emailDetails, a.getCenter().getAddress());
-				
+
 				return new AppointmentItemDTO(saved);
 			} catch (Exception e) {
 				log.error(e.getMessage());
@@ -116,32 +144,39 @@ public class AppointmentServiceImpl implements AppointmentService {
 			return null;
 		}
 	}
-	
-	
-	public AppointmentItemDTO convertToDto(Appointment app){
-	    return new AppointmentItemDTO(app);
+
+	public AppointmentItemDTO convertToDtoParamsDefault(Appointment app) {
+		return new AppointmentItemDTO(app);
 	}
-	
+
+	public AppointmentItemDTO convertToDtoCancellable(Appointment app) {
+
+		boolean canCancel = LocalDateTime.now().plusDays(1).isBefore(app.getStartTime());
+		// calculate if date is further than
+		return new AppointmentItemDTO(app, true, canCancel);
+	}
 
 	@Override
 	public Page<AppointmentItemDTO> findByUserTakenPageable(String username, Pageable pageable) {
-		
-		Page<Appointment> pageables = appointmentRepository.findAllByApplicationUserUsernameAndTakenTrue(username, pageable);
-		Page<AppointmentItemDTO> appointmentsPage = pageables.map(appoint -> convertToDto(appoint));
+
+		Page<Appointment> pageables = appointmentRepository.findAllByApplicationUserUsernameAndTakenTrue(username,
+				pageable);
+		Page<AppointmentItemDTO> appointmentsPage = pageables.map(appoint -> convertToDtoParamsDefault(appoint));
 		return appointmentsPage;
 	}
 
 	@Override
 	public Page<AppointmentItemDTO> findByUserNotTakenPageable(String username, Pageable pageable) {
-		Page<Appointment> pageables = appointmentRepository.findAllByApplicationUserUsernameAndTakenFalse(username, pageable);
-		Page<AppointmentItemDTO> appointmentsPage = pageables.map(appoint -> convertToDto(appoint));
+		Page<Appointment> pageables = appointmentRepository.findAllByApplicationUserUsernameAndTakenFalse(username,
+				pageable);
+		Page<AppointmentItemDTO> appointmentsPage = pageables.map(appoint -> convertToDtoCancellable(appoint));
 		return appointmentsPage;
 	}
 
 	@Override
 	public Page<AppointmentItemDTO> findFreePageable(Pageable pageable) {
 		Page<Appointment> pageables = appointmentRepository.findAllByApprovedFalse(pageable);
-		Page<AppointmentItemDTO> appointmentsPage = pageables.map(appoint -> convertToDto(appoint));
+		Page<AppointmentItemDTO> appointmentsPage = pageables.map(appoint -> convertToDtoParamsDefault(appoint));
 		return appointmentsPage;
 	}
 
@@ -165,5 +200,5 @@ public class AppointmentServiceImpl implements AppointmentService {
 			return null;
 		}
 	}
-	
+
 }

@@ -82,10 +82,10 @@ public class ApplicationUserController {
 	}
 	
 	@GetMapping(path = "load-user/{username}")
-	public ResponseEntity<ApplicationUserDTO> loadByUsername(@PathVariable String username) {
+	public ResponseEntity<ApplicationUserDTO> getCurrentByUsername(@PathVariable String username) {
 		
 		try {
-			ApplicationUserDTO userDto = userService.loadByUsername(username);
+			ApplicationUserDTO userDto = userService.getCurrentByUsername(username);
 			return ResponseEntity.ok(userDto);
 		} catch (Exception e) {
 			log.error(e.getMessage());

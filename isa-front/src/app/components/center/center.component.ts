@@ -6,6 +6,8 @@ import { CenterModel } from 'src/app/model/center.model';
 import { CenterService } from 'src/app/services/center.service';
 import { merge } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-center',
@@ -15,6 +17,8 @@ import { tap } from 'rxjs/operators';
 export class CenterComponent implements OnInit {
 
   public displayedColumns = ['id', 'centerName', 'address', 'rating', 'openTime', 'closedTime'];
+
+  redirectReason: string = "_";
 
   dataSource: MatTableDataSource<CenterModel>;
 
@@ -26,11 +30,19 @@ export class CenterComponent implements OnInit {
   pageSize: number = 5;
   selectedRowIndex = -1;
 
-  constructor(public centerService: CenterService) { }
+  constructor(public centerService: CenterService, private snackBar: MatSnackBar, private route: ActivatedRoute) {
+    this.route.queryParams.subscribe(params => {
+      console.log(params);
+      this.redirectReason = params['redirected'];
+    });
+  }
 
   ngOnInit(): void {
     this.dataSource = new MatTableDataSource;
     this.loadPage();
+    if(!!this.redirectReason){
+      this.openSnackBar("Requested page does not exist", "DISMISS");
+    }
   }
 
   ngAfterViewInit(): void {
@@ -43,6 +55,13 @@ export class CenterComponent implements OnInit {
       .pipe(
         tap(() => this.loadPage())
       ).subscribe();
+  }
+
+  openSnackBar(redirectReason: string, action: string) {
+    const config = new MatSnackBarConfig();
+    config.verticalPosition = 'top';
+    config.duration = 3000;
+    this.snackBar.open(redirectReason, action, config);
   }
 
   highlight(row: CenterModel) {

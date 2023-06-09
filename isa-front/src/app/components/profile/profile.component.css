@@ -24,3 +24,14 @@ table.mat-table {
 .mat-card {
     height: 100%;
 }
+
+table {
+    width: 100%;
+    border-spacing: 10px;
+    
+}
+
+td {
+    width: 45%;
+    text-align: left;
+}

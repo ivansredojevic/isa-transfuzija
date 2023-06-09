@@ -12,6 +12,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
 import { MakeAppointmentComponent } from './components/make-appointment/make-appointment.component';
 import { CreateComplaintComponent } from './components/create-complaint/create-complaint.component';
+import { AuthGuard } from './services/authGuard';
 
 const routes: Routes = [
   {
@@ -24,38 +25,47 @@ const routes: Routes = [
   },
   {
     path: "make-appointment",
+    canActivate: [AuthGuard],
     component: MakeAppointmentComponent
   },
   {
     path: "my-appointments",
+    canActivate: [AuthGuard],
     component: AppointmentComponent
   },
   {
     path: "create-complaint",
+    canActivate: [AuthGuard],
     component: CreateComplaintComponent
   },
   {
     path: "users",
+    canActivate: [AuthGuard],
     component: UserComponent
   },
   {
     path: "history",
+    canActivate: [AuthGuard],
     component: HistoryComponent
   },
   {
     path: "complaint",
+    canActivate: [AuthGuard],
     component: ComplaintComponent
   },
   {
     path: "personnel",
+    canActivate: [AuthGuard],
     component: PersonnelComponent
   },
   {
     path: "questionnaire",
+    canActivate: [AuthGuard],
     component: QuestionnaireComponent
   },
   {
     path: "profile",
+    canActivate: [AuthGuard],
     component: ProfileComponent
   },
   {
@@ -65,6 +75,10 @@ const routes: Routes = [
   {
     path: "login",
     component: LoginComponent
+  },
+  {
+    path: '**',
+    redirectTo: "/centers?redirected=nonexistingpage"
   },
 ];
 

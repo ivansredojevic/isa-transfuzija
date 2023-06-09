@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, FormGroupDirective, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { error } from 'console';
 import { AppointmentModel } from 'src/app/model/appointment.model';
@@ -33,7 +34,7 @@ export class CreateComplaintComponent implements OnInit {
   doctor: string = '';
   center: string = '';
 
-  constructor(private authService: AuthService, private router: Router, private route: ActivatedRoute, private complaintService: ComplaintService, private appointmentService: AppointmentService) {
+  constructor(private authService: AuthService, private router: Router, private snackBar: MatSnackBar, private route: ActivatedRoute, private complaintService: ComplaintService, private appointmentService: AppointmentService) {
 
     this.route.queryParams.subscribe(params => {
       console.log(params);
@@ -94,11 +95,18 @@ export class CreateComplaintComponent implements OnInit {
       },
         error => {
           console.log(error);
-          alert(error);
+          this.openSnackBar(error, "OK");
         }
       );
 
     this.complaintForm.reset();
+  }
+
+  openSnackBar(redirectReason: string, action: string) {
+    const config = new MatSnackBarConfig();
+    config.verticalPosition = 'top';
+    config.duration = 3000;
+    this.snackBar.open(redirectReason, action, config);
   }
 
 }

@@ -43,11 +43,4 @@ export class ProfileComponent implements OnInit {
 
   }
 
-  onPenalties() {
-    (this.applicationUser.penalty === 0)?
-    alert("You have " + this.applicationUser.penalty + " penalties.") :
-    alert("You have " + this.applicationUser.penalty + " penalties. They will be cleared on 1st of next month.");
-    
-  }
-
 }

@@ -13,7 +13,7 @@ public interface ApplicationUserService {
 	void addPenalty(ApplicationUserDTO user);
 	void updatePassword(ApplicationUser user);
 	ApplicationUser findByUsername(String username);
-	ApplicationUserDTO loadByUsername(String username);
+	ApplicationUserDTO getCurrentByUsername(String username);
 	Optional<ApplicationUser> findByEmail(String email);
 	boolean activateUser(String token);
 

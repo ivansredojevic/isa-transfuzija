@@ -25,7 +25,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule } from '@angular/material/dialog';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { UserComponent } from './components/user/user.component';
 import { AppointmentComponent } from './components/appointment/appointment.component';
@@ -86,7 +86,8 @@ import { MatGridListModule } from '@angular/material/grid-list';
     MatCheckboxModule,
     MatRadioModule,
     FormsModule,
-    MatGridListModule
+    MatGridListModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]
