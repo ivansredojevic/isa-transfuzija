@@ -10,37 +10,39 @@
 
 <mat-toolbar color="primary">
     <mat-toolbar-row>
-        <a class="navbar-buttons" mat-raised-button color="primary" routerLink="/centers">Centers</a>
-
-        <a class="navbar-buttons" *ngIf="authenticated()" mat-raised-button color="primary"
-            routerLink="/make-appointment">Make appointment</a>
-        <a class="navbar-buttons" *ngIf="authenticated()" mat-raised-button color="primary"
-            routerLink="/my-appointments">My Appointments</a>
-        <a class="navbar-buttons" *ngIf="authenticated()" mat-raised-button color="primary"
-            routerLink="/history">Appointment History</a>
-        <a class="navbar-buttons" *ngIf="authenticated()" mat-raised-button color="primary" routerLink="/complaint">My
-            Complaints</a>
+        <button class="navbar-buttons" mat-raised-button color="primary"
+            routerLink="/centers"><mat-icon>local_hospital</mat-icon>{{ " Centers "}}</button>
+        <button class="navbar-buttons" *ngIf="authenticated()" mat-raised-button color="primary"
+            routerLink="/make-appointment"><mat-icon>event</mat-icon>{{ " Make appointment "}}</button>
+        <button class="navbar-buttons" *ngIf="authenticated()" mat-raised-button color="primary"
+            routerLink="/my-appointments"><mat-icon>event_note</mat-icon>{{ " My Appointments "}}</button>
+        <button class="navbar-buttons" *ngIf="authenticated()" mat-raised-button color="primary"
+            routerLink="/history"><mat-icon>history</mat-icon>{{ " Appointment History "}}</button>
+        <button class="navbar-buttons" *ngIf="authenticated()" mat-raised-button color="primary"
+            routerLink="/complaint"><mat-icon>feedback</mat-icon>{{ " My Complaints "}}</button>
         <span class="spacer"></span>
         <!-- <a class="personal-buttons" *ngIf="authenticated()"mat-raised-button color="primary" routerLink="/profile">My profile</a> -->
-        <a class="navbar-buttons" *ngIf="!authenticated()" mat-raised-button color="accent"
-            routerLink="/register">Register</a>
-        <a class="navbar-buttons" *ngIf="!authenticated()" mat-raised-button color="accent"
-            routerLink="/login">Login</a>
+        <button class="navbar-buttons" mat-raised-button color="accent"
+            routerLink="/register"><mat-icon>app_registration</mat-icon>{{ " Register "}}</button>
+        <button class="navbar-buttons" *ngIf="!authenticated()" mat-raised-button color="accent"
+            routerLink="/login"><mat-icon>login</mat-icon>{{ " Login "}}</button>
         <!-- <a mat-raised-button class="personal-buttons" *ngIf="authenticated()" color="warn" (click)="onLogout()" routerLink="/login"><mat-icon *ngIf="authenticated()" class="logged-user">account_circle</mat-icon> Logout</a> -->
 
-        <button class="navbar-buttons" [matMenuTriggerFor]="menu" #menuTrigger="matMenuTrigger"
-            mat-raised-button *ngIf="authenticated()" color="warn"><mat-icon
-                *ngIf="authenticated()" class="logged-user">account_circle</mat-icon><mat-icon *ngIf="!authenticated()"
-                class="logged-user">lock</mat-icon>{{ username }}</button>
-                
-                <mat-menu #menu="matMenu">
-                        <span>
-                        <button class="navbar-buttons" mat-menu-item routerLink="/profile"><mat-icon>account_box</mat-icon>My profile</button>
-                        <button class="navbar-buttons" mat-menu-item (click)="onLogout()" routerLink="/login"><mat-icon>logout</mat-icon>Logout</button>
-                    </span>
-                </mat-menu>
+        <button class="navbar-buttons" [matMenuTriggerFor]="menu" #menuTrigger="matMenuTrigger" mat-raised-button
+            *ngIf="authenticated()" color="warn"><mat-icon *ngIf="authenticated()"
+                class="logged-user">account_circle</mat-icon><mat-icon *ngIf="!authenticated()"
+                class="logged-user">lock</mat-icon>{{ " " + username }}</button>
+
+        <mat-menu #menu="matMenu">
+            <span>
+                <button class="navbar-buttons" mat-menu-item routerLink="/profile"><mat-icon>account_box</mat-icon>My
+                    profile</button>
+                <button class="navbar-buttons" mat-menu-item (click)="onLogout()"
+                    routerLink="/login"><mat-icon>logout</mat-icon>Logout</button>
+            </span>
+        </mat-menu>
     </mat-toolbar-row>
-    
+
 
 </mat-toolbar>
 <router-outlet></router-outlet>

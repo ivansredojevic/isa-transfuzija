@@ -53,7 +53,7 @@ values (2, null, '2023-06-06 11:00:00', '2023-06-06 11:00:00', 45, 42, false, fa
 
 -- reserved appointments
 insert into appointment (center_id, application_user_id, modified_time, start_time, duration, price_euro, taken, approved, complain_pers, complain_center)
-values (1, 2, '2023-06-08 11:00:00', '2023-06-08 11:00:00', 45, 49, false, true, true, true);
+values (1, 2, '2023-06-08 11:00:00', '2023-06-12 11:00:00', 45, 49, false, true, true, true);
 
 insert into appointment (center_id, application_user_id, modified_time, start_time, duration, price_euro, taken, approved, complain_pers, complain_center)
 values (1, 3, '2023-06-08 12:00:00', '2023-06-08 12:00:00', 45, 16, true, true, false, true);

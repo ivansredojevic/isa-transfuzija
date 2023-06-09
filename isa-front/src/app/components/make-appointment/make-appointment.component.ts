@@ -123,6 +123,7 @@ export class MakeAppointmentComponent implements OnInit {
     this.appointmentService.getFreePageable(sort, page, size)
       .subscribe(data => {
         this.totalElements = data.totalElements;
+        console.log(data.content);
         this.dataSource = new MatTableDataSource(data.content);
       },
         error => {

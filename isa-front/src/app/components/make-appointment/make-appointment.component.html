@@ -55,7 +55,8 @@
 
             <ng-container matColumnDef="makeAppointment">
                 <mat-header-cell *matHeaderCellDef></mat-header-cell>
-                <mat-cell class="mat-button-cell" *matCellDef="let row"><button mat-raised-button color="accent"
+                <mat-cell class="mat-button-cell" *matCellDef="let row" >
+                    <button [disabled]="!row.canReserve || !userCanDonate" mat-raised-button color="accent"
                         (click)="onMake(row)">Reserve</button></mat-cell>
             </ng-container>
 
