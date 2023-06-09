@@ -68,7 +68,6 @@ export class MakeAppointmentComponent implements OnInit {
   }
 
   onMake(appointment: AppointmentModel) {
-    console.log("Make appointment");
     if (!this.userCanDonate) {
       this.snackService.showSnack("You don\'t fulfill all conditions needed to make an appointment.", "OK");
     } else {
@@ -77,14 +76,10 @@ export class MakeAppointmentComponent implements OnInit {
       appointmentDto.username = this.username;
       this.appointmentService.reserveAppointment(appointmentDto)
         .subscribe((data) => {
-          console.log(data);
           if (data.id == 0) {
             this.snackService.showSnack(data.response, "OK");
           } else {
-            console.log("Appointment made. redirecting now");
-            console.log(data.response);
             this.response = data.response;
-            console.log(this.response);
             this.router.navigate(['my-appointments'], {
               state: { makeAppointmentResult: this.response }
             })
@@ -123,7 +118,6 @@ export class MakeAppointmentComponent implements OnInit {
     this.appointmentService.getFreePageable(sort, page, size)
       .subscribe(data => {
         this.totalElements = data.totalElements;
-        console.log(data.content);
         this.dataSource = new MatTableDataSource(data.content);
       },
         error => {

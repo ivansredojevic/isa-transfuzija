@@ -42,7 +42,7 @@ export class RegisterComponent implements OnInit {
         'occupation': new FormControl(null),
         'jobinformation': new FormControl(null),
       }, { validators: passwordMatchingValidatior }
-    )
+    );
   }
 
   onSubmit(formData: FormGroup, formDirective: FormGroupDirective): void {
@@ -74,12 +74,9 @@ export class RegisterComponent implements OnInit {
     applicationUser.occupation = occupation;
     applicationUser.jobinformation = jobinformation;
 
-    console.log(applicationUser);
-
     this.userService.register(applicationUser)
       .subscribe(
         (data) => {
-          console.log(data.response);
           let response: string = data.response;
           if (response.startsWith("User with ")) {
             this.snackService.showSnack(response, "OK");

@@ -4,7 +4,6 @@ import { QuestionnaireModel } from 'src/app/model/questionnaire.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { QuestionnaireService } from 'src/app/services/questionnaire.service';
 import { SnackService } from 'src/app/services/snackHelper.service';
-import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
   selector: 'app-questionnaire',
@@ -32,17 +31,12 @@ export class QuestionnaireComponent implements OnInit {
     this.questionnaireService.getOne(this.username)
       .subscribe(data => {
         this.questionnaire = data;
-        console.log(this.questionnaire);
         this.router.navigate(["/questionnaire"]);
       },
         error => {
           console.log(error);
           this.snackService.showSnack(error, "OK");
         });
-  }
-
-  fillQuestionnaire() {
-
   }
 
 }

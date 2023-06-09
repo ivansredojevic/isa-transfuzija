@@ -35,14 +35,14 @@ export class AppointmentComponent implements OnInit {
   errorMessage: string = "";
   username: string;
 
-  constructor(public appointmentService: AppointmentService, public authService: AuthService, 
+  constructor(public appointmentService: AppointmentService, public authService: AuthService,
     public router: Router, public snackService: SnackService) { }
 
   ngOnInit(): void {
     this.dataSource = new MatTableDataSource;
     this.username = this.authService.getUsername();
     this.snackMessage = history.state.makeAppointmentResult;
-    if(!!this.snackMessage){
+    if (!!this.snackMessage) {
       this.snackService.showSnack(this.snackMessage, "OK");
     }
     this.loadPage();
@@ -65,20 +65,19 @@ export class AppointmentComponent implements OnInit {
   }
 
   onCancel(appointment: AppointmentModel) {
-    console.log("Cancel appointment");
     let appointmentDto: AppointmentDTO = new AppointmentDTO();
     appointmentDto.id = appointment.id;
     appointmentDto.username = this.username;
     this.appointmentService.cancelAppointment(appointmentDto)
       .subscribe((data) => {
-        console.log(data);
         this.router.navigate(['make-appointment'], {
-          state: { cancelAppointmentResult: "Appointment " + appointmentDto.id + " cancelled."},
+          state: { cancelAppointmentResult: "Appointment " + appointmentDto.id + " cancelled." },
         });
       },
-        (error) => { console.log("Error cancelling appointment, " + error);
-        this.snackService.showSnack("Error cancelling appointment", "OK");
-      }
+        (error) => {
+          console.log("Error cancelling appointment, " + error);
+          this.snackService.showSnack("Error cancelling appointment", "OK");
+        }
       );
   }
 

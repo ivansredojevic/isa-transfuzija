@@ -32,7 +32,6 @@ export class CenterComponent implements OnInit {
 
   constructor(public centerService: CenterService, private route: ActivatedRoute, public snackService: SnackService) {
     this.route.queryParams.subscribe(params => {
-      console.log(params);
       this.redirectReason = params['redirected'];
     });
   }

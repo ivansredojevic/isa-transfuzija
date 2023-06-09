@@ -84,7 +84,6 @@ export class CreateComplaintComponent implements OnInit {
     this.isDoctor ? this.complaintDto.personnelId = +this.doctor : this.complaintDto.centerId = this.appointment.centerId;
 
     this.complaintDto.appointmentId = this.appointment.id;
-    console.log(this.complaintDto);
 
     this.complaintService.addComplaint(this.complaintDto)
       .subscribe(data => {
