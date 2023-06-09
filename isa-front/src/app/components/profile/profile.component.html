@@ -54,8 +54,9 @@
                 <p><strong>Penalties: {{applicationUser.penalty}}</strong><br><p>Penalties are deleted on 1st day of the month</p></p> 
               </td>
               <td>
-                <p><a class="navbar-buttons" mat-raised-button color="primary"
-                  routerLink="/questionnaire">{{(applicationUser.questionnaireId === 0) ? "Fill questionaire" : "Edit questionnaire"}}</a></p>
+                <p>
+                  <a class="navbar-buttons" *ngIf="!hasQuestionnaire" mat-raised-button color="primary" routerLink="/fill-questionnaire">Fill questionaire</a>
+                  <a class="navbar-buttons" *ngIf="hasQuestionnaire" mat-raised-button color="primary" routerLink="/questionnaire">View questionnaire</a></p>
               </td>
             </tr>
           </table>

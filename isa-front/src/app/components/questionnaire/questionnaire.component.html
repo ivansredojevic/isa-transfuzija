@@ -1,1 +1,80 @@
-<p>questionnaire works!</p>
+<div class="container" style="align-items: center;">
+    <mat-card style="display: flex; justify-content: center;">
+        <mat-card-title>
+            <span>Questionnaire</span>
+        </mat-card-title>
+    </mat-card>
+
+    <div>
+        <mat-card class="mat-elevation-z8">
+            <mat-card-header>
+                <mat-card-title>{{questionnaire.appUsername}}</mat-card-title>
+                <mat-card-subtitle>Filled on <strong>{{questionnaire.date}}</strong></mat-card-subtitle>
+                <mat-card-subtitle>Donation count: <strong>{{questionnaire.donationCount}}</strong></mat-card-subtitle>
+            </mat-card-header>
+            <hr>
+            <br>
+            <div style="align-items: center; text-align: center;">
+                <table>
+                    <tr>
+                        <td>
+                            <p>Healthy?</p>
+                        </td>
+                        <td>
+                            <p><strong> {{ questionnaire.healthy ? "Yes" : "No" }}</strong></p>
+                        </td>
+                        <td>
+                            <p>Dangerous occupation?</p>
+                        </td>
+                        <td>
+                            <p><strong> {{ questionnaire.dangerousOccupation ? "Yes" : "No" }}</strong></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>Blood pressure issues?</p>
+                        </td>
+                        <td>
+                            <p><strong> {{ questionnaire.bloodPressureIssues ? "Yes" : "No" }}</strong></p>
+                        </td>
+                        <td>
+                            <p>Rejected?</p>
+                        </td>
+                        <td>
+                            <p><strong> {{ questionnaire.rejected ? "Yes" : "No" }}</strong></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>Infections?</p>
+                        </td>
+                        <td>
+                            <p><strong> {{ questionnaire.infectious ? "Yes" : "No" }}</strong></p>
+                        </td>
+                        <td>
+                            <p>Tatooed in last 6 months?</p>
+                        </td>
+                        <td>
+                            <p><strong> {{ questionnaire.tatooed ? "Yes" : "No" }}</strong></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>On medications?</p>
+                        </td>
+                        <td>
+                            <p><strong> {{ questionnaire.onTherapy ? "Yes" : "No" }}</strong></p>
+                        </td>
+                        <td>
+                            <p>Using Aspirine?</p>
+                        </td>
+                        <td>
+                            <p><strong> {{ questionnaire.aspirin ? "Yes" : "No" }}</strong></p>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+        </mat-card>
+    </div>
+</div>

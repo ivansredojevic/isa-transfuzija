@@ -16,7 +16,7 @@ export class ProfileComponent implements OnInit {
 
   username: string;
   applicationUser: ApplicationUserModel = new ApplicationUserModel();
-  public displayedColumns = ['personal', 'account'];
+  hasQuestionnaire: boolean = false;
 
 
   constructor(private authService: AuthService, private router: Router,
@@ -33,6 +33,10 @@ export class ProfileComponent implements OnInit {
       .subscribe(data => {
         this.applicationUser = data;
         this.storageService.setItem('canDonate', this.applicationUser.canDonate);
+        
+        if(this.applicationUser.questionnaireId !== 0) {
+          this.hasQuestionnaire = true;
+        }
       },
         error => {
           console.log(error);

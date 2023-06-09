@@ -13,6 +13,7 @@ import { LoginComponent } from './components/login/login.component';
 import { MakeAppointmentComponent } from './components/make-appointment/make-appointment.component';
 import { CreateComplaintComponent } from './components/create-complaint/create-complaint.component';
 import { AuthGuard } from './services/authGuard';
+import { FillQuestionnaireComponent } from './components/fill-questionnaire/fill-questionnaire.component';
 
 const routes: Routes = [
   {
@@ -62,6 +63,11 @@ const routes: Routes = [
     path: "questionnaire",
     canActivate: [AuthGuard],
     component: QuestionnaireComponent
+  },
+  {
+    path: "fill-questionnaire",
+    canActivate: [AuthGuard],
+    component: FillQuestionnaireComponent
   },
   {
     path: "profile",

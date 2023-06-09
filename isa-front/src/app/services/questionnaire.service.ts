@@ -24,10 +24,10 @@ export class QuestionnaireService {
             });
     }
 
-    reserveAppointment(questionnaire: QuestionnaireModel): Observable<any> {
+    fillQuestionnaire(questionnaire: QuestionnaireModel): Observable<any> {
         const headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': `Bearer ` + localStorage.getItem('token') });
         return this.http.post<any>(
-            this.resourceUrl + '/appointment/reserve', 
+            this.resourceUrl + '/questionnaire/fill-questionnaire', 
             questionnaire,
             {
                 headers: headers
