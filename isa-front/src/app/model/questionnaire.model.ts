@@ -2,9 +2,8 @@ import { ApplicationUserModel } from "./applicationUser.model";
 
 export class QuestionnaireModel {
 
-    id: number;
     date: string;
-    donationNumber: number;
+    donationCount: number;
     rejected: boolean;
     healthy: boolean;
     dangerousOccupation: boolean;
@@ -13,6 +12,6 @@ export class QuestionnaireModel {
     onTherapy: boolean;
     aspirin: boolean;
     tatooed: boolean;
-    applicationUser: ApplicationUserModel;
+    appUsername: string;
 
 }

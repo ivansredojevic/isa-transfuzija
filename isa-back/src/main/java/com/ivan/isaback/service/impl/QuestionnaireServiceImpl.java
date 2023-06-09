@@ -17,11 +17,11 @@ import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
-public class QuestionnaireServiceImpl implements QuestionnaireService{
-	
+public class QuestionnaireServiceImpl implements QuestionnaireService {
+
 	private QuestionnaireRepository questionnaireRepository;
 	private ApplicationUserRepository applicationUserRepository;
-	
+
 	public QuestionnaireServiceImpl(QuestionnaireRepository questionnaireRepository,
 			ApplicationUserRepository applicationUserRepository) {
 		super();
@@ -30,40 +30,45 @@ public class QuestionnaireServiceImpl implements QuestionnaireService{
 	}
 
 	@Override
-	public Questionnaire findByApplicationUserId(int id) {
-		List<Questionnaire> questionnaire = questionnaireRepository.findByApplicationUserId(id);
-		if(!questionnaire.isEmpty()) {
-			log.info("Found " + questionnaire.size() + " Questionnaires for ApplicationUserId = " + id + ".");
-			return questionnaire.get(0);
+	public QuestionnaireDTO findByApplicationUsername(String username) {
+
+		Optional<ApplicationUser> appUserOpt = applicationUserRepository.findOneByUsername(username);
+		if (appUserOpt.isPresent()) {
+			Optional<Questionnaire> questionnaireOpt = questionnaireRepository.findOneByApplicationUserId(appUserOpt.get().getId());
+			if (questionnaireOpt.isPresent()) {
+				return new QuestionnaireDTO(questionnaireOpt.get());
+			}
 		}
 		return null;
 	}
 
 	@Override
-	public Questionnaire save(QuestionnaireDTO q) {
-		
-		Optional<ApplicationUser> applicationUser = applicationUserRepository.findOneById(q.getAppUserId());
-		
-		if(applicationUser.isPresent()) {
-			
-			Questionnaire questionnaire = new Questionnaire();
-			questionnaire.setDate(LocalDate.now());
-			questionnaire.setDonationNumber(q.getDonationNumber());
-			questionnaire.setRejected(q.isRejected());
-			questionnaire.setHealthy(q.isHealthy());
-			questionnaire.setDangerousOccupation(q.isDangerousOccupation());
-			questionnaire.setInfectious(q.isInfectious());
-			questionnaire.setBloodPressureIssues(q.isBloodPressureIssues());
-			questionnaire.setOnTherapy(q.isOnTherapy());
-			questionnaire.setAspirin(q.isAspirin());
-			questionnaire.setTatooed(q.isTatooed());
-			questionnaire.setApplicationUser(applicationUser.get());
-			
-			log.info(q.toString());
-			return questionnaireRepository.save(questionnaire);
+	public String save(QuestionnaireDTO q) {
+		Optional<ApplicationUser> applicationUser = applicationUserRepository.findOneByUsername(q.getAppUsername());
+		if (applicationUser.isPresent()) {
+			Optional<Questionnaire> questionnaireOpt = questionnaireRepository.findOneByApplicationUserId(applicationUser.get().getId());
+			if (!questionnaireOpt.isPresent()) {
+
+				Questionnaire questionnaire = new Questionnaire();
+				questionnaire.setDate(LocalDate.now());
+				questionnaire.setDonationNumber(q.getDonationCount());
+				questionnaire.setRejected(q.isRejected());
+				questionnaire.setHealthy(q.isHealthy());
+				questionnaire.setDangerousOccupation(q.isDangerousOccupation());
+				questionnaire.setInfectious(q.isInfectious());
+				questionnaire.setBloodPressureIssues(q.isBloodPressureIssues());
+				questionnaire.setOnTherapy(q.isOnTherapy());
+				questionnaire.setAspirin(q.isAspirin());
+				questionnaire.setTatooed(q.isTatooed());
+				questionnaire.setApplicationUser(applicationUser.get());
+				
+				questionnaireRepository.save(questionnaire);
+				return "Questionnaire successfully added.";
+			} else {
+				return "User already have questionnaire";
+			}
 		}
-		log.error("No users found for current questionnaire");
-		return null;
+		return "No users found for current questionnaire";
 	}
 
 	@Override
@@ -75,5 +80,5 @@ public class QuestionnaireServiceImpl implements QuestionnaireService{
 	public void delete(int id) {
 		questionnaireRepository.deleteById(id);
 	}
-	
+
 }

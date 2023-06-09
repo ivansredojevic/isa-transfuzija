@@ -28,7 +28,7 @@ export class AppointmentComponent implements OnInit {
 
   totalElements: number;
   pageIndex: number = 0;
-  pageSize: number = 5;
+  pageSize: number = 10;
   selectedRowIndex = -1;
   snackMessage: string = "";
 
@@ -95,7 +95,7 @@ export class AppointmentComponent implements OnInit {
     }
 
     let pageIndex = 0;
-    let pageSize = 5;
+    let pageSize = 10;
     if (this.paginator) {
       pageIndex = this.paginator.pageIndex;
       pageSize = this.paginator.pageSize;

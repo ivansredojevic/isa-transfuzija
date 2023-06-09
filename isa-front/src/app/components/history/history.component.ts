@@ -26,7 +26,7 @@ export class HistoryComponent implements OnInit {
 
   totalElements: number;
   pageIndex: number = 0;
-  pageSize: number = 5;
+  pageSize: number = 10;
   selectedRowIndex = -1;
 
   errorMessage: string = "";
@@ -84,7 +84,7 @@ export class HistoryComponent implements OnInit {
     }
 
     let pageIndex = 0;
-    let pageSize = 5;
+    let pageSize = 10;
     if (this.paginator) {
       pageIndex = this.paginator.pageIndex;
       pageSize = this.paginator.pageSize;

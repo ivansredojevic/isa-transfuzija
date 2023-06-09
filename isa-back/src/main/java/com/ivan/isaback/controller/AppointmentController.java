@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ivan.isaback.model.Appointment;
-import com.ivan.isaback.model.Complaint;
 import com.ivan.isaback.model.dto.AppointmentDTO;
 import com.ivan.isaback.model.dto.AppointmentItemDTO;
 import com.ivan.isaback.model.dto.AppointmentItemResponseDTO;

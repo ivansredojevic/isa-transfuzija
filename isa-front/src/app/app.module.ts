@@ -44,6 +44,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { DatePipe } from '@angular/common';
+import { FillQuestionnaireComponent } from './components/fill-questionnaire/fill-questionnaire.component';
 
 
 @NgModule({
@@ -62,6 +63,7 @@ import { DatePipe } from '@angular/common';
     HistoryComponent,
     MakeAppointmentComponent,
     CreateComplaintComponent,
+    FillQuestionnaireComponent,
 
   ],
   imports: [

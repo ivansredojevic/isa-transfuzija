@@ -16,7 +16,7 @@ import lombok.ToString;
 public class QuestionnaireDTO {
 	
 	private int id;
-    private int donationNumber;
+    private int donationCount;
     private boolean rejected;
     private boolean healthy;
     private boolean dangerousOccupation;
@@ -25,12 +25,12 @@ public class QuestionnaireDTO {
     private boolean onTherapy;
     private boolean aspirin;
     private boolean tatooed;
-    private int appUserId;
+    private String appUsername;
 	
     public QuestionnaireDTO(Questionnaire quest) {
 		
 		this.id = quest.getId();
-		this.donationNumber = quest.getDonationNumber();
+		this.donationCount = quest.getDonationNumber();
 		this.rejected = quest.isRejected();
 		this.healthy = quest.isHealthy();
 		this.dangerousOccupation = quest.isDangerousOccupation();
@@ -39,7 +39,7 @@ public class QuestionnaireDTO {
 		this.onTherapy = quest.isOnTherapy();
 		this.aspirin = quest.isAspirin();
 		this.tatooed = quest.isTatooed();
-		this.appUserId = quest.getApplicationUser().getId();
+		this.appUsername = quest.getApplicationUser().getUsername();
 	}
     
 }
