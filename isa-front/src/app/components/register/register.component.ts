@@ -3,8 +3,8 @@ import { FormGroup, FormControl, Validators, FormGroupDirective, ValidatorFn, Ab
 import { ApplicationUserDTO } from 'src/app/model/dto/applicationUser.dto';
 import { DatePipe } from '@angular/common'
 import { SnackService } from 'src/app/services/snackHelper.service';
-import { ApplicationUserService } from 'src/app/services/application.user.service';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 
 
 @Component({
@@ -17,7 +17,7 @@ export class RegisterComponent implements OnInit {
   sex: String;
   registerForm: FormGroup;
 
-  constructor(public datepipe: DatePipe, public router: Router, public userService: ApplicationUserService, public snackService: SnackService) { }
+  constructor(public datepipe: DatePipe, public router: Router, public authService: AuthService, public snackService: SnackService) { }
 
   ngOnInit() {
     this.createForm();
@@ -73,8 +73,10 @@ export class RegisterComponent implements OnInit {
     applicationUser.lastDonationDate = this.convertDateString(date);
     applicationUser.occupation = occupation;
     applicationUser.jobinformation = jobinformation;
+    // hardcoded for regular users
+    applicationUser.role = "USER";
 
-    this.userService.register(applicationUser)
+    this.authService.register(applicationUser)
       .subscribe(
         (data) => {
           let response: string = data.response;

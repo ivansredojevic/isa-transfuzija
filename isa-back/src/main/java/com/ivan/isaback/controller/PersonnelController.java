@@ -23,6 +23,7 @@ import lombok.extern.slf4j.Slf4j;
 @CrossOrigin
 @Slf4j
 @RequestMapping("/api/personnel/")
+@PreAuthorize("hasAnyRole('ADMIN', 'USER')")
 public class PersonnelController {
 	
 	private PersonnelService personnelService;

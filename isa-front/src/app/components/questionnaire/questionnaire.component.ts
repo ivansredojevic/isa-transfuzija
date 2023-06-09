@@ -24,6 +24,13 @@ export class QuestionnaireComponent implements OnInit {
   ngOnInit(): void {
     this.username = this.authService.getUsername();
     this.loadQuestionnaire();
+
+    // console.log(this.questionnaire);
+    // console.log(!this.questionnaire);
+
+    // console.log(!!this.questionnaire);
+
+    // console.log(!!!this.questionnaire);
   }
 
 
@@ -31,11 +38,16 @@ export class QuestionnaireComponent implements OnInit {
     this.questionnaireService.getOne(this.username)
       .subscribe(data => {
         this.questionnaire = data;
-        this.router.navigate(["/questionnaire"]);
+        console.log(this.questionnaire);
+        console.log(!this.questionnaire);
+        console.log(!!this.questionnaire);
+        console.log(!!!this.questionnaire);
       },
         error => {
           console.log(error);
-          this.snackService.showSnack(error, "OK");
+          this.router.navigate(["/profile"]) , {
+            state: { loadQuestionnaireError: "Error loading questionnaire" }
+          }
         });
   }
 

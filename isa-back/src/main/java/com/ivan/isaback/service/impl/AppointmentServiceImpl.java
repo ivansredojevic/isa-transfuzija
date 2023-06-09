@@ -118,6 +118,14 @@ public class AppointmentServiceImpl implements AppointmentService {
 
 					log.info("new end after old start" + newEnd.isAfter(oldStart));
 					
+					if(applicationUser.getPenalty() > 3) {
+						return new AppointmentItemResponseDTO(0, "User have more than 3 penalties.");
+					}
+					if(applicationUser.getLastDonationDate().plusMonths(6).isAfter(LocalDate.now())) {
+						return new AppointmentItemResponseDTO(0, "User has donated in last 6 months.");
+					}
+					
+					
 					if (newStart.isBefore(oldEnd) && newEnd.isAfter(oldStart)) {
 						log.error("Appointment overlaps with your upcoming appointment " + appointment.getId() + ".");
 						// vrati na bekend 0 da signalizira da ne treba da se prebaci na drugu stranicu

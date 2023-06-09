@@ -13,10 +13,7 @@ import com.ivan.isaback.repository.ApplicationUserRepository;
 import com.ivan.isaback.repository.QuestionnaireRepository;
 import com.ivan.isaback.service.QuestionnaireService;
 
-import lombok.extern.slf4j.Slf4j;
-
 @Service
-@Slf4j
 public class QuestionnaireServiceImpl implements QuestionnaireService {
 
 	private QuestionnaireRepository questionnaireRepository;

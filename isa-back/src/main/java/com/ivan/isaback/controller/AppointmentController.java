@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,6 +27,7 @@ import lombok.extern.slf4j.Slf4j;
 @CrossOrigin
 @Slf4j
 @RequestMapping("/api/appointment/")
+@PreAuthorize("hasAnyRole('ADMIN', 'USER')")
 public class AppointmentController {
 	
 	private AppointmentService appointmentService;
@@ -56,7 +58,7 @@ public class AppointmentController {
 		}
 	}
 	
-	
+
 	@GetMapping(value = "free-pageable")
 	public Page<AppointmentItemDTO> getFreePageable(Pageable pageable){
 		return appointmentService.findFreePageable(pageable);
@@ -73,7 +75,6 @@ public class AppointmentController {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
 		}
 	}
-	
 	
 	@GetMapping(value = "history-by-user-pageable/{username}")
 	public Page<AppointmentItemDTO> getByUserTaken(@PathVariable String username, Pageable pageable){

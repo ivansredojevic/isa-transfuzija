@@ -1,10 +1,8 @@
 package com.ivan.isaback.controller;
 
-import java.util.Optional;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,18 +24,13 @@ import lombok.extern.slf4j.Slf4j;
 @CrossOrigin
 @Slf4j
 @RequestMapping("/api/users/")
+@PreAuthorize("hasAnyRole('ADMIN', 'USER')")
 public class ApplicationUserController {
 	
 	private ApplicationUserService userService;
 	public ApplicationUserController(ApplicationUserService userService) {
 		super();
 		this.userService = userService;
-	}
-
-	@PostMapping("register")
-	public ResponseEntity<String> addUser(@RequestBody RegisterUserDTO user) {
-		String response = userService.registerUser(user);
-		return ResponseEntity.ok("{ \"response\" : \"" + response + "\" }");
 	}
 	
 	@PutMapping("update/{id}")

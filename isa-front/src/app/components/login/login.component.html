@@ -6,7 +6,7 @@
                 <form [formGroup]="loginForm" #formDirective="ngForm" (ngSubmit)="onSubmit()">
                     <mat-form-field>
                         <mat-icon matPrefix>person_outline</mat-icon>
-                        <input  type="text" matInput placeholder="Username" formControlName="username">
+                        <input  type="text" autocomplete="false" matInput placeholder="Username" formControlName="username">
                     </mat-form-field>
                     <mat-form-field>
                         <mat-icon matPrefix>lock_outline</mat-icon>
@@ -17,7 +17,6 @@
                         <button type="submit" mat-raised-button color="accent" (click)="onSubmit()">LOGIN</button>
                     </div>
                 </form>
-                <hr>
                 <br>
                 <div class="submit-button">
                     <span style="text-align: center;">Or you can</span>

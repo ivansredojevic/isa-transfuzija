@@ -8,15 +8,13 @@
                     (ngSubmit)="onSubmit(registerForm, formDirective)">
                     <mat-form-field>
                         <mat-icon matPrefix>email</mat-icon>
-                        <input autofocus type="email" matInput placeholder="Email" formControlName="email">
+                        <input type="email" matInput placeholder="Email" formControlName="email">
                     </mat-form-field>
-
 
                     <mat-form-field>
                         <mat-icon matPrefix>person</mat-icon>
-                        <input autofocus type="text" matInput placeholder="Username" formControlName="username">
+                        <input type="text" matInput placeholder="Username" formControlName="username">
                     </mat-form-field>
-
 
                     <mat-form-field>
                         <mat-icon matPrefix>vpn_key</mat-icon>
@@ -34,27 +32,27 @@
 
                     <mat-form-field>
                         <mat-icon matPrefix>badge</mat-icon>
-                        <input autofocus type="text" matInput placeholder="Name" formControlName="name">
+                        <input type="text" matInput placeholder="Name" formControlName="name">
                     </mat-form-field>
 
                     <mat-form-field>
                         <mat-icon matPrefix>badge_outline</mat-icon>
-                        <input autofocus type="text" matInput placeholder="Surname" formControlName="surname">
+                        <input type="text" matInput placeholder="Surname" formControlName="surname">
                     </mat-form-field>
 
                     <mat-form-field>
                         <mat-icon matPrefix>home</mat-icon>
-                        <input autofocus type="text" matInput placeholder="Address" formControlName="address">
+                        <input type="text" matInput placeholder="Address" formControlName="address">
                     </mat-form-field>
 
                     <mat-form-field>
                         <mat-icon matPrefix>phone</mat-icon>
-                        <input autofocus type="text" matInput placeholder="Phone" formControlName="phone">
+                        <input type="text" matInput placeholder="Phone" formControlName="phone">
                     </mat-form-field>
 
                     <mat-form-field>
                         <mat-icon matPrefix>tag</mat-icon>
-                        <input autofocus type="text" matInput placeholder="JMBG" formControlName="jmbg">
+                        <input type="text" matInput placeholder="JMBG" formControlName="jmbg">
                     </mat-form-field>
 
                     <br>
@@ -94,3 +92,18 @@
         </div>
     </div>
 </form>
+
+
+
+
+
+
+<!-- 
+<form>
+  <mat-form-field>
+    <input matInput placeholder="Enter your name" [matTooltip]="'Enter your name here'" [matTooltipDisabled]="!name.invalid">
+    <mat-error *ngIf="name.invalid" [matTooltip]="name.errors?.required ? 'This field is required' : 'Invalid name'" [matTooltipDisabled]="!name.invalid">Error</mat-error>
+  </mat-form-field>
+</form>
+ -->
+

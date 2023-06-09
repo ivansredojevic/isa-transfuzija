@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ivan.isaback.model.AuthenticationRequest;
 import com.ivan.isaback.model.AuthenticationResponse;
+import com.ivan.isaback.model.dto.RegisterUserDTO;
 import com.ivan.isaback.model.ApplicationUser;
 import com.ivan.isaback.service.impl.ApplicationUserServiceImpl;
 import com.ivan.isaback.util.JwtUtil;
@@ -49,6 +50,12 @@ public class AuthenticationController {
 		user.setToken(jwt);
 		
 		return ResponseEntity.ok(new AuthenticationResponse(jwt, user));
+	}
+	
+	@PostMapping("register")
+	public ResponseEntity<String> registerUser(@RequestBody RegisterUserDTO user) {
+		String response = userService.registerUser(user);
+		return ResponseEntity.ok("{ \"response\" : \"" + response + "\" }");
 	}
 	
 }

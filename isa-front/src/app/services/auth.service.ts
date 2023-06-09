@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { ApplicationUserDTO } from '../model/dto/applicationUser.dto';
 
 @Injectable({
   providedIn: 'root'
@@ -35,6 +36,15 @@ export class AuthService {
       return JSON.parse(decodedJwtJsonData).sub;
     }
   }
+
+  register(appUser: ApplicationUserDTO): Observable<any> {
+    const headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+    return this.http.post(this.resourceUrl + "/auth/register", appUser,
+    {
+        headers: headers
+    });
+}
 
   logout() {
     sessionStorage.removeItem('userCanDonate');

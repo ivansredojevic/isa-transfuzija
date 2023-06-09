@@ -28,34 +28,34 @@ public class Questionnaire {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column
+    @Column(nullable = false)
     private LocalDate date;
     
-    @Column
+    @Column(nullable = false)
     private int donationNumber;
     
-    @Column
+    @Column(nullable = false)
     private boolean rejected;
     
-    @Column
+    @Column(nullable = false)
     private boolean healthy;
     
-    @Column
+    @Column(nullable = false)
     private boolean dangerousOccupation;
     
-    @Column
+    @Column(nullable = false)
     private boolean infectious;
     
-    @Column
+    @Column(nullable = false)
     private boolean bloodPressureIssues;
     
-    @Column
+    @Column(nullable = false)
     private boolean onTherapy;
     
-    @Column
+    @Column(nullable = false)
     private boolean aspirin;
     
-    @Column
+    @Column(nullable = false)
     private boolean tatooed;
     
     @OneToOne
