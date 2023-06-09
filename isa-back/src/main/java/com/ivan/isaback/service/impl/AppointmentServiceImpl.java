@@ -154,9 +154,9 @@ public class AppointmentServiceImpl implements AppointmentService {
 	public AppointmentItemDTO convertToDtoCancellable(Appointment app) {
 
 		boolean canCancel = LocalDateTime.now().plusDays(1).isBefore(app.getStartTime());
-		log.info(" " + LocalDateTime.now().plusDays(1));
-		log.info(" " + app.getStartTime());
-		log.info("Can be cancelled: " + canCancel);
+//		log.info(" " + LocalDateTime.now().plusDays(1));
+//		log.info(" " + app.getStartTime());
+//		log.info("Can be cancelled: " + canCancel);
 		// calculate if date is further than
 		return new AppointmentItemDTO(app, true, canCancel);
 	}
