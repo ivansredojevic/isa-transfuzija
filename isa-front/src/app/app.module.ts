@@ -25,7 +25,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule } from '@angular/material/dialog';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { UserComponent } from './components/user/user.component';
 import { AppointmentComponent } from './components/appointment/appointment.component';
@@ -40,6 +40,7 @@ import { FormsModule } from '@angular/forms';
 import { MakeAppointmentComponent } from './components/make-appointment/make-appointment.component';
 import { CreateComplaintComponent } from './components/create-complaint/create-complaint.component';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { MatMenuModule } from '@angular/material/menu';
 
 
 @NgModule({
@@ -65,13 +66,11 @@ import { MatGridListModule } from '@angular/material/grid-list';
     AppRoutingModule,
     BrowserAnimationsModule,
     LayoutModule,
-    MatToolbarModule,
     MatButtonModule,
     MatSidenavModule,
     MatIconModule,
     MatListModule,
     MatSortModule,
-    MatToolbarModule,
     HttpClientModule,
     MatPaginatorModule,
     MatTableModule,
@@ -87,7 +86,9 @@ import { MatGridListModule } from '@angular/material/grid-list';
     MatRadioModule,
     FormsModule,
     MatGridListModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatMenuModule,
+    MatToolbarModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

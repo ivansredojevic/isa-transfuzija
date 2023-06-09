@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
+import { MatMenu } from '@angular/material/menu';
 
 @Component({
   selector: 'app-navigation',
@@ -19,6 +20,7 @@ export class NavigationComponent implements OnInit {
 
   onLogout() {
     this.loggedIn = false;
+    this.username = "";
     this.authService.logout();
   }
 

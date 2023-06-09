@@ -3,29 +3,44 @@
         <span style="text-align: center; margin-left: 15px;">ISA Application 2022/2023</span>
         <span class="spacer"></span>
         <span>
-            <!-- <a routerLink="/profile"> {{username}}</a> -->
-            <a style="-webkit-tap-highlight-color: transparent;" routerLink="/profile"><mat-icon *ngIf="authenticated()" class="logged-user">account_circle</mat-icon></a>
-            
 
-            <mat-icon *ngIf="!authenticated()" class="logged-user">lock</mat-icon>
         </span>
     </mat-toolbar-row>
 </mat-toolbar>
+
 <mat-toolbar color="primary">
     <mat-toolbar-row>
         <a class="navbar-buttons" mat-raised-button color="primary" routerLink="/centers">Centers</a>
-        
-        <a class="navbar-buttons" *ngIf="authenticated()" mat-raised-button color="primary" routerLink="/make-appointment">Make appointment</a>
-        <a class="navbar-buttons" *ngIf="authenticated()" mat-raised-button color="primary" routerLink="/my-appointments">My Appointments</a>
-        <a class="navbar-buttons" *ngIf="authenticated()"mat-raised-button color="primary" routerLink="/history">Appointment History</a>
-        <a class="navbar-buttons" *ngIf="authenticated()"mat-raised-button color="primary" routerLink="/complaint">My Complaints</a>
+
+        <a class="navbar-buttons" *ngIf="authenticated()" mat-raised-button color="primary"
+            routerLink="/make-appointment">Make appointment</a>
+        <a class="navbar-buttons" *ngIf="authenticated()" mat-raised-button color="primary"
+            routerLink="/my-appointments">My Appointments</a>
+        <a class="navbar-buttons" *ngIf="authenticated()" mat-raised-button color="primary"
+            routerLink="/history">Appointment History</a>
+        <a class="navbar-buttons" *ngIf="authenticated()" mat-raised-button color="primary" routerLink="/complaint">My
+            Complaints</a>
         <span class="spacer"></span>
-        <a class="personal-buttons" *ngIf="authenticated()"mat-raised-button color="primary" routerLink="/profile">My profile</a>
-        <a class="personal-buttons" *ngIf="!authenticated()"mat-raised-button color="primary" routerLink="/register">Register</a>
-        <a class="personal-buttons" *ngIf="!authenticated()" mat-raised-button color="primary" routerLink="/login">Login</a>
-        <a mat-raised-button class="personal-buttons" *ngIf="authenticated()" color="warn" (click)="onLogout()" routerLink="/login">Logout</a>
-        
+        <!-- <a class="personal-buttons" *ngIf="authenticated()"mat-raised-button color="primary" routerLink="/profile">My profile</a> -->
+        <a class="navbar-buttons" *ngIf="!authenticated()" mat-raised-button color="accent"
+            routerLink="/register">Register</a>
+        <a class="navbar-buttons" *ngIf="!authenticated()" mat-raised-button color="accent"
+            routerLink="/login">Login</a>
+        <!-- <a mat-raised-button class="personal-buttons" *ngIf="authenticated()" color="warn" (click)="onLogout()" routerLink="/login"><mat-icon *ngIf="authenticated()" class="logged-user">account_circle</mat-icon> Logout</a> -->
+
+        <button class="navbar-buttons" [matMenuTriggerFor]="menu" #menuTrigger="matMenuTrigger"
+            mat-raised-button *ngIf="authenticated()" color="warn"><mat-icon
+                *ngIf="authenticated()" class="logged-user">account_circle</mat-icon><mat-icon *ngIf="!authenticated()"
+                class="logged-user">lock</mat-icon>{{ username }}</button>
+                
+                <mat-menu #menu="matMenu">
+                        <span>
+                        <button class="navbar-buttons" mat-menu-item routerLink="/profile"><mat-icon>account_box</mat-icon>My profile</button>
+                        <button class="navbar-buttons" mat-menu-item (click)="onLogout()" routerLink="/login"><mat-icon>logout</mat-icon>Logout</button>
+                    </span>
+                </mat-menu>
     </mat-toolbar-row>
+    
 
 </mat-toolbar>
 <router-outlet></router-outlet>
