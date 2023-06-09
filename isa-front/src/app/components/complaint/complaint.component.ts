@@ -40,7 +40,6 @@ export class ComplaintComponent implements OnInit {
     this.dataSource = new MatTableDataSource;
     this.username = this.authService.getUsername();
     this.loadPage();
-    console.log(this.dataSource);
   }
 
   ngAfterViewInit(): void {
@@ -69,7 +68,6 @@ export class ComplaintComponent implements OnInit {
         sortDirection = this.sort.direction;
       }
       sort = sortActive + "," + sortDirection;
-      console.log(sort);
     }
 
     let pageIndex = 0;

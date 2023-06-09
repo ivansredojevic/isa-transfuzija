@@ -81,10 +81,22 @@ public class ApplicationUserController {
 		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
 	}
 	
-	@PutMapping("penalty/{id}")
-	public void addPenalty(@RequestBody ApplicationUserDTO userDto) {
-		log.info("add epnalty " + userDto);
-		userService.updateUser(userDto);
+	@GetMapping(path = "load-user/{username}")
+	public ResponseEntity<ApplicationUserDTO> loadByUsername(@PathVariable String username) {
+		
+		try {
+			ApplicationUserDTO userDto = userService.loadByUsername(username);
+			return ResponseEntity.ok(userDto);
+		} catch (Exception e) {
+			log.error(e.getMessage());
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+		}
 	}
+	
+//	@PutMapping("penalty/{id}")
+//	public void addPenalty(@RequestBody ApplicationUserDTO userDto) {
+//		log.info("add penalty " + userDto);
+//		userService.updateUser(userDto);
+//	}
 	
 }

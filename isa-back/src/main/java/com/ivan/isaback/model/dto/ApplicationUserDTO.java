@@ -26,11 +26,12 @@ public class ApplicationUserDTO {
 	private String sex;
 	private String occupation;
 	private String jobinformation;
-	private Boolean activated;
 	private String role;
 	private int penalty;
+	private int questionaireId;
+	private boolean canDonate;
 	
-	public ApplicationUserDTO(ApplicationUser user) {
+	public ApplicationUserDTO(ApplicationUser user, boolean canDonate, int questId) {
 		this.id = user.getId();
 		this.email = user.getEmail();
 		this.username = user.getUsername();
@@ -42,14 +43,10 @@ public class ApplicationUserDTO {
 		this.sex = user.getSex();
 		this.occupation = user.getOccupation();
 		this.jobinformation = user.getJobinformation();
-		this.activated = user.getActivated();
 		this.role = user.getRole();
 		this.penalty = user.getPenalty();
+		this.questionaireId = questId;
+		this.canDonate = canDonate;
 	}
-	
-	
-
-	
-	
 	
 }

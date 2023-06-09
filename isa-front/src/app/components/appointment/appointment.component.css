@@ -16,3 +16,7 @@ table.mat-table {
 .highlight {
   background-color: gray;
 }
+
+.mat-button-cell {
+  justify-content: center;
+}

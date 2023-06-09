@@ -42,7 +42,7 @@ public class QuestionnaireServiceImpl implements QuestionnaireService{
 	@Override
 	public Questionnaire save(QuestionnaireDTO q) {
 		
-		Optional<ApplicationUser> applicationUser = applicationUserRepository.findOneById(q.getApplicationUser().getId());
+		Optional<ApplicationUser> applicationUser = applicationUserRepository.findOneById(q.getAppUserId());
 		
 		if(applicationUser.isPresent()) {
 			

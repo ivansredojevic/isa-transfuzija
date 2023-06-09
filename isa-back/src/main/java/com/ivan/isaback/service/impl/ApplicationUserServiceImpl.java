@@ -1,5 +1,6 @@
 package com.ivan.isaback.service.impl;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -14,8 +15,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.ivan.isaback.model.ApplicationUser;
+import com.ivan.isaback.model.Questionnaire;
 import com.ivan.isaback.model.dto.ApplicationUserDTO;
 import com.ivan.isaback.repository.ApplicationUserRepository;
+import com.ivan.isaback.repository.QuestionnaireRepository;
 import com.ivan.isaback.service.ApplicationUserService;
 import com.ivan.isaback.util.email.EmailDetails;
 import com.ivan.isaback.util.email.EmailService;
@@ -29,11 +32,13 @@ public class ApplicationUserServiceImpl implements ApplicationUserService, UserD
 	private BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 	
 	private ApplicationUserRepository userRepository;
+	private QuestionnaireRepository questionnaireRepository;
 	private EmailService emailService;
 	
-	public ApplicationUserServiceImpl(ApplicationUserRepository userRepository, EmailService emailService) {
+	public ApplicationUserServiceImpl(ApplicationUserRepository userRepository, QuestionnaireRepository questionnaireRepository, EmailService emailService) {
 		super();
 		this.userRepository = userRepository;
+		this.questionnaireRepository = questionnaireRepository;
 		this.emailService = emailService;
 	}
 
@@ -108,6 +113,24 @@ public class ApplicationUserServiceImpl implements ApplicationUserService, UserD
 		} catch(Exception ex) {		
 			throw new UsernameNotFoundException("No user with username " + username);		
 		}		
+	}
+	
+
+
+	@Override
+	public ApplicationUserDTO loadByUsername(String username) {
+		ApplicationUser user = userRepository.findByUsernameAndActivatedTrue(username);
+		Optional<Questionnaire> questionnaireOpt = questionnaireRepository.findOneByApplicationUserId(user.getId());
+		int questId = 0;
+		if(questionnaireOpt.isPresent()) {
+			questId = questionnaireOpt.get().getId();
+		}
+		
+		boolean canDonate = false;
+		if(user.getPenalty() < 3 && user.getLastDonationDate().plusMonths(6).isBefore(LocalDate.now())) {
+			canDonate = true;
+		}
+		return new ApplicationUserDTO(user, canDonate, questId);
 	}
 
 	@Override

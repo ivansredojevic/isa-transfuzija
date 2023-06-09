@@ -5,7 +5,7 @@
         </mat-card-title>
     </mat-card>
 
-    <div style="max-height: calc(100vh - 155px)">
+    <div>
         <mat-table matSort [dataSource]="dataSource" class="mat-elevation-z8" multiTemplateDataRows>
 
             <ng-container matColumnDef="id">
@@ -50,14 +50,14 @@
 
             <ng-container matColumnDef="complainCenter">
                 <mat-header-cell *matHeaderCellDef></mat-header-cell>
-                <mat-cell *matCellDef="let row">
+                <mat-cell class="mat-button-cell" *matCellDef="let row">
                     <button [disabled]="row.complainCenter" mat-raised-button color="accent" (click)="onComplainCenter(row.id)">Center complaint</button>
                 </mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="complainDoctor">
                 <mat-header-cell *matHeaderCellDef></mat-header-cell>
-                <mat-cell *matCellDef="let row">
+                <mat-cell class="mat-button-cell" *matCellDef="let row">
                     <button [disabled]="row.complainPers" mat-raised-button color="accent" (click)="onComplainDoctor(row.id)">Doctor complaint</button>
                 </mat-cell>
             </ng-container>

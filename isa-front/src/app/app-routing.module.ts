@@ -16,7 +16,7 @@ import { CreateComplaintComponent } from './components/create-complaint/create-c
 const routes: Routes = [
   {
     path: "",
-    component: LoginComponent
+    component: CenterComponent
   },
   {
     path: "centers",

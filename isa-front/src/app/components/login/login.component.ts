@@ -3,6 +3,9 @@ import { FormGroup, FormControl,FormGroupDirective } from '@angular/forms'
 import { AuthUserModel } from 'src/app/model/auth.user.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
+import { ApplicationUserService } from 'src/app/services/application.user.service';
+import { ApplicationUserModel } from 'src/app/model/applicationUser.model';
+import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +18,8 @@ export class LoginComponent implements OnInit {
   errorMessage: string = "";
   private user: AuthUserModel = new AuthUserModel();
 
-  constructor(public authService: AuthService, private router: Router) { }
+  constructor(public authService: AuthService, private router: Router, 
+      public userService: ApplicationUserService) { }
 
   ngOnInit(): void {
     this.createForm();
@@ -37,17 +41,14 @@ export class LoginComponent implements OnInit {
     this.authService.login(this.user)
     .subscribe(data => {
           localStorage.setItem('token', data.jwt)
-          this.errorMessage = '';
           console.log(localStorage.getItem('token'));
-          this.router.navigate(["/centers"]);
+          this.router.navigate(["/profile"]);
         },
         error => {
           console.log(error);
-          this.errorMessage = 'Bad credentials';
-          alert(this.errorMessage);
+          alert('Login failed!\nUsername and password not matching or account is not activated.\nPlease check your email.');
           localStorage.removeItem('token');
         }
     );
   }
-
 }

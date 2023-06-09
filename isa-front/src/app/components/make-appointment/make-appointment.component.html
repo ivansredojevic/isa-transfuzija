@@ -5,9 +5,9 @@
         </mat-card-title>
     </mat-card>
 
-    <div style="max-height: calc(100vh - 155px)">
+    <div>
         <mat-table matSort [dataSource]="dataSource" class="mat-elevation-z8" multiTemplateDataRows>
-            
+
             <ng-container matColumnDef="id">
                 <mat-header-cell *matHeaderCellDef mat-sort-header> ID </mat-header-cell>
                 <mat-cell *matCellDef="let row"> {{row.id}} </mat-cell>
@@ -55,25 +55,21 @@
 
             <ng-container matColumnDef="makeAppointment">
                 <mat-header-cell *matHeaderCellDef></mat-header-cell>
-                <mat-cell *matCellDef="let row"><button mat-raised-button color="accent" (click)="onMake(row)">Reserve</button></mat-cell>
-              </ng-container>
+                <mat-cell class="mat-button-cell" *matCellDef="let row"><button mat-raised-button color="accent"
+                        (click)="onMake(row)">Reserve</button></mat-cell>
+            </ng-container>
 
             <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-            <mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{'highlight': selectedRowIndex == row.id}"
-            (click)="highlight(row)">
+            <mat-row *matRowDef="let row; columns: displayedColumns;"
+                [ngClass]="{'highlight': selectedRowIndex == row.id}" (click)="highlight(row)">
             </mat-row>
-            
+
         </mat-table>
     </div>
 
-    <mat-paginator 
-        [pageSizeOptions]="[5, 10]"
-        [pageIndex]="pageIndex" 
-        [pageSize]="pageSize" 
-        [length]="totalElements" 
-        (page)="nextPage($event)"
-        showFirstLastButtons>
+    <mat-paginator [pageSizeOptions]="[5, 10]" [pageIndex]="pageIndex" [pageSize]="pageSize" [length]="totalElements"
+        (page)="nextPage($event)" showFirstLastButtons>
     </mat-paginator>
-    
+
 
 </div>

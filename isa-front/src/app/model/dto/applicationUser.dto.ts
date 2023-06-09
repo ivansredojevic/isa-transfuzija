@@ -11,10 +11,10 @@ export class ApplicationUserDTO {
     sex: string="";
     occupation: string;
     jobinformation: string;
-    activated: boolean = false;
     role: string;
-    token: string;
     penalty: number;
+    questionaireId: number;
+    canDonate: number;
 
   }
   

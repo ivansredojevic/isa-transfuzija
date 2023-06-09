@@ -39,6 +39,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { FormsModule } from '@angular/forms';
 import { MakeAppointmentComponent } from './components/make-appointment/make-appointment.component';
 import { CreateComplaintComponent } from './components/create-complaint/create-complaint.component';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 
 @NgModule({
@@ -84,7 +85,8 @@ import { CreateComplaintComponent } from './components/create-complaint/create-c
     MatSnackBarModule,
     MatCheckboxModule,
     MatRadioModule,
-    FormsModule
+    FormsModule,
+    MatGridListModule
   ],
   providers: [],
   bootstrap: [AppComponent]

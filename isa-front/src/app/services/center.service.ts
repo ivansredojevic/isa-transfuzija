@@ -15,7 +15,6 @@ export class CenterService {
   getAllPageable(sort = 'id,asc', page: number, size: number): Observable<any> {
     const headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-    console.log(headers);
     return this.http.get<any>(
       this.resourceUrl + '/center/all-pageable',
       {

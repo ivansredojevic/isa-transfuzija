@@ -1,0 +1,26 @@
+.mat-row {
+    height: auto;
+}
+
+.mat-cell {
+    padding: 3px, 3px, 3px, 3px;
+    text-align: left;
+}
+
+table.mat-table {
+    table-layout: fixed;
+    width: 100%;
+    display: table;
+}
+
+.highlight {
+    background-color: gray;
+}
+
+.mat-button-cell {
+    justify-content: center;
+}
+
+.mat-card {
+    height: 100%;
+}

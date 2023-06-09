@@ -25,7 +25,7 @@ public class QuestionnaireDTO {
     private boolean onTherapy;
     private boolean aspirin;
     private boolean tatooed;
-    private ApplicationUserDTO applicationUser;
+    private int appUserId;
 	
     public QuestionnaireDTO(Questionnaire quest) {
 		
@@ -39,11 +39,7 @@ public class QuestionnaireDTO {
 		this.onTherapy = quest.isOnTherapy();
 		this.aspirin = quest.isAspirin();
 		this.tatooed = quest.isTatooed();
-		this.applicationUser = new ApplicationUserDTO(quest.getApplicationUser());
+		this.appUserId = quest.getApplicationUser().getId();
 	}
-	
-   
     
-    
-
 }

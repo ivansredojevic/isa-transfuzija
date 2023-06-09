@@ -1,11 +1,20 @@
 package com.ivan.isaback.model;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToOne;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -66,5 +75,8 @@ public class ApplicationUser {
 	
 	@Column(nullable = true)
 	private int penalty;
+	
+	@Column(nullable = true)
+	private LocalDate lastDonationDate;
 	
 }

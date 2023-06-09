@@ -39,8 +39,6 @@ export class AppointmentComponent implements OnInit {
     this.username = this.authService.getUsername();
 
     this.loadPage();
-    console.log("DATASOURCE");
-    console.log(this.dataSource);
   }
 
   ngAfterViewInit(): void {
@@ -69,7 +67,7 @@ export class AppointmentComponent implements OnInit {
         console.log(data);
         this.router.navigate(['make-appointment']);
       },
-        (error) => console.log("75: " + error)
+        (error) => console.log("Error cancelling appointment, " +error)
       );
   }
   
@@ -83,7 +81,6 @@ export class AppointmentComponent implements OnInit {
         sortDirection = this.sort.direction;
       }
       sort = sortActive + "," + sortDirection;
-      console.log(sort);
     }
 
     let pageIndex = 0;
@@ -92,7 +89,6 @@ export class AppointmentComponent implements OnInit {
       pageIndex = this.paginator.pageIndex;
       pageSize = this.paginator.pageSize;
     }
-    console.log(sort);
     this.getMyAppointmentsPageable(this.username, sort, pageIndex, pageSize);
   }
 

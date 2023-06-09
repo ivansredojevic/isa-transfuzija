@@ -43,6 +43,7 @@ export class AuthService {
   }
 
   logout() {
+    sessionStorage.removeItem('userCanDonate');
     localStorage.removeItem('token');
   }
 

@@ -16,20 +16,28 @@
         </div> -->
         <!-- <div *ngIf="authenticationService.isLoggedIn()"> -->
         <a class="navbar-buttons" mat-raised-button color="primary" routerLink="/centers">Centers</a>
-        
-        <a class="navbar-buttons" *ngIf="authenticated()" mat-raised-button color="primary" routerLink="/make-appointment">Make appointment</a>
-        <a class="navbar-buttons" *ngIf="authenticated()" mat-raised-button color="primary" routerLink="/my-appointments">My Appointments</a>
-        <a class="navbar-buttons" *ngIf="authenticated()"mat-raised-button color="primary" routerLink="/history">Appointment History</a>
-        <a class="navbar-buttons" *ngIf="authenticated()"mat-raised-button color="primary" routerLink="/complaint">My Complaints</a>
+
+        <a class="navbar-buttons" *ngIf="authenticated()" mat-raised-button color="primary"
+            routerLink="/make-appointment">Make appointment</a>
+        <a class="navbar-buttons" *ngIf="authenticated()" mat-raised-button color="primary"
+            routerLink="/my-appointments">My Appointments</a>
+        <a class="navbar-buttons" *ngIf="authenticated()" mat-raised-button color="primary"
+            routerLink="/history">Appointment History</a>
+        <a class="navbar-buttons" *ngIf="authenticated()" mat-raised-button color="primary" routerLink="/complaint">My
+            Complaints</a>
         <!-- <a mat-raised-button color="primary" routerLink="/personnel">Personnel</a> -->
         <!-- premestiti questionnaire u profil -->
         <!-- <a mat-raised-button color="primary" routerLink="/questionnaire">Work order runs</a> -->
         <span class="spacer"></span>
-        <a class="personal-buttons" *ngIf="authenticated()"mat-raised-button color="primary" routerLink="/profile">My profile</a>
+        <a class="personal-buttons" *ngIf="authenticated()" mat-raised-button color="primary" routerLink="/profile">My
+            profile</a>
         <!-- <div *ngIf="authenticated() (click)="onLogout()> -->
-            <a class="personal-buttons" *ngIf="!authenticated()"mat-raised-button color="primary" routerLink="/register">Register</a>
-        <a class="personal-buttons" *ngIf="!authenticated()" mat-raised-button color="primary" routerLink="/login">Login</a>
-        <a mat-raised-button class="personal-buttons" *ngIf="authenticated()" color="warn" (click)="onLogout()" routerLink="/login">Logout</a> <!--*ngIf="authenticated() (click)="onLogout()""-->
+        <a class="personal-buttons" *ngIf="!authenticated()" mat-raised-button color="primary"
+            routerLink="/register">Register</a>
+        <a class="personal-buttons" *ngIf="!authenticated()" mat-raised-button color="primary"
+            routerLink="/login">Login</a>
+        <a mat-raised-button class="personal-buttons" *ngIf="authenticated()" color="warn" (click)="onLogout()"
+            routerLink="/login">Logout</a> <!--*ngIf="authenticated() (click)="onLogout()""-->
         <!-- </div> -->
     </mat-toolbar-row>
 

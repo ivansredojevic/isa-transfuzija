@@ -87,7 +87,7 @@ public class ComplaintServiceImpl implements ComplaintService {
 			}
 			try {
 				Complaint saved = complaintRepository.save(complaint);
-				Appointment appoint = appointmentRepository.save(apt.get());
+				appointmentRepository.save(apt.get());
 				return saved;
 			} catch (Exception e) {
 				log.error(e.getMessage());

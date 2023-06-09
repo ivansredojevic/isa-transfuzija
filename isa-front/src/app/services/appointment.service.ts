@@ -17,7 +17,6 @@ export class AppointmentService {
     getFreePageable(sort = 'id,asc', page: number, size: number): Observable<any> {
         const headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': `Bearer ` + localStorage.getItem('token') });
         
-        console.log(headers);
         return this.http.get<any>(
             this.resourceUrl + '/appointment/free-pageable',
             {
@@ -33,7 +32,6 @@ export class AppointmentService {
     getOne(id: number): Observable<any> {
         const headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': `Bearer ` + localStorage.getItem('token') });
         
-        console.log(headers);
         return this.http.get<any>(
             this.resourceUrl + '/appointment/get/' + id,
             {
@@ -54,7 +52,6 @@ export class AppointmentService {
     getMyAppointmentsPageable(username: string, sort = 'id,asc', page: number, size: number): Observable<any> {
         const headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': `Bearer ` + localStorage.getItem('token') });
         
-        console.log(headers);
         return this.http.get<any>(
             this.resourceUrl + '/appointment/upcoming-by-user-pageable/' + username,
             {
@@ -70,7 +67,6 @@ export class AppointmentService {
     getMyHistoryPageable(username: string, sort = 'id,asc', page: number, size: number): Observable<any> {
         const headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': `Bearer ` + localStorage.getItem('token') });
         
-        console.log(headers);
         return this.http.get<any>(
             this.resourceUrl + '/appointment/history-by-user-pageable/' + username,
             {

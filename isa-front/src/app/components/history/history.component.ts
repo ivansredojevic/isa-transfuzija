@@ -41,8 +41,6 @@ export class HistoryComponent implements OnInit {
     this.username = this.authService.getUsername();
 
     this.loadPage();
-    console.log("DATASOURCE");
-    console.log(this.dataSource);
   }
 
   ngAfterViewInit(): void {
@@ -59,12 +57,10 @@ export class HistoryComponent implements OnInit {
 
   highlight(row: AppointmentModel) {
     this.selectedRowIndex = row.id;
-    console.log(row);
   }
 
   onComplainCenter(appointmentId: number) {
     console.log("Make center complaint");
-    console.log(appointmentId);
     this.router.navigate(['create-complaint'], {
       queryParams: { aptId: appointmentId, subject: 'center'},
     });
@@ -72,7 +68,6 @@ export class HistoryComponent implements OnInit {
 
   onComplainDoctor(appointmentId: number) {
     console.log("Make doctor complaint");
-    console.log(appointmentId);
     this.router.navigate(['create-complaint'], {
       queryParams: { aptId: appointmentId, subject: 'doctor'},
     });
@@ -88,7 +83,6 @@ export class HistoryComponent implements OnInit {
         sortDirection = this.sort.direction;
       }
       sort = sortActive + "," + sortDirection;
-      console.log(sort);
     }
 
     let pageIndex = 0;
@@ -97,7 +91,6 @@ export class HistoryComponent implements OnInit {
       pageIndex = this.paginator.pageIndex;
       pageSize = this.paginator.pageSize;
     }
-    console.log(sort);
     this.getMyHistoryPageable(this.username, sort, pageIndex, pageSize);
   }
 

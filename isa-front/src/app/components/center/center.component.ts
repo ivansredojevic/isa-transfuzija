@@ -59,7 +59,6 @@ export class CenterComponent implements OnInit {
         sortDirection = this.sort.direction;
       }
       sort = sortActive + "," + sortDirection;
-      console.log(sort);
     }
 
     let pageIndex = 0;
@@ -68,14 +67,12 @@ export class CenterComponent implements OnInit {
       pageIndex = this.paginator.pageIndex;
       pageSize = this.paginator.pageSize;
     }
-    console.log(sort);
     this.getCentersPageable(sort, pageIndex, pageSize);
   }
 
   getCentersPageable(sort: string, page: number, size: number) {
     this.centerService.getAllPageable(sort, page, size)
       .subscribe(data => {
-        
         this.totalElements = data.totalElements;
         this.dataSource = new MatTableDataSource(data.content);
       },

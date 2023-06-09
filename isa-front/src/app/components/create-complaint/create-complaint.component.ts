@@ -50,27 +50,13 @@ export class CreateComplaintComponent implements OnInit {
     } else {
       this.isDoctor = true;
     }
-    console.log(this.subject)
-    console.log(this.isDoctor)
-    console.log(this.doctors);
   }
-
-  // username: string;
-  // complaintText: string;
-  // appointmentId: number;
-  // centerId: number;
-  // personnelId: number;
 
   createForm() {
     this.complaintForm = new FormGroup(
       {
-
         'complaintText': new FormControl(null, [Validators.required, Validators.maxLength(200)]),//[null, Validators.required, Validators.maxLength(200)]),
         'personnelId': new FormControl(null),
-
-        // 'complaintText': new FormControl(null),//[null, Validators.required, Validators.maxLength(200)]),
-        // 'centerId': new FormControl([null, Validators.required]),
-        // 'personnelId': new FormControl([null, Validators.required]),
       }
     )
   }
@@ -83,8 +69,6 @@ export class CreateComplaintComponent implements OnInit {
         for (let index = 0; index < this.appointment.doctorIds.length; index++) {
           this.doctors.push(new DoctorHelper(this.appointment.doctorIds[index], this.docNames[index]));
         }
-        console.log(this.doctors);
-        console.log(this.appointment);
       },
         error => {
           console.log(error);
@@ -101,18 +85,11 @@ export class CreateComplaintComponent implements OnInit {
 
     this.isDoctor ? this.complaintDto.personnelId = +this.doctor : this.complaintDto.centerId = this.appointment.centerId;
 
-    // if(!this.isDoctor) {
-
-    // } else {
-
-    // }
     this.complaintDto.appointmentId = this.appointment.id;
     console.log(this.complaintDto);
 
-
     this.complaintService.addComplaint(this.complaintDto)
       .subscribe(data => {
-        console.log(data);
         this.router.navigate(["/complaint"]);
       },
         error => {
@@ -125,6 +102,3 @@ export class CreateComplaintComponent implements OnInit {
   }
 
 }
-
-
-

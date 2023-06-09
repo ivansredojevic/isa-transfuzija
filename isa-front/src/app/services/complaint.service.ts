@@ -17,7 +17,6 @@ export class ComplaintService {
     getMyComplaintsPageable(username: string, sort = 'id,asc', page: number, size: number): Observable<any> {
         const headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': `Bearer ` + localStorage.getItem('token') });
         
-        console.log(headers);
         return this.http.get<any>(
             this.resourceUrl + '/complaint/user-pageable/' + username,
             {

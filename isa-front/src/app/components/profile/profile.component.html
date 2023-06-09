@@ -1,9 +1,202 @@
 <div class="container">
-    <mat-card style="display: flex; justify-content: center;">
-        <mat-card-title>
-            <span>My profile</span>
-        </mat-card-title>
-    </mat-card>
-    
+  <mat-card style="display: flex; justify-content: center;">
+    <mat-card-title>
+      <span>My profile</span>
+    </mat-card-title>
+  </mat-card>
+
+  <div class="container" style="margin: 10px; align-items: center; display: flex;">
+    <table mat-table [dataSource]="[applicationUser]">
+      <ng-container matColumnDef="personal">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let element">
+          <div style="display: flex;">
+            <mat-card class="mat-elevation-z8">
+              <mat-card-header>
+                <mat-card-title>Personal data</mat-card-title>
+              </mat-card-header>
+              <hr>
+              <br>
+              <mat-card-header>
+                <mat-card-title>{{applicationUser.name + " " + applicationUser.surname}}</mat-card-title>
+                <mat-card-subtitle>Name and surname</mat-card-subtitle>
+              </mat-card-header>
+              <mat-card-header>
+                <mat-card-title>{{applicationUser.email}}</mat-card-title>
+                <mat-card-subtitle>Email</mat-card-subtitle>
+              </mat-card-header>
+              <mat-card-header>
+                <mat-card-title>{{applicationUser.phone}}</mat-card-title>
+                <mat-card-subtitle>Phone</mat-card-subtitle>
+              </mat-card-header>
+              <mat-card-header>
+                <mat-card-title>{{applicationUser.address}}</mat-card-title>
+                <mat-card-subtitle>Address</mat-card-subtitle>
+              </mat-card-header>
+              <mat-card-header>
+                <mat-card-title>{{applicationUser.jmbg}}, {{applicationUser.sex.toUpperCase()}}</mat-card-title>
+                <mat-card-subtitle>JMBG and sex</mat-card-subtitle>
+              </mat-card-header>
+              <mat-card-header>
+                <mat-card-title>{{applicationUser.occupation}}</mat-card-title>
+                <mat-card-subtitle>Occupation</mat-card-subtitle>
+              </mat-card-header>
+              <mat-card-header>
+                <mat-card-title>{{applicationUser.jobinformation}}</mat-card-title>
+                <mat-card-subtitle>Job information</mat-card-subtitle>
+              </mat-card-header>
+            </mat-card>
+          </div>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="account">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let element">
+          <div style="display: flex;">
+            <mat-card>
+              <mat-card-header>
+                <mat-card-title>Account data</mat-card-title>
+              </mat-card-header>
+              <hr>
+              <br>
+              <mat-card-header>
+                <mat-card-title>{{applicationUser.username}}</mat-card-title>
+                <mat-card-subtitle>Username</mat-card-subtitle>
+              </mat-card-header>
+              <mat-card-header>
+                <mat-card-title>{{applicationUser.role}}</mat-card-title>
+                <mat-card-subtitle>Role</mat-card-subtitle>
+              </mat-card-header>
+              <mat-card-header>
+                <mat-card-title>Pennalties: {{applicationUser.penalty}}</mat-card-title>
+                <mat-card-subtitle>Number of penalties, resetting on every 1st day in the month</mat-card-subtitle>
+              </mat-card-header>
+              <mat-card-header>
+                <mat-card-title>Allowed to donate: {{(applicationUser.canDonate) ? "Yes" : "No" }}</mat-card-title>
+                <mat-card-subtitle>Address</mat-card-subtitle>
+              </mat-card-header>
+              <mat-card-header>
+                <mat-card-title>{{applicationUser.id}}</mat-card-title>
+                <mat-card-subtitle>ID</mat-card-subtitle>
+              </mat-card-header>
+              <mat-card-header>
+                <mat-card-title><a class="navbar-buttons" mat-raised-button color="primary"
+                    routerLink="/questionnaire">Questionnaire</a></mat-card-title>
+                <mat-card-subtitle>Fill questionnaire</mat-card-subtitle>
+              </mat-card-header>
+            </mat-card>
+          </div>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+
+
+
+
+
+
+
+    <!-- <mat-card>
+            <mat-card-header>
+              <mat-card-title>Account data</mat-card-title>
+            </mat-card-header>
+            <hr>
+            <br>
+            <mat-card-header>
+              <mat-card-title>{{applicationUser.username}}</mat-card-title>
+              <mat-card-subtitle>Username</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-header>
+              <mat-card-title>{{applicationUser.role}}</mat-card-title>
+              <mat-card-subtitle>Role</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-header>
+              <mat-card-title>Pennalties: {{applicationUser.penalty}}</mat-card-title>
+              <mat-card-subtitle>Number of penalties, resetting on every 1st day in the month</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-header>
+              <mat-card-title>Allowed to donate: {{(applicationUser.canDonate) ? "Yes" : "No" }}</mat-card-title>
+              <mat-card-subtitle>Address</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-header>
+              <mat-card-title><a class="navbar-buttons" mat-raised-button color="primary" routerLink="/questionnaire">Questionnaire</a></mat-card-title>
+              <mat-card-subtitle>Fill questionnaire</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-header>
+              <mat-card-title>{{applicationUser.name + " " + applicationUser.surname}}</mat-card-title>
+              <mat-card-subtitle>Name and surname</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-header>
+              <mat-card-title>{{applicationUser.email}}</mat-card-title>
+              <mat-card-subtitle>Email</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-header>
+              <mat-card-title>{{applicationUser.phone}}</mat-card-title>
+              <mat-card-subtitle>Phone</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-header>
+              <mat-card-title>{{applicationUser.address}}</mat-card-title>
+              <mat-card-subtitle>Address</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-header>
+              <mat-card-title>{{applicationUser.jmbg}}, {{applicationUser.sex.toUpperCase()}}</mat-card-title>
+              <mat-card-subtitle>JMBG and sex</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-header>
+              <mat-card-title>{{applicationUser.occupation}}</mat-card-title>
+              <mat-card-subtitle>Occupation</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-header>
+              <mat-card-title>{{applicationUser.jobinformation}}</mat-card-title>
+              <mat-card-subtitle>Job information</mat-card-subtitle>
+            </mat-card-header>
+          </mat-card> -->
+    <!-- </td>
+        <td> -->
+    <!-- <mat-card style="width: 95%; height: 90%; margin: 20px;">
+            <mat-card-header>
+              <mat-card-title>Personal data</mat-card-title>
+            </mat-card-header>
+            <hr>
+            <br>
+            <mat-card-header>
+              <mat-card-title>{{applicationUser.name + " " + applicationUser.surname}}</mat-card-title>
+              <mat-card-subtitle>Name and surname</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-header>
+              <mat-card-title>{{applicationUser.email}}</mat-card-title>
+              <mat-card-subtitle>Email</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-header>
+              <mat-card-title>{{applicationUser.phone}}</mat-card-title>
+              <mat-card-subtitle>Phone</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-header>
+              <mat-card-title>{{applicationUser.address}}</mat-card-title>
+              <mat-card-subtitle>Address</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-header>
+              <mat-card-title>{{applicationUser.jmbg}}, {{applicationUser.sex.toUpperCase()}}</mat-card-title>
+              <mat-card-subtitle>JMBG and sex</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-header>
+              <mat-card-title>{{applicationUser.occupation}}</mat-card-title>
+              <mat-card-subtitle>Occupation</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-header>
+              <mat-card-title>{{applicationUser.jobinformation}}</mat-card-title>
+              <mat-card-subtitle>Job information</mat-card-subtitle>
+            </mat-card-header>
+          </mat-card> -->
+    <!-- </td>
+        
+      </tr>
+    </table> -->
+  </div>
 
 </div>

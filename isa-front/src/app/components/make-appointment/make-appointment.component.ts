@@ -9,6 +9,7 @@ import { tap } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth.service';
 import { AppointmentDTO } from 'src/app/model/dto/appointment.dto';
 import { Router } from '@angular/router';
+import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
   selector: 'app-make-appointment',
@@ -31,16 +32,15 @@ export class MakeAppointmentComponent implements OnInit {
 
   errorMessage: string = "";
   username: string;
+  userCanDonate: boolean = false;
 
-  constructor(public appointmentService: AppointmentService, public authService: AuthService, public router: Router) { }
+  constructor(public appointmentService: AppointmentService, public sessionStorage: StorageService,public authService: AuthService, public router: Router) { }
 
   ngOnInit(): void {
     this.dataSource = new MatTableDataSource;
     this.username = this.authService.getUsername();
-
+    this.userCanDonate = JSON.parse(this.sessionStorage.getItem('canDonate'));
     this.loadPage();
-    console.log("DATASOURCE");
-    console.log(this.dataSource);
   }
 
   ngAfterViewInit(): void {
@@ -61,17 +61,20 @@ export class MakeAppointmentComponent implements OnInit {
 
   onMake(appointment: AppointmentModel) {
     console.log("Make appointment");
+    if(!this.userCanDonate) {
+      alert("User doesn\'t fulfill all conditions to make an appointment.")
+    } else {
     let appointmentDto: AppointmentDTO = new AppointmentDTO();
     appointmentDto.id = appointment.id;
     appointmentDto.username = this.username;
     this.appointmentService.reserveAppointment(appointmentDto)
       .subscribe((data) => {
-        console.log(data);
         this.router.navigate(['my-appointments']);
 
       },
-        (error) => console.log("75: " + error)
+        (error) => console.log(error)
       );
+    }
   }
   
   loadPage() {
@@ -83,8 +86,7 @@ export class MakeAppointmentComponent implements OnInit {
         sortActive = this.sort.active;
         sortDirection = this.sort.direction;
       }
-      sort = sortActive + "," + sortDirection;
-      console.log(sort);
+      sort = sortActive + "," + sortDirection
     }
 
     let pageIndex = 0;
@@ -93,7 +95,6 @@ export class MakeAppointmentComponent implements OnInit {
       pageIndex = this.paginator.pageIndex;
       pageSize = this.paginator.pageSize;
     }
-    console.log(sort);
     this.getFreePageable(sort, pageIndex, pageSize);
   }
 
