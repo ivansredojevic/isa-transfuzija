@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormGroupDirective, ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
+import { ApplicationUserDTO } from 'src/app/model/dto/applicationUser.dto';
+import { DatePipe } from '@angular/common'
+import { SnackService } from 'src/app/services/snackHelper.service';
+import { ApplicationUserService } from 'src/app/services/application.user.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -12,7 +17,7 @@ export class RegisterComponent implements OnInit {
   sex: String;
   registerForm: FormGroup;
 
-  constructor() { }
+  constructor(public datepipe: DatePipe, public router: Router, public userService: ApplicationUserService, public snackService: SnackService) { }
 
   ngOnInit() {
     this.createForm();
@@ -33,30 +38,68 @@ export class RegisterComponent implements OnInit {
         'phone': new FormControl(null),
         'jmbg': new FormControl(null),
         'sex': new FormControl(null, [Validators.required]),
+        'date': new FormControl(new Date(), [Validators.required]),
         'occupation': new FormControl(null),
         'jobinformation': new FormControl(null),
       }, { validators: passwordMatchingValidatior }
     )
-
-
   }
-
-  // checkPassword(control: { value: any; }) {
-  //   let enteredPassword = control.value
-  //   let passwordCheck = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{6,})/;
-  //   return (!passwordCheck.test(enteredPassword) && enteredPassword) ? { 'requirements': true } : null;
-  // }
 
   onSubmit(formData: FormGroup, formDirective: FormGroupDirective): void {
 
     const email = formData.value.email;
     const password = formData.value.password;
-    const passwordConfirm = formData.value.passwordConfirm;
     const username = formData.value.username;
     const sex = formData.value.sex;
-    // this.auth.registerUSer(email, password, username);
-    // formDirective.resetForm();
-    // this.registerForm.reset();
+    const date = formData.value.date;
+    const name = formData.value.name;
+    const surname = formData.value.surname;
+    const address = formData.value.address;
+    const phone = formData.value.phone;
+    const jmbg = formData.value.jmbg;
+    const occupation = formData.value.occupation;
+    const jobinformation = formData.value.jobinformation;
+
+    let applicationUser: ApplicationUserDTO = new ApplicationUserDTO();
+    applicationUser.username = username;
+    applicationUser.password = password;
+    applicationUser.email = email;
+    applicationUser.name = name;
+    applicationUser.surname = surname;
+    applicationUser.address = address;
+    applicationUser.phone = phone;
+    applicationUser.jmbg = jmbg;
+    applicationUser.sex = sex;
+    applicationUser.lastDonationDate = this.convertDateString(date);
+    applicationUser.occupation = occupation;
+    applicationUser.jobinformation = jobinformation;
+
+    console.log(applicationUser);
+
+    this.userService.register(applicationUser)
+      .subscribe(
+        (data) => {
+          console.log(data.response);
+          let response: string = data.response;
+          if (response.startsWith("User with ")) {
+            this.snackService.showSnack(response, "OK");
+          } else {
+            this.router.navigate(["/login"], {
+              state: { addRegisterResponse: data.response }
+            })
+          }
+        },
+        error => {
+          console.log(error);
+          this.snackService.showSnack(error, "OK")
+        }
+      );
+  }
+
+  convertDateString(date: Date) {
+    let newDate: string;
+    newDate = this.datepipe.transform(date, 'yyy-MM-dd')!;
+    return newDate;
   }
 
 }

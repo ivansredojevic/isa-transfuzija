@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import com.ivan.isaback.model.ApplicationUser;
 import com.ivan.isaback.model.Questionnaire;
 import com.ivan.isaback.model.dto.ApplicationUserDTO;
+import com.ivan.isaback.model.dto.RegisterUserDTO;
 import com.ivan.isaback.repository.ApplicationUserRepository;
 import com.ivan.isaback.repository.QuestionnaireRepository;
 import com.ivan.isaback.service.ApplicationUserService;
@@ -43,30 +44,48 @@ public class ApplicationUserServiceImpl implements ApplicationUserService, UserD
 	}
 
 	@Override
-	public ApplicationUser registerUser(ApplicationUser user) {
+	public String registerUser(RegisterUserDTO user) {
 		
 		Optional<ApplicationUser> existingEmail= userRepository.findOneByEmail(user.getEmail());
 		Optional<ApplicationUser> existingUsername = userRepository.findOneByUsername(user.getUsername());
 		
-		if(existingEmail.isPresent() || existingUsername.isPresent()) {
-			return null;
+		if(existingEmail.isPresent()) {
+			return "User with email " + user.getEmail() + " already exists.";
+		} else if(existingUsername.isPresent()) {
+			return "User with username " + user.getUsername() + " already exists.";
 		}
-		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-		user.setToken(UUID.randomUUID().toString());
-		user.setRole(user.getRole());
-		user.setActivated(false);
-		user.setPenalty(0);
-		ApplicationUser savedUser = userRepository.save(user);
+		log.info(user.toString());
+		
+		ApplicationUser newUser = new ApplicationUser();
+		newUser.setUsername(user.getUsername());
+		newUser.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+		newUser.setEmail(user.getEmail());
+		newUser.setName(user.getName());
+		newUser.setSurname(user.getSurname());
+		newUser.setAddress(user.getAddress());
+		newUser.setPhone(user.getPhone());
+		newUser.setJmbg(user.getJmbg());
+		newUser.setSex(user.getSex());
+		newUser.setOccupation(user.getOccupation());
+		newUser.setJobinformation(user.getJobinformation());
+		newUser.setToken(UUID.randomUUID().toString());
+		newUser.setRole(user.getRole());
+		newUser.setActivated(false);
+		newUser.setPenalty(0);
+		newUser.setLastDonationDate(LocalDate.parse(user.getLastDonationDate()));
+		
+		
+		ApplicationUser savedUser = userRepository.save(newUser);
 		
 		EmailDetails emailDetails = new EmailDetails();
 		emailDetails.setRecipient(user.getEmail());
 		emailDetails.setSubject("ISA activation mail");
-		emailDetails.setMsgBody("http://localhost:8089/api/users/activate/" + user.getToken());
+		emailDetails.setMsgBody("http://localhost:8089/api/users/activate/" + savedUser.getToken());
 		log.info(emailDetails.getMsgBody());
-		log.info(user.getToken());
+		log.info(savedUser.getToken());
 		emailService.sendLink(emailDetails);
 		
-		return savedUser;
+		return "Your account is created. Visit the link from email to activate your account.";
 	}
 
 	@Override

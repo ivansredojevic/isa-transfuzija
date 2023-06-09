@@ -41,6 +41,9 @@ import { MakeAppointmentComponent } from './components/make-appointment/make-app
 import { CreateComplaintComponent } from './components/create-complaint/create-complaint.component';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { DatePipe } from '@angular/common';
 
 
 @NgModule({
@@ -89,8 +92,10 @@ import { MatMenuModule } from '@angular/material/menu';
     MatSnackBarModule,
     MatMenuModule,
     MatToolbarModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

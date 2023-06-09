@@ -2,7 +2,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { AppointmentModel } from '../model/appointment.model';
 import { InsertComplaintDTO } from '../model/dto/insert.complaint.dto';
 
 @Injectable({

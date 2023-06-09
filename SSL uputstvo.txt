@@ -1,0 +1,41 @@
+BING AI kaze sledece
+
+Here is an example of how to enable HTTPS on a Spring Boot backend¹:
+
+1. Get yourself an SSL certificate: generate a self-signed certificate or get one from a Certificate Authority.
+2. Enable HTTPS in Spring Boot.
+
+```java
+server.port=8443
+server.ssl.key-store=classpath:keystore.p12
+server.ssl.key-store-password=secret
+server.ssl.keyStoreType=PKCS12
+server.ssl.keyAlias=tomcat
+```
+
+I hope this helps!
+
+Source: Conversation with Bing, 6/9/2023
+(1) Enable HTTPS in Spring Boot - drissamri.com. https://www.drissamri.com/blog/java/enable-https-in-spring-boot/.
+(2) Enable both http and https on Spring Boot - GitHub Pages. https://mvysny.github.io/spring-boot-enable-http-https/.
+(3) HTTPS using Self-Signed Certificate in Spring Boot | Baeldung. https://www.baeldung.com/spring-boot-https-self-signed-certificate.
+(4) How to enable HTTPS in a Spring Boot Java application - Thomas Vitale. https://www.thomasvitale.com/https-spring-boot-ssl-certificate/.
+(5) Spring Boot - enable and configure SSL certificate. https://stackoverflow.com/questions/49534219/spring-boot-enable-and-configure-ssl-certificate.
+
+
+Here is an example of how to configure SSL certificate in your Angular app¹:
+
+1. Generate an SSL certificate.
+2. Install the certificate to a local Certificate Authority (CA).
+3. Configure the Angular CLI to use your generated certificate.
+
+```javascript
+ng serve --ssl true --ssl-key /path/to/key.pem --ssl-cert /path/to/cert.pem
+```
+
+I hope this helps!
+
+Source: Conversation with Bing, 6/9/2023
+(1) Angular SSL - Configuring HTTPS In Your Angular Project. https://www.briangetsbinary.com/angular/software%20engineering/2021/09/20/angular-cli-configuring-ssl.html.
+(2) ssl - How to run Angular with https when by default it runs with http .... https://stackoverflow.com/questions/54453112/how-to-run-angular-with-https-when-by-default-it-runs-with-http.
+(3) Running Angular CLI over HTTPS with a Trusted Certificate. https://medium.com/@rubenvermeulen/running-angular-cli-over-https-with-a-trusted-certificate-4a0d5f92747a.

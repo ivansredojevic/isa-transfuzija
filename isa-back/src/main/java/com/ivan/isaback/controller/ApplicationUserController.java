@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ivan.isaback.model.ApplicationUser;
 import com.ivan.isaback.model.dto.ApplicationUserDTO;
+import com.ivan.isaback.model.dto.RegisterUserDTO;
 import com.ivan.isaback.service.ApplicationUserService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -34,14 +35,9 @@ public class ApplicationUserController {
 	}
 
 	@PostMapping("register")
-	public ResponseEntity<String> addUser(@RequestBody ApplicationUser user) {
-		if (userService.findByEmail(user.getEmail()).isPresent()) {
-			return ResponseEntity.ok("User with email '" + user.getEmail() + "' already exists.");			
-		}
-		log.info("insert: " + user);
-		ApplicationUser u = userService.registerUser(user);
-		log.info("" + u);
-		return ResponseEntity.ok("OK");
+	public ResponseEntity<String> addUser(@RequestBody RegisterUserDTO user) {
+		String response = userService.registerUser(user);
+		return ResponseEntity.ok("{ \"response\" : \"" + response + "\" }");
 	}
 	
 	@PutMapping("update/{id}")

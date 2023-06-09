@@ -4,10 +4,11 @@ import java.util.Optional;
 
 import com.ivan.isaback.model.ApplicationUser;
 import com.ivan.isaback.model.dto.ApplicationUserDTO;
+import com.ivan.isaback.model.dto.RegisterUserDTO;
 
 public interface ApplicationUserService {
 	
-	ApplicationUser registerUser(ApplicationUser user);
+	String registerUser(RegisterUserDTO user);
 	void deleteUser(int id);
 	void updateUser(ApplicationUserDTO user);
 	void addPenalty(ApplicationUserDTO user);

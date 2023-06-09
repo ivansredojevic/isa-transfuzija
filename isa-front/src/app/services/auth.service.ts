@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
-import { AuthUserModel } from "../model/auth.user.model";
 import { environment } from '../../environments/environment';
-import { Subject, Observable } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { ApplicationUserModel } from '../model/applicationUser.model';
+import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -23,10 +21,6 @@ export class AuthService {
     return {
       headers: headers
     };
-  }
-
-  register(appUser: ApplicationUserModel) {
-    return this.http.post(this.resourceUrl + "/users/register", appUser);
   }
 
   login(user: any): Observable<any>  {

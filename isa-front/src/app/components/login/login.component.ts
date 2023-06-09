@@ -5,6 +5,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
 import { ApplicationUserService } from 'src/app/services/application.user.service';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
+import { SnackService } from 'src/app/services/snackHelper.service';
 
 @Component({
   selector: 'app-login',
@@ -14,13 +15,17 @@ import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
-  errorMessage: string = "";
   private user: AuthUserModel = new AuthUserModel();
+  addRegisterResponse: string;
 
   constructor(public authService: AuthService, private router: Router, 
-      public userService: ApplicationUserService, private snackBar: MatSnackBar) { }
+      public userService: ApplicationUserService, private snackService: SnackService) { }
 
   ngOnInit(): void {
+    this.addRegisterResponse = history.state.addRegisterResponse;
+    if(!!this.addRegisterResponse) {
+      this.snackService.showSnack(this.addRegisterResponse, "OK");
+    }
     this.createForm();
   }
   
@@ -45,17 +50,10 @@ export class LoginComponent implements OnInit {
         },
         error => {
           console.log(error);
-          this.openSnackBar("Login failed!\nUsername and password not matching or account is not activated.\nPlease check your email.", "DISMISS");
+          this.snackService.showSnack("Login failed!\nUsername and password not matching or account is not activated.\nPlease check your email.", "DISMISS");
           localStorage.removeItem('token');
         }
     );
-  }
-
-  openSnackBar(redirectReason: string, action: string) {
-    const config = new MatSnackBarConfig();
-    config.verticalPosition = 'top';
-    config.duration = 5000;
-    this.snackBar.open(redirectReason, action, config);
   }
 
 }

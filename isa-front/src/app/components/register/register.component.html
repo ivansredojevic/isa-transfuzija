@@ -68,6 +68,13 @@
                     <br>
 
                     <mat-form-field>
+                        <mat-label>Date of last donation</mat-label>
+                        <input matInput [matDatepicker]="dp3" formControlName="date">
+                        <mat-datepicker-toggle matIconSuffix [for]="dp3"></mat-datepicker-toggle>
+                        <mat-datepicker #dp3></mat-datepicker>
+                    </mat-form-field>
+
+                    <mat-form-field>
                         <mat-icon matPrefix>work</mat-icon>
                         <input autofocus type="text" matInput placeholder="Occupation" formControlName="occupation">
                     </mat-form-field>
