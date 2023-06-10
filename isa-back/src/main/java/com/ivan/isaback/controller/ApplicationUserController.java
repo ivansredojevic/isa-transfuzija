@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ivan.isaback.model.ApplicationUser;
 import com.ivan.isaback.model.dto.ApplicationUserDTO;
+import com.ivan.isaback.model.dto.ConditionsEvaluationDTO;
 import com.ivan.isaback.model.dto.RegisterUserDTO;
 import com.ivan.isaback.service.ApplicationUserService;
 
@@ -24,7 +25,6 @@ import lombok.extern.slf4j.Slf4j;
 @CrossOrigin
 @Slf4j
 @RequestMapping("/api/users/")
-@PreAuthorize("hasAnyRole('ADMIN', 'USER')")
 public class ApplicationUserController {
 	
 	private ApplicationUserService userService;
@@ -32,34 +32,29 @@ public class ApplicationUserController {
 		super();
 		this.userService = userService;
 	}
-	
+
+	@PreAuthorize("hasAnyRole('ADMIN', 'USER')")
 	@PutMapping("update/{id}")
 	public void updateUser(@RequestBody ApplicationUserDTO userDto) {
 		log.info("update " + userDto);
 		userService.updateUser(userDto);
 	}
 	
-	
+	@PreAuthorize("hasAnyRole('ADMIN', 'USER')")
 	@PutMapping("update-password/{id}")
 	public void updatePassword(@RequestBody ApplicationUser user) {
 		log.info("update password " + user);
 		userService.updatePassword(user);
 	}
 	
+	@PreAuthorize("hasAnyRole('ADMIN', 'USER')")
 	@DeleteMapping("delete/{id}")
 	public void deleteUser(@PathVariable int id) {
 		log.info("delete " + id);
 		this.userService.deleteUser(id);
 	}
 	
-	@GetMapping(path = "activate/{token}")
-	public ResponseEntity<String> activate(@PathVariable String token) {
-		if(!userService.activateUser(token)) {
-			return new ResponseEntity<>("Account already activated or token doesn't exist", HttpStatus.BAD_REQUEST);
-		}
-		return new ResponseEntity<String>("Account activated", HttpStatus.OK);
-	}
-	
+	@PreAuthorize("hasAnyRole('ADMIN', 'USER')")
 	@GetMapping(path = "get/{username}")
 	public ResponseEntity<ApplicationUser> getByUsername(@PathVariable String username) {
 		
@@ -70,6 +65,7 @@ public class ApplicationUserController {
 		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
 	}
 	
+	@PreAuthorize("hasAnyRole('ADMIN', 'USER')")
 	@GetMapping(path = "load-user/{username}")
 	public ResponseEntity<ApplicationUserDTO> getCurrentByUsername(@PathVariable String username) {
 		
@@ -81,6 +77,29 @@ public class ApplicationUserController {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
 		}
 	}
+	
+	// helper function to provide information whether user is allowed to make appointment or not
+	@PreAuthorize("hasAnyRole('ADMIN', 'USER')")
+	@GetMapping(path = "evaluate-conditions/{username}")
+	public ResponseEntity<ConditionsEvaluationDTO> evaluateConditions(@PathVariable String username) {
+		ConditionsEvaluationDTO conditionsEvaluationDTO = new ConditionsEvaluationDTO(userService.evaluateConditions(username));
+		return ResponseEntity.ok(conditionsEvaluationDTO);
+	}
+	
+	@GetMapping(path = "activate/{token}")
+	public ResponseEntity<String> activate(@PathVariable String token) {
+		if(!userService.activateUser(token)) {
+			return new ResponseEntity<>("Account already activated or token doesn't exist", HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<String>("Account activated", HttpStatus.OK);
+	}
+	
+	@PostMapping("register")
+	public ResponseEntity<String> registerUser(@RequestBody RegisterUserDTO user) {
+		String response = userService.registerUser(user);
+		return ResponseEntity.ok("{ \"response\" : \"" + response + "\" }");
+	}	
+	
 	
 //	@PutMapping("penalty/{id}")
 //	public void addPenalty(@RequestBody ApplicationUserDTO userDto) {

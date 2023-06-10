@@ -18,5 +18,6 @@ public interface ApplicationUserRepository extends JpaRepository<ApplicationUser
 	Optional<ApplicationUser> findOneById(int id);
 	Optional<ApplicationUser> findOneByEmail(String email);
 	Optional<ApplicationUser> findOneByTokenAndActivatedFalse(String token);
+	Optional<ApplicationUser> findOneByUsernameAndActivatedTrue(String username);
 	
 }

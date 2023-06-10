@@ -1,1 +1,74 @@
-<p>fill-questionnaire works!</p>
+<form>
+    <div class="quest-container">
+        <div class="quest-content">
+            <mat-toolbar class="quest-toolbar" color="primary">DONATOR'S QUESTIONNAIRE</mat-toolbar>
+            <mat-card>
+
+                <form #questionnaireForm="ngForm" (ngSubmit)="onSubmit()">
+                    <table>
+                        <!-- <tr>
+                            <td>
+                                <label for="donationCount">Donation count </label>
+                                <input type="number" name="donationCount" [(ngModel)]="donationCount" value="0">
+                            </td>
+                        </tr> -->
+                        <tr>
+                            <td>
+                                <mat-checkbox [(ngModel)]="rejected" name="rejected">Rejected?
+                                </mat-checkbox>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <mat-checkbox [(ngModel)]="healthy" name="healthy">Healthy?
+                                </mat-checkbox>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <mat-checkbox [(ngModel)]="dangerousOccupation" name="dangerousOccupation">Have
+                                    dangerous occupation?
+                                </mat-checkbox>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <mat-checkbox [(ngModel)]="tatooed" name="tatooed">Have tatoos?
+                                </mat-checkbox>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <mat-checkbox [(ngModel)]="infectious" name="infectious">Have infection?
+                                </mat-checkbox>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <mat-checkbox [(ngModel)]="bloodPressureIssues" name="bloodPressureIssues">Blood
+                                    pressure issues?
+                                </mat-checkbox>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <mat-checkbox [(ngModel)]="onTherapy" name="onTherapy">On therapy?
+                                </mat-checkbox>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <mat-checkbox [(ngModel)]="aspirin" name="aspirin">Used Aspirin?
+                                </mat-checkbox>
+                            </td>
+                        </tr>
+                    </table>
+                    <br>
+                    <div class="submit-button">
+                        <button type="submit" mat-raised-button color="accent">Submit</button>
+                    </div>
+                </form>
+            </mat-card>
+        </div>
+    </div>
+</form>

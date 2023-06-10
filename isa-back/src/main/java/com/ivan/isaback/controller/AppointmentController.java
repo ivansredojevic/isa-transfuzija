@@ -59,9 +59,9 @@ public class AppointmentController {
 	}
 	
 
-	@GetMapping(value = "free-pageable")
-	public Page<AppointmentItemDTO> getFreePageable(Pageable pageable){
-		return appointmentService.findFreePageable(pageable);
+	@GetMapping(value = "free-pageable/{username}")
+	public Page<AppointmentItemDTO> getFreePageable(@PathVariable String username, Pageable pageable){
+		return appointmentService.findFreePageable(username, pageable);
 	}
 	
 	@GetMapping(value = "get/{id}")
@@ -105,6 +105,7 @@ public class AppointmentController {
 			appointment = appointmentService.make(dto);
 			return ResponseEntity.ok(appointment);
 		} catch (Exception e) {
+			e.printStackTrace();
 			log.error(e.getMessage());
 			return ResponseEntity.internalServerError().body(null);
 		}

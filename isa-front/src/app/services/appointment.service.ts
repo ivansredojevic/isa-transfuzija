@@ -14,11 +14,11 @@ export class AppointmentService {
 
     constructor(private http: HttpClient) { }
 
-    getFreePageable(sort = 'id,asc', page: number, size: number): Observable<any> {
+    getFreePageable(username: string, sort = 'id,asc', page: number, size: number): Observable<any> {
         const headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': `Bearer ` + localStorage.getItem('token') });
         
         return this.http.get<any>(
-            this.resourceUrl + '/appointment/free-pageable',
+            this.resourceUrl + '/appointment/free-pageable/' + username,
             {
                 params: {
                     sort: sort,

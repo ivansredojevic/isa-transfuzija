@@ -25,7 +25,7 @@
 
             <ng-container matColumnDef="startTime">
                 <mat-header-cell *matHeaderCellDef mat-sort-header> Start time </mat-header-cell>
-                <mat-cell *matCellDef="let row"> {{row.startTime}} </mat-cell>
+                <mat-cell *matCellDef="let row"> {{row.startTime.replace('T', ', ')}} </mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="duration">

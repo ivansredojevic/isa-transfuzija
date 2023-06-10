@@ -35,3 +35,10 @@ td {
     width: 45%;
     text-align: left;
 }
+
+.user-button {
+    width: 189px;
+    margin: 3px;
+    text-align: left;
+    overflow: hidden;
+  }

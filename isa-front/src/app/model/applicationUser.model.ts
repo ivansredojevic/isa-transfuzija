@@ -11,6 +11,7 @@ export class ApplicationUserModel {
   sex: string = "";
   occupation: string;
   jobinformation: string;
+  lastDonationDate: string;
   role: string;
   penalty: number;
   questionnaireId: number;

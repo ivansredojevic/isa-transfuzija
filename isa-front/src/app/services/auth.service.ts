@@ -24,7 +24,7 @@ export class AuthService {
     };
   }
 
-  login(user: any): Observable<any>  {
+  login(user: any): Observable<any> {
     return this.http.post(this.resourceUrl + "/auth/generate-token", user);
   }
 
@@ -37,21 +37,12 @@ export class AuthService {
     }
   }
 
-  register(appUser: ApplicationUserDTO): Observable<any> {
-    const headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
-
-    return this.http.post(this.resourceUrl + "/auth/register", appUser,
-    {
-        headers: headers
-    });
-}
-
   logout() {
-    sessionStorage.removeItem('userCanDonate');
+    sessionStorage.removeItem('canDonate');
     localStorage.removeItem('token');
   }
 
-  getUserDetails(username: string){
+  getUserDetails(username: string) {
     return this.http.get<any>(this.resourceUrl + '/users/get/' + username, this.getAuthHeader());
   }
 

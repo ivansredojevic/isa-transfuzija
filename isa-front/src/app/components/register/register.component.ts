@@ -5,6 +5,7 @@ import { DatePipe } from '@angular/common'
 import { SnackService } from 'src/app/services/snackHelper.service';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
+import { ApplicationUserService } from 'src/app/services/application.user.service';
 
 
 @Component({
@@ -17,7 +18,7 @@ export class RegisterComponent implements OnInit {
   sex: String;
   registerForm: FormGroup;
 
-  constructor(public datepipe: DatePipe, public router: Router, public authService: AuthService, public snackService: SnackService) { }
+  constructor(public datepipe: DatePipe, public router: Router, public userService: ApplicationUserService, public snackService: SnackService) { }
 
   ngOnInit() {
     this.createForm();
@@ -76,7 +77,7 @@ export class RegisterComponent implements OnInit {
     // hardcoded for regular users
     applicationUser.role = "USER";
 
-    this.authService.register(applicationUser)
+    this.userService.register(applicationUser)
       .subscribe(
         (data) => {
           let response: string = data.response;

@@ -8,13 +8,11 @@
   <div>
     <mat-card class="mat-elevation-z8">
       <mat-card-header>
-        <mat-card-title>{{applicationUser.username}}</mat-card-title>
-        <mat-card-subtitle>Role {{applicationUser.role}}</mat-card-subtitle>
+        <mat-card-title><button class="user-button" mat-menu-item><mat-icon>person</mat-icon>{{applicationUser.username}}</button></mat-card-title>
+        <mat-card-subtitle><button class="user-button" mat-menu-item>Role {{applicationUser.role}}</button></mat-card-subtitle>
       </mat-card-header>
       <hr>
       <br>
-      <!-- <mat-card-content> -->
-        
       <div>
         <table id="user-table">
             <tr>
@@ -22,36 +20,36 @@
                 <p><strong>{{applicationUser.name + " " + applicationUser.surname}}</strong><br>Name and surname</p> 
               </td>
               <td>
-                <p><strong>{{applicationUser.email}}</strong><br><p>Email</p></p> 
+                <p><strong>{{applicationUser.email}}</strong><br></p> <p>Email</p>
               </td>
             </tr>
             <tr>
               <td>
-                <p><strong>{{applicationUser.address}}</strong><br><p>Address</p></p> 
+                <p><strong>{{applicationUser.address}}</strong><br></p><p>Address</p>
               </td>
               <td>
-                <p><strong>{{applicationUser.phone}}</strong><br><p>Phone</p></p> 
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <p><strong>{{applicationUser.jmbg}}</strong><br><p>UMNC</p></p> 
-              </td>
-              <td>
-                <p><strong>{{applicationUser.occupation}}</strong><br><p>Occupation</p></p>
+                <p><strong>{{applicationUser.phone}}</strong><br></p><p>Phone</p>
               </td>
             </tr>
             <tr>
               <td>
-                <p><strong>{{applicationUser.sex.toUpperCase()}}</strong><br><p>sex</p></p> 
+                <p><strong>{{applicationUser.jmbg}}</strong><br></p><p>UMNC</p>
               </td>
               <td>
-                <p><strong>{{applicationUser.jobinformation}}</strong><br><p>Job information</p></p> 
+                <p><strong>{{applicationUser.occupation}}</strong><br></p><p>Occupation</p>
               </td>
             </tr>
             <tr>
               <td>
-                <p><strong>Penalties: {{applicationUser.penalty}}</strong><br><p>Penalties are deleted on 1st day of the month</p></p> 
+                <p><strong>{{applicationUser.sex.toUpperCase()}}</strong><br></p><p>sex</p>
+              </td>
+              <td>
+                <p><strong>{{applicationUser.jobinformation}}</strong><br></p><p>Job information</p>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <p><strong>Penalties: {{applicationUser.penalty}}</strong><br></p><p>Penalties are deleted on 1st day of the month</p>
               </td>
               <td>
                 <p>
@@ -59,10 +57,16 @@
                   <a class="navbar-buttons" *ngIf="hasQuestionnaire" mat-raised-button color="primary" routerLink="/questionnaire">View questionnaire</a></p>
               </td>
             </tr>
+            <tr>
+              <td>
+                <p><strong>{{applicationUser.lastDonationDate}}</strong><br></p><p>Last donation date</p>
+              </td>
+              <td>
+              </td>
+            </tr>
+            
           </table>
         </div>
-        <!-- </mat-card-content> -->
-
     </mat-card>
   </div>
 </div>

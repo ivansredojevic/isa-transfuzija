@@ -11,6 +11,7 @@ import { AppointmentDTO } from 'src/app/model/dto/appointment.dto';
 import { Router } from '@angular/router';
 import { StorageService } from 'src/app/services/storage.service';
 import { SnackService } from 'src/app/services/snackHelper.service';
+import { ApplicationUserService } from 'src/app/services/application.user.service';
 
 @Component({
   selector: 'app-make-appointment',
@@ -38,7 +39,7 @@ export class MakeAppointmentComponent implements OnInit {
   cancelAppointmentResult: string = "";
 
   constructor(public appointmentService: AppointmentService, public snackService: SnackService, 
-    public sessionStorage: StorageService, public authService: AuthService, public router: Router) { }
+    public sessionStorage: StorageService, public authService: AuthService, public router: Router, public userService: ApplicationUserService) { }
 
   ngOnInit(): void {
     this.dataSource = new MatTableDataSource;
@@ -115,7 +116,7 @@ export class MakeAppointmentComponent implements OnInit {
   }
 
   getFreePageable(sort: string, page: number, size: number) {
-    this.appointmentService.getFreePageable(sort, page, size)
+    this.appointmentService.getFreePageable(this.username, sort, page, size)
       .subscribe(data => {
         this.totalElements = data.totalElements;
         this.dataSource = new MatTableDataSource(data.content);

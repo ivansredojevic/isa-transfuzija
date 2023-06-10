@@ -45,6 +45,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { DatePipe } from '@angular/common';
 import { FillQuestionnaireComponent } from './components/fill-questionnaire/fill-questionnaire.component';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 
 @NgModule({
@@ -95,7 +96,8 @@ import { FillQuestionnaireComponent } from './components/fill-questionnaire/fill
     MatMenuModule,
     MatToolbarModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatSlideToggleModule 
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]

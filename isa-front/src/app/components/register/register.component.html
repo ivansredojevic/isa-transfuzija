@@ -68,8 +68,16 @@
                     <mat-form-field>
                         <mat-label>Date of last donation</mat-label>
                         <input matInput [matDatepicker]="dp3" formControlName="date">
-                        <mat-datepicker-toggle matIconSuffix [for]="dp3"></mat-datepicker-toggle>
+                        <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
                         <mat-datepicker #dp3></mat-datepicker>
+
+
+                        <!-- <input matInput formControlName="date" aria-label="startDate"
+                            [matDatepicker]="start">
+                        <mat-datepicker-toggle matSuffix [for]="start"></mat-datepicker-toggle>
+                        <mat-datepicker #start></mat-datepicker> -->
+
+
                     </mat-form-field>
 
                     <mat-form-field>

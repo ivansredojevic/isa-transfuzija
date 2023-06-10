@@ -1,4 +1,4 @@
-.login-container {
+.quest-container {
     margin-top: 50px;
     height: 100%;
     width: 100%;
@@ -10,13 +10,13 @@ form {
     width: 100%;
 }
 
-.login-content {
+.quest-content {
     width: 400px;
     display: block;
     margin: 0 auto;
 }
 
-.login-toolbar {
+.quest-toolbar {
     justify-content: center;
 }
 
@@ -34,4 +34,15 @@ form {
 .submit-button {
     display: flex;
     justify-content: space-around;
+}
+
+table {
+    width: 100%;
+    border-spacing: 10px;
+    table-layout: fixed;
+}
+
+td {
+    width: 45%;
+    text-align: left;
 }

@@ -29,6 +29,7 @@ public class ApplicationUserDTO {
 	private String role;
 	private int penalty;
 	private int questionnaireId;
+	private String lastDonationDate;
 	private boolean canDonate;
 	
 	public ApplicationUserDTO(ApplicationUser user, boolean canDonate, int questId) {
@@ -46,6 +47,9 @@ public class ApplicationUserDTO {
 		this.role = user.getRole();
 		this.penalty = user.getPenalty();
 		this.questionnaireId = questId;
+		if(user.getLastDonationDate() != null) {
+			this.lastDonationDate = user.getLastDonationDate().toString();
+		}
 		this.canDonate = canDonate;
 	}
 	

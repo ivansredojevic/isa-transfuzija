@@ -24,4 +24,22 @@ export class ApplicationUserService {
             });
     }
 
+    register(appUser: ApplicationUserDTO): Observable<any> {
+        const headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+        return this.http.post(this.resourceUrl + "/users/register", appUser,
+            {
+                headers: headers
+            });
+    }
+
+    conditionsEvaluate(username: string): Observable<any> {
+        const headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': `Bearer ` + localStorage.getItem('token') });
+
+        return this.http.get<any>(
+            this.resourceUrl + '/users/evaluate-conditions/' + username,
+            {
+                headers: headers
+            });
+    }
 }
