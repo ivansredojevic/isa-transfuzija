@@ -18,34 +18,3 @@ export class ApplicationUserModel {
   canDonate: boolean;
 
 }
-
-
-
-
-
-/*
-name surname
-
-email
-
-address
-
-phone
-
-sex
-
-jmbg
-
-
-
-
-
-
-
-
-
-
-
-
-
-  */
