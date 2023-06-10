@@ -12,13 +12,11 @@ import org.springframework.stereotype.Service;
 
 import com.ivan.isaback.model.ApplicationUser;
 import com.ivan.isaback.model.Appointment;
-import com.ivan.isaback.model.Questionnaire;
 import com.ivan.isaback.model.dto.AppointmentDTO;
 import com.ivan.isaback.model.dto.AppointmentItemDTO;
 import com.ivan.isaback.model.dto.AppointmentItemResponseDTO;
 import com.ivan.isaback.repository.ApplicationUserRepository;
 import com.ivan.isaback.repository.AppointmentRepository;
-import com.ivan.isaback.repository.QuestionnaireRepository;
 import com.ivan.isaback.service.ApplicationUserService;
 import com.ivan.isaback.service.AppointmentService;
 import com.ivan.isaback.util.email.EmailDetails;
@@ -32,7 +30,6 @@ public class AppointmentServiceImpl implements AppointmentService {
 
 	private AppointmentRepository appointmentRepository;
 	private ApplicationUserRepository applicationUserRepository;
-	private QuestionnaireRepository questionnaireRepository;
 	private EmailService emailService;
 	private ApplicationUserService applicationUserService;
 

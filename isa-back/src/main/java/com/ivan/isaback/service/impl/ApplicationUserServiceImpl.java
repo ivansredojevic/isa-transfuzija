@@ -18,8 +18,6 @@ import com.ivan.isaback.model.ApplicationUser;
 import com.ivan.isaback.model.Questionnaire;
 import com.ivan.isaback.model.dto.ActivationDTO;
 import com.ivan.isaback.model.dto.ApplicationUserDTO;
-import com.ivan.isaback.model.dto.AppointmentItemResponseDTO;
-import com.ivan.isaback.model.dto.ConditionsEvaluationDTO;
 import com.ivan.isaback.model.dto.RegisterUserDTO;
 import com.ivan.isaback.repository.ApplicationUserRepository;
 import com.ivan.isaback.repository.QuestionnaireRepository;
@@ -109,7 +107,7 @@ public class ApplicationUserServiceImpl implements ApplicationUserService, UserD
 					// questionnaire invalid
 					return false;
 				}
-				if (applicationUserOpt.get().getPenalty() > 3) {
+				if (applicationUserOpt.get().getPenalty() >= 3) {
 					// has more than 3 penalties
 					return false;
 				}

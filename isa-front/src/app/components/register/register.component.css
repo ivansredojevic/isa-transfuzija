@@ -1,5 +1,5 @@
 .login-container {
-  margin-top: 50px;
+  margin-top: 10px;
   height: 100%;
   width: 100%;
   align-items: center;
@@ -31,7 +31,14 @@ form {
   margin-top: 15px;
 }
 
-.submit-button {
-  display: flex;
-  justify-content: space-around;
+
+/* .submit-button {
+  position: sticky;
+  bottom: 0;
+} */
+
+.mat-card-content {
+  height: 70vh;
+  overflow-y: scroll;
+  
 }

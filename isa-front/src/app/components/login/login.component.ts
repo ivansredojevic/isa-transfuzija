@@ -25,6 +25,10 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.addRegisterResponse = history.state.addRegisterResponse;
+    if (!!this.addRegisterResponse) {
+      this.snackService.showSnack(this.addRegisterResponse, "OK");
+    }
+
     this.activationStatus = history.state.activationStatusMessage;
 
     if (!!this.activationStatus) {

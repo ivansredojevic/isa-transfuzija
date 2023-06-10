@@ -3,99 +3,95 @@
         <div class="login-content">
             <mat-toolbar class="login-toolbar" color="primary">REGISTER</mat-toolbar>
             <mat-card>
+                <mat-card-content>
+                    <form [formGroup]="registerForm" #formDirective="ngForm"
+                        (ngSubmit)="onSubmit(registerForm, formDirective)">
+                        <mat-form-field>
+                            <mat-icon matPrefix>email</mat-icon>
+                            <input type="email" matInput placeholder="Email" formControlName="email">
+                        </mat-form-field>
 
-                <form [formGroup]="registerForm" #formDirective="ngForm"
-                    (ngSubmit)="onSubmit(registerForm, formDirective)">
-                    <mat-form-field>
-                        <mat-icon matPrefix>email</mat-icon>
-                        <input type="email" matInput placeholder="Email" formControlName="email">
-                    </mat-form-field>
+                        <mat-form-field>
+                            <mat-icon matPrefix>person</mat-icon>
+                            <input type="text" autocomplete="false" matInput placeholder="Username"
+                                formControlName="username">
+                        </mat-form-field>
 
-                    <mat-form-field>
-                        <mat-icon matPrefix>person</mat-icon>
-                        <input type="text" matInput placeholder="Username" formControlName="username">
-                    </mat-form-field>
+                        <mat-form-field>
+                            <mat-icon matPrefix>vpn_key</mat-icon>
+                            <input type="password" autocomplete="false" matInput placeholder="Password"
+                                formControlName="password" autocomplete="false">
+                            <mat-hint>Choose a strong password</mat-hint>
+                        </mat-form-field>
 
-                    <mat-form-field>
-                        <mat-icon matPrefix>vpn_key</mat-icon>
-                        <input type="password" autocomplete="false" matInput placeholder="Password"
-                            formControlName="password">
-                        <mat-hint>Choose a strong password</mat-hint>
-                    </mat-form-field>
+                        <mat-form-field>
+                            <mat-icon matPrefix>vpn_key</mat-icon>
+                            <input type="password" autocomplete="false" matInput placeholder="Confirm Password"
+                                formControlName="passwordConfirm">
+                            <mat-hint>Enter password again</mat-hint>
+                        </mat-form-field>
 
-                    <mat-form-field>
-                        <mat-icon matPrefix>vpn_key</mat-icon>
-                        <input type="password" autocomplete="false" matInput placeholder="Confirm Password"
-                            formControlName="passwordConfirm">
-                        <mat-hint>Enter password again</mat-hint>
-                    </mat-form-field>
+                        <mat-form-field>
+                            <mat-icon matPrefix>badge</mat-icon>
+                            <input type="text" matInput placeholder="Name" formControlName="name">
+                        </mat-form-field>
 
-                    <mat-form-field>
-                        <mat-icon matPrefix>badge</mat-icon>
-                        <input type="text" matInput placeholder="Name" formControlName="name">
-                    </mat-form-field>
+                        <mat-form-field>
+                            <mat-icon matPrefix>badge_outline</mat-icon>
+                            <input type="text" matInput placeholder="Surname" formControlName="surname">
+                        </mat-form-field>
 
-                    <mat-form-field>
-                        <mat-icon matPrefix>badge_outline</mat-icon>
-                        <input type="text" matInput placeholder="Surname" formControlName="surname">
-                    </mat-form-field>
+                        <mat-form-field>
+                            <mat-icon matPrefix>home</mat-icon>
+                            <input type="text" matInput placeholder="Address" formControlName="address">
+                        </mat-form-field>
 
-                    <mat-form-field>
-                        <mat-icon matPrefix>home</mat-icon>
-                        <input type="text" matInput placeholder="Address" formControlName="address">
-                    </mat-form-field>
+                        <mat-form-field>
+                            <mat-icon matPrefix>phone</mat-icon>
+                            <input type="text" matInput placeholder="Phone" formControlName="phone">
+                        </mat-form-field>
 
-                    <mat-form-field>
-                        <mat-icon matPrefix>phone</mat-icon>
-                        <input type="text" matInput placeholder="Phone" formControlName="phone">
-                    </mat-form-field>
+                        <mat-form-field>
+                            <mat-icon matPrefix>tag</mat-icon>
+                            <input type="text" matInput placeholder="JMBG" formControlName="jmbg">
+                        </mat-form-field>
 
-                    <mat-form-field>
-                        <mat-icon matPrefix>tag</mat-icon>
-                        <input type="text" matInput placeholder="JMBG" formControlName="jmbg">
-                    </mat-form-field>
+                        <br>
+                        <section>
+                            <label>Sex :</label>
+                            <mat-radio-group formControlName="sex">
+                                <mat-radio-button value="m">Male</mat-radio-button>
+                                <mat-radio-button value="f">Female</mat-radio-button>
+                            </mat-radio-group>
+                        </section>
+                        <br>
 
-                    <br>
-                    <section>
-                        <label>Sex :</label>
-                        <mat-radio-group formControlName="sex">
-                            <mat-radio-button value="m">Male</mat-radio-button>
-                            <mat-radio-button value="f">Female</mat-radio-button>
-                        </mat-radio-group>
-                    </section>
-                    <br>
+                        <mat-form-field>
+                            <mat-label>Date of last donation</mat-label>
+                            <input matInput [matDatepicker]="dp3" formControlName="date">
+                            <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
+                            <mat-datepicker #dp3></mat-datepicker>
+                        </mat-form-field>
 
-                    <mat-form-field>
-                        <mat-label>Date of last donation</mat-label>
-                        <input matInput [matDatepicker]="dp3" formControlName="date">
-                        <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
-                        <mat-datepicker #dp3></mat-datepicker>
+                        <mat-form-field>
+                            <mat-icon matPrefix>work</mat-icon>
+                            <input autofocus type="text" matInput placeholder="Occupation" formControlName="occupation">
+                        </mat-form-field>
 
+                        <mat-form-field>
+                            <mat-icon matPrefix>info</mat-icon>
+                            <input autofocus type="text" matInput placeholder="Job information"
+                                formControlName="jobinformation">
+                        </mat-form-field>
+                        <mat-card style="position: sticky; bottom: 0;">
+                            <div class="submit-button">
+                                <button [disabled]="registerForm.invalid" type="submit" mat-raised-button
+                                    color="accent">Register</button>
+                            </div>
+                        </mat-card>
+                    </form>
 
-                        <!-- <input matInput formControlName="date" aria-label="startDate"
-                            [matDatepicker]="start">
-                        <mat-datepicker-toggle matSuffix [for]="start"></mat-datepicker-toggle>
-                        <mat-datepicker #start></mat-datepicker> -->
-
-
-                    </mat-form-field>
-
-                    <mat-form-field>
-                        <mat-icon matPrefix>work</mat-icon>
-                        <input autofocus type="text" matInput placeholder="Occupation" formControlName="occupation">
-                    </mat-form-field>
-
-                    <mat-form-field>
-                        <mat-icon matPrefix>info</mat-icon>
-                        <input autofocus type="text" matInput placeholder="Job information"
-                            formControlName="jobinformation">
-                    </mat-form-field>
-                    <br>
-                    <div class="submit-button">
-                        <button [disabled]="registerForm.invalid" type="submit" mat-raised-button
-                            color="accent">Register</button>
-                    </div>
-                </form>
+                </mat-card-content>
             </mat-card>
         </div>
     </div>
@@ -114,4 +110,3 @@
   </mat-form-field>
 </form>
  -->
-

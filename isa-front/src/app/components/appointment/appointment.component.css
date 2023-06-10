@@ -17,6 +17,10 @@ table.mat-table {
   background-color: gray;
 }
 
+.non-highlight {
+  background-color: white;
+}
+
 .mat-button-cell {
   justify-content: center;
 }
