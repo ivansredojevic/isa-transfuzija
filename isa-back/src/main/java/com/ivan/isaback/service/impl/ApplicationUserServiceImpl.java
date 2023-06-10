@@ -104,13 +104,6 @@ public class ApplicationUserServiceImpl implements ApplicationUserService, UserD
 			Optional<Questionnaire> questionnaireOpt = questionnaireRepository
 					.findOneByApplicationUserId(applicationUserOpt.get().getId());
 			if (questionnaireOpt.isPresent()) {
-				if (!questionnaireOpt.get().getApplicationUser().getUsername()
-						.equals(applicationUserOpt.get().getUsername())) {
-					// questionnaire invalid
-					conditionsEvaluationDTO.setCanMakeAppointment(false);
-					conditionsEvaluationDTO.setReason("Fill questionnaire before making an appointment.");
-					return conditionsEvaluationDTO;
-				}
 				if (applicationUserOpt.get().getPenalty() >= 3) {
 					// has more than 3 penalties
 					conditionsEvaluationDTO.setCanMakeAppointment(false);

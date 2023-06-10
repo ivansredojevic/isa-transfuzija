@@ -32,9 +32,6 @@ public class Questionnaire {
     private LocalDate date;
     
     @Column(nullable = false)
-    private int donationNumber;
-    
-    @Column(nullable = false)
     private boolean rejected;
     
     @Column(nullable = false)

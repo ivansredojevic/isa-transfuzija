@@ -16,7 +16,6 @@ import lombok.ToString;
 public class QuestionnaireDTO {
 	
 	private int id;
-    private int donationCount;
     private String date;
     private boolean rejected;
     private boolean healthy;
@@ -31,7 +30,6 @@ public class QuestionnaireDTO {
     public QuestionnaireDTO(Questionnaire quest) {
 		
 		this.id = quest.getId();
-		this.donationCount = quest.getDonationNumber();
 		this.date = quest.getDate().toString();
 		this.rejected = quest.isRejected();
 		this.healthy = quest.isHealthy();

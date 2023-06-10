@@ -1,9 +1,6 @@
-import { ApplicationUserModel } from "./applicationUser.model";
-
 export class QuestionnaireModel {
 
     date: string;
-    donationCount: number;
     rejected: boolean;
     healthy: boolean;
     dangerousOccupation: boolean;

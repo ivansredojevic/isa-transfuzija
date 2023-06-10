@@ -26,15 +26,9 @@
                 <p><strong>{{applicationUser.email}}</strong><br></p>
                 <p>Email</p>
               </td>
-            </tr>
-            <tr>
               <td>
-                <p><strong>{{applicationUser.address}}</strong><br></p>
-                <p>Address</p>
-              </td>
-              <td>
-                <p><strong>{{applicationUser.phone}}</strong><br></p>
-                <p>Phone</p>
+                <p><strong>{{applicationUser.occupation}}</strong><br></p>
+                <p>Occupation</p>
               </td>
             </tr>
             <tr>
@@ -43,14 +37,8 @@
                 <p>UMNC</p>
               </td>
               <td>
-                <p><strong>{{applicationUser.occupation}}</strong><br></p>
-                <p>Occupation</p>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <p><strong>{{applicationUser.sex.toUpperCase()}}</strong><br></p>
-                <p>sex</p>
+                <p><strong>{{applicationUser.phone}}</strong><br></p>
+                <p>Phone</p>
               </td>
               <td>
                 <p><strong>{{applicationUser.jobinformation}}</strong><br></p>
@@ -59,27 +47,30 @@
             </tr>
             <tr>
               <td>
+                <p><strong>{{applicationUser.sex.toUpperCase()}}</strong><br></p>
+                <p>sex</p>
+              </td>
+              <td>
+                <p><strong>{{applicationUser.address}}</strong><br></p>
+                <p>Address</p>
+              </td>
+              <p>
+                <a class="navbar-buttons" *ngIf="!hasQuestionnaire" mat-raised-button color="primary"
+                  routerLink="/fill-questionnaire">Fill questionaire</a>
+                <a class="navbar-buttons" *ngIf="hasQuestionnaire" mat-raised-button color="primary"
+                  routerLink="/questionnaire">View questionnaire</a>
+              </p>
+            </tr>
+            <tr>
+              <td>
                 <p><strong>Penalties: {{applicationUser.penalty}}</strong><br></p>
                 <p>Penalties are deleted on 1st day of the month</p>
               </td>
               <td>
-                <p>
-                  <a class="navbar-buttons" *ngIf="!hasQuestionnaire" mat-raised-button color="primary"
-                    routerLink="/fill-questionnaire">Fill questionaire</a>
-                  <a class="navbar-buttons" *ngIf="hasQuestionnaire" mat-raised-button color="primary"
-                    routerLink="/questionnaire">View questionnaire</a>
-                </p>
-              </td>
-            </tr>
-            <tr>
-              <td>
                 <p><strong>{{applicationUser.lastDonationDate}}</strong><br></p>
                 <p>Last donation date</p>
               </td>
-              <td>
-              </td>
             </tr>
-
           </table>
         </div>
       </mat-card>

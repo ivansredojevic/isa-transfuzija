@@ -48,7 +48,6 @@ public class QuestionnaireServiceImpl implements QuestionnaireService {
 
 				Questionnaire questionnaire = new Questionnaire();
 				questionnaire.setDate(LocalDate.now());
-				questionnaire.setDonationNumber(q.getDonationCount());
 				questionnaire.setRejected(q.isRejected());
 				questionnaire.setHealthy(q.isHealthy());
 				questionnaire.setDangerousOccupation(q.isDangerousOccupation());

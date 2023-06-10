@@ -18,7 +18,6 @@ export class FillQuestionnaireComponent implements OnInit {
   username: string;
 
 
-  donationCount: number;
   rejected: boolean = false;
   healthy: boolean = false;
   dangerousOccupation: boolean = false;
@@ -43,7 +42,6 @@ export class FillQuestionnaireComponent implements OnInit {
     let questionnaire: QuestionnaireModel = new QuestionnaireModel();
 
     questionnaire.appUsername = this.username;
-    // questionnaire.donationCount = this.donationCount;
     questionnaire.rejected = this.rejected;
     questionnaire.healthy = this.healthy;
     questionnaire.dangerousOccupation = this.dangerousOccupation;
