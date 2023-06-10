@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import com.ivan.isaback.model.ApplicationUser;
 import com.ivan.isaback.model.Questionnaire;
+import com.ivan.isaback.model.dto.ActivationDTO;
 import com.ivan.isaback.model.dto.ApplicationUserDTO;
 import com.ivan.isaback.model.dto.AppointmentItemResponseDTO;
 import com.ivan.isaback.model.dto.ConditionsEvaluationDTO;
@@ -82,7 +83,7 @@ public class ApplicationUserServiceImpl implements ApplicationUserService, UserD
 		EmailDetails emailDetails = new EmailDetails();
 		emailDetails.setRecipient(user.getEmail());
 		emailDetails.setSubject("ISA activation mail");
-		emailDetails.setMsgBody("http://localhost:8089/api/users/activate/" + savedUser.getToken());
+		emailDetails.setMsgBody("http://localhost:4200/activate?token=" + savedUser.getToken());
 		log.info(emailDetails.getMsgBody());
 		log.info(savedUser.getToken());
 		emailService.sendLink(emailDetails);
@@ -100,9 +101,11 @@ public class ApplicationUserServiceImpl implements ApplicationUserService, UserD
 
 		Optional<ApplicationUser> applicationUserOpt = userRepository.findOneByUsernameAndActivatedTrue(username);
 		if (applicationUserOpt.isPresent()) {
-			Optional<Questionnaire> questionnaireOpt = questionnaireRepository.findOneByApplicationUserId(applicationUserOpt.get().getId());
+			Optional<Questionnaire> questionnaireOpt = questionnaireRepository
+					.findOneByApplicationUserId(applicationUserOpt.get().getId());
 			if (questionnaireOpt.isPresent()) {
-				if (!questionnaireOpt.get().getApplicationUser().getUsername().equals(applicationUserOpt.get().getUsername())) {
+				if (!questionnaireOpt.get().getApplicationUser().getUsername()
+						.equals(applicationUserOpt.get().getUsername())) {
 					// questionnaire invalid
 					return false;
 				}
@@ -190,20 +193,25 @@ public class ApplicationUserServiceImpl implements ApplicationUserService, UserD
 	}
 
 	@Override
-	public boolean activateUser(String token) {
+	public ActivationDTO activateUser(String token) {
 
-		Optional<ApplicationUser> existingUser = userRepository.findOneByTokenAndActivatedFalse(token);
+		Optional<ApplicationUser> existingUser = userRepository.findOneByToken(token);
 		log.info("" + existingUser);
 
 		if (!existingUser.isPresent()) {
-			return false;
+			return new ActivationDTO("fail-nonexistent", "");
+		} else {
+
+			if (existingUser.get().getActivated()) {
+				return new ActivationDTO("fail-repeating", existingUser.get().getUsername());
+			} else {
+				ApplicationUser user = existingUser.get();
+				user.setActivated(true);
+				userRepository.save(user);
+
+				return new ActivationDTO("success", existingUser.get().getUsername());
+			}
 		}
-
-		ApplicationUser user = existingUser.get();
-		user.setActivated(true);
-		userRepository.save(user);
-
-		return true;
 	}
 
 	@Override

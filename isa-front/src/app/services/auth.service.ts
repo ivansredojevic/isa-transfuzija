@@ -38,7 +38,7 @@ export class AuthService {
   }
 
   logout() {
-    sessionStorage.removeItem('canDonate');
+    // sessionStorage.removeItem('canDonate');
     localStorage.removeItem('token');
   }
 

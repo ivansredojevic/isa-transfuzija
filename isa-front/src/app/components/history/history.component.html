@@ -15,7 +15,7 @@
 
             <ng-container matColumnDef="center">
                 <mat-header-cell *matHeaderCellDef mat-sort-header> Center </mat-header-cell>
-                <mat-cell *matCellDef="let row"> {{row.center}} </mat-cell>
+                <mat-cell *matCellDef="let row"> {{row.centerId + " : " + row.center}} </mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="startTime">

@@ -37,7 +37,8 @@ public class AppointmentServiceImpl implements AppointmentService {
 	private ApplicationUserService applicationUserService;
 
 	public AppointmentServiceImpl(AppointmentRepository appointmentRepository,
-			ApplicationUserRepository applicationUserRepository, EmailService emailService, ApplicationUserService applicationUserService) {
+			ApplicationUserRepository applicationUserRepository, EmailService emailService,
+			ApplicationUserService applicationUserService) {
 		super();
 		this.appointmentRepository = appointmentRepository;
 		this.applicationUserRepository = applicationUserRepository;
@@ -100,14 +101,8 @@ public class AppointmentServiceImpl implements AppointmentService {
 					.findByUsernameAndActivatedTrue(appointmentDTO.getUsername());
 
 			if (applicationUser != null) {
-				if(applicationUserService.evaluateConditions(appointmentDTO.getUsername())) {
-//				Optional<Questionnaire> questionnaireOpt = questionnaireRepository.findOneByApplicationUserId(applicationUser.getId());
-//				if (questionnaireOpt.isPresent()) {
-//					
-//					if(!questionnaireOpt.get().getApplicationUser().getUsername().equals(applicationUser.getUsername())) {
-//						return new AppointmentItemResponseDTO(0, "You don't have questionnaire filled.");
-//					}
-//						
+				if (applicationUserService.evaluateConditions(appointmentDTO.getUsername())) {
+
 					a.setModifiedTime(LocalDateTime.now());
 					a.setApplicationUser(applicationUser);
 					a.setTaken(false);
@@ -117,22 +112,24 @@ public class AppointmentServiceImpl implements AppointmentService {
 
 					LocalDateTime newStart = a.getStartTime();
 					LocalDateTime newEnd = a.getStartTime().plusMinutes(a.getDuration());
+					int newCenterId = a.getCenter().getId();
 
 					List<Appointment> appointments = appointmentRepository
 							.findAllByApplicationUserUsernameAndTakenFalse(appointmentDTO.getUsername());
 
 					for (Appointment appointment : appointments) {
 
-						log.info("new start: " + newStart);
-						log.info("new end:   " + newEnd);
-
+//						log.info("new start: " + newStart);
+//						log.info("new end:   " + newEnd);
 						LocalDateTime oldStart = appointment.getStartTime();
 						LocalDateTime oldEnd = appointment.getStartTime().plusMinutes(appointment.getDuration());
-						log.info("old start: " + oldStart);
-						log.info("old end:   " + oldEnd);
-						log.info("new start before old end" + newStart.isBefore(oldEnd));
+						int oldCenterId = appointment.getCenter().getId();
 
-						log.info("new end after old start" + newEnd.isAfter(oldStart));
+//						log.info("old start: " + oldStart);
+//						log.info("old end:   " + oldEnd);
+//						log.info("new start before old end" + newStart.isBefore(oldEnd));
+//
+//						log.info("new end after old start" + newEnd.isAfter(oldStart));
 
 						if (applicationUser.getPenalty() > 3) {
 							return new AppointmentItemResponseDTO(0, "User have more than 3 penalties.");
@@ -140,13 +137,16 @@ public class AppointmentServiceImpl implements AppointmentService {
 						if (applicationUser.getLastDonationDate().plusMonths(6).isAfter(LocalDate.now())) {
 							return new AppointmentItemResponseDTO(0, "User has donated in last 6 months.");
 						}
-
-						if (newStart.isBefore(oldEnd) && newEnd.isAfter(oldStart)) {
-							log.error(
-									"Appointment overlaps with your upcoming appointment " + appointment.getId() + ".");
-							// vrati na bekend 0 da signalizira da ne treba da se prebaci na drugu stranicu
-							return new AppointmentItemResponseDTO(0,
-									"Appointment overlaps with your upcoming appointment " + appointment.getId() + ".");
+						// ako je u pitanju isti centar proveriti da se ne poklapaju satnice, ako nije 
+						if (newCenterId == oldCenterId) {
+							if (newStart.isBefore(oldEnd) && newEnd.isAfter(oldStart)) {
+								log.error("Appointment overlaps with your upcoming appointment " + appointment.getId()
+										+ ".");
+								// vrati na bekend 0 da signalizira da ne treba da se prebaci na drugu stranicu
+								return new AppointmentItemResponseDTO(0,
+										"Appointment overlaps with your upcoming appointment " + appointment.getId()
+												+ ".");
+							}
 						}
 					}
 				}
@@ -187,7 +187,7 @@ public class AppointmentServiceImpl implements AppointmentService {
 		// calculate if date is further than
 		return new AppointmentItemDTO(app, true, canCancel);
 	}
-	
+
 	public AppointmentItemDTO convertToDtoCanReserveCancellable(Appointment app, boolean canReserve) {
 
 		boolean canCancel = LocalDateTime.now().plusDays(1).isBefore(app.getStartTime());
@@ -217,9 +217,11 @@ public class AppointmentServiceImpl implements AppointmentService {
 
 	@Override
 	public Page<AppointmentItemDTO> findFreePageable(String username, Pageable pageable) {
-		Page<Appointment> pageables = appointmentRepository.findAllByApprovedFalse(pageable);
+		// vrati sve koji su slobodni a da nisu prosli
+		Page<Appointment> pageables = appointmentRepository.findAllByStartTimeAfterAndApprovedFalse(LocalDateTime.now(), pageable);
 		boolean canReserve = applicationUserService.evaluateConditions(username);
-		Page<AppointmentItemDTO> appointmentsPage = pageables.map(appoint -> convertToDtoCanReserveCancellable(appoint, canReserve));
+		Page<AppointmentItemDTO> appointmentsPage = pageables
+				.map(appoint -> convertToDtoCanReserveCancellable(appoint, canReserve));
 		return appointmentsPage;
 	}
 

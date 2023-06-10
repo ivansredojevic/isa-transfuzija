@@ -1,5 +1,6 @@
 package com.ivan.isaback.repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -19,6 +20,7 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Intege
 	
 	Page<Appointment> findAll(Pageable pageable);
 	Page<Appointment> findAllByApprovedFalse(Pageable pageable);
+	Page<Appointment> findAllByStartTimeAfterAndApprovedFalse(LocalDateTime now, Pageable pageable);
 	Page<Appointment> findAllByCenterId(int centerId, Pageable pageable);
 	Page<Appointment> findAllByApplicationUserUsername(String username, Pageable pageable);
 	Page<Appointment> findAllByApplicationUserUsernameAndTakenFalse(String username, Pageable pageable);

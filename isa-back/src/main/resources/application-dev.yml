@@ -2,7 +2,7 @@ spring:
   
   jpa:
     hibernate:
-      ddl-auto: none
+      ddl-auto: create
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQL9Dialect
@@ -19,7 +19,7 @@ spring:
   
   sql:
     init:
-      mode: never 
+      mode: always 
     
   mail:
     properties:

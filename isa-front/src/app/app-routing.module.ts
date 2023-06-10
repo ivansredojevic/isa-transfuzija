@@ -14,6 +14,7 @@ import { MakeAppointmentComponent } from './components/make-appointment/make-app
 import { CreateComplaintComponent } from './components/create-complaint/create-complaint.component';
 import { AuthGuard } from './services/authGuard';
 import { FillQuestionnaireComponent } from './components/fill-questionnaire/fill-questionnaire.component';
+import { ActivateUserComponent } from './components/activate-user/activate-user.component';
 
 const routes: Routes = [
   {
@@ -81,6 +82,10 @@ const routes: Routes = [
   {
     path: "login",
     component: LoginComponent
+  },
+  {
+    path: "activate",
+    component: ActivateUserComponent
   },
   {
     path: '**',

@@ -34,19 +34,19 @@ export class MakeAppointmentComponent implements OnInit {
 
   errorMessage: string = "";
   username: string;
-  userCanDonate: boolean = false;
+  // userCanDonate: boolean = false;
   response: string = "";
   cancelAppointmentResult: string = "";
 
-  constructor(public appointmentService: AppointmentService, public snackService: SnackService, 
+  constructor(public appointmentService: AppointmentService, public snackService: SnackService,
     public sessionStorage: StorageService, public authService: AuthService, public router: Router, public userService: ApplicationUserService) { }
 
   ngOnInit(): void {
     this.dataSource = new MatTableDataSource;
     this.username = this.authService.getUsername();
-    this.userCanDonate = JSON.parse(this.sessionStorage.getItem('canDonate'));
+    // this.userCanDonate = JSON.parse(this.sessionStorage.getItem('canDonate'));
     this.cancelAppointmentResult = history.state.cancelAppointmentResult;
-    if(!!this.cancelAppointmentResult){
+    if (!!this.cancelAppointmentResult) {
       this.snackService.showSnack(this.cancelAppointmentResult, "OK");
     }
     this.loadPage();
@@ -69,29 +69,26 @@ export class MakeAppointmentComponent implements OnInit {
   }
 
   onMake(appointment: AppointmentModel) {
-    if (!this.userCanDonate) {
-      this.snackService.showSnack("You don\'t fulfill all conditions needed to make an appointment.", "OK");
-    } else {
-      let appointmentDto: AppointmentDTO = new AppointmentDTO();
-      appointmentDto.id = appointment.id;
-      appointmentDto.username = this.username;
-      this.appointmentService.reserveAppointment(appointmentDto)
-        .subscribe((data) => {
-          if (data.id == 0) {
-            this.snackService.showSnack(data.response, "OK");
-          } else {
-            this.response = data.response;
-            this.router.navigate(['my-appointments'], {
-              state: { makeAppointmentResult: this.response }
-            })
-          }
-        },
-          (error) => {
-            console.log(error);
-            this.snackService.showSnack("Error making appointment. Check if another appointment is overlaping with this one.", "OK");
-          }
-        );
-    }
+
+    let appointmentDto: AppointmentDTO = new AppointmentDTO();
+    appointmentDto.id = appointment.id;
+    appointmentDto.username = this.username;
+    this.appointmentService.reserveAppointment(appointmentDto)
+      .subscribe((data) => {
+        if (data.id == 0) {
+          this.snackService.showSnack(data.response, "OK");
+        } else {
+          this.response = data.response;
+          this.router.navigate(['my-appointments'], {
+            state: { makeAppointmentResult: this.response }
+          })
+        }
+      },
+        (error) => {
+          console.log(error);
+          this.snackService.showSnack("Error making appointment. Check if another appointment is overlaping with this one.", "OK");
+        }
+      );
   }
 
   loadPage() {

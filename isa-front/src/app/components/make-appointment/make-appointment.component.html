@@ -20,7 +20,7 @@
 
             <ng-container matColumnDef="center">
                 <mat-header-cell *matHeaderCellDef mat-sort-header> Center </mat-header-cell>
-                <mat-cell *matCellDef="let row"> {{row.center}} </mat-cell>
+                <mat-cell *matCellDef="let row"> {{row.centerId + " : " + row.center}} </mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="startTime">
@@ -55,9 +55,12 @@
 
             <ng-container matColumnDef="makeAppointment">
                 <mat-header-cell *matHeaderCellDef></mat-header-cell>
-                <mat-cell class="mat-button-cell" *matCellDef="let row" >
-                    <button [disabled]="!row.canReserve || !userCanDonate" mat-raised-button color="accent"
-                        (click)="onMake(row)">Reserve</button></mat-cell>
+                <mat-cell class="mat-button-cell" *matCellDef="let row">
+                    <div matTooltip="You don't fulfill requirements to make an appointment" [matTooltipDisabled]="row.canReserve" [matTooltipPosition]="'before'">
+                        <button [disabled]="!row.canReserve" mat-raised-button color="accent"
+                            (click)="onMake(row)">Reserve</button>
+                    </div>
+                </mat-cell>
             </ng-container>
 
             <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

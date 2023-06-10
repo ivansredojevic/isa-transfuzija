@@ -46,6 +46,9 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { DatePipe } from '@angular/common';
 import { FillQuestionnaireComponent } from './components/fill-questionnaire/fill-questionnaire.component';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { ActivateUserComponent } from './components/activate-user/activate-user.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
+
 
 
 @NgModule({
@@ -65,6 +68,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     MakeAppointmentComponent,
     CreateComplaintComponent,
     FillQuestionnaireComponent,
+    ActivateUserComponent,
 
   ],
   imports: [
@@ -97,7 +101,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     MatToolbarModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatSlideToggleModule 
+    MatTooltipModule
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]

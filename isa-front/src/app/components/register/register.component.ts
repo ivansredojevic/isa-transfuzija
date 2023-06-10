@@ -3,7 +3,7 @@ import { FormGroup, FormControl, Validators, FormGroupDirective, ValidatorFn, Ab
 import { ApplicationUserDTO } from 'src/app/model/dto/applicationUser.dto';
 import { DatePipe } from '@angular/common'
 import { SnackService } from 'src/app/services/snackHelper.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { ApplicationUserService } from 'src/app/services/application.user.service';
 
@@ -15,12 +15,26 @@ import { ApplicationUserService } from 'src/app/services/application.user.servic
 })
 export class RegisterComponent implements OnInit {
 
-  sex: String;
   registerForm: FormGroup;
+  sex: String;
+  redirectString: string = "";
+  
+  activationStatus: string;
 
-  constructor(public datepipe: DatePipe, public router: Router, public userService: ApplicationUserService, public snackService: SnackService) { }
+  constructor(public datepipe: DatePipe, public router: Router, public userService: ApplicationUserService, public snackService: SnackService, public activatedRoute: ActivatedRoute) { 
+    this.activatedRoute.queryParams.subscribe(params => {
+      console.log(params);
+      this.redirectString = params['activation'];
+      console.log(this.redirectString);
+    });
+  }
 
   ngOnInit() {
+    this.activationStatus = history.state.activationStatusMessage;
+
+    if (!!this.activationStatus) {
+      this.snackService.showSnack(this.activationStatus, "OK");
+    }
     this.createForm();
   }
   createForm() {

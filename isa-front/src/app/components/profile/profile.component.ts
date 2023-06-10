@@ -32,7 +32,7 @@ export class ProfileComponent implements OnInit {
     this.userService.loadUser(this.username)
       .subscribe(data => {
         this.applicationUser = data;
-        this.storageService.setItem('canDonate', this.applicationUser.canDonate);
+        // this.storageService.setItem('canDonate', this.applicationUser.canDonate);
         if (this.applicationUser.questionnaireId !== 0) {
           this.hasQuestionnaire = true;
         }

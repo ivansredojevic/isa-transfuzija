@@ -42,4 +42,13 @@ export class ApplicationUserService {
                 headers: headers
             });
     }
+
+    activate(token: string): Observable<any> {
+        const headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+        return this.http.get(this.resourceUrl + "/users/activate/" + token,
+            {
+                headers: headers
+            });
+    }
 }
