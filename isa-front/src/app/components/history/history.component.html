@@ -40,12 +40,7 @@
 
             <ng-container matColumnDef="taken">
                 <mat-header-cell *matHeaderCellDef mat-sort-header> Status </mat-header-cell>
-                <mat-cell *matCellDef="let row"> {{row.taken ? "Finished" : "Waiting for confirmation"}} </mat-cell>
-            </ng-container>
-
-            <ng-container matColumnDef="approved">
-                <mat-header-cell *matHeaderCellDef mat-sort-header> Availability </mat-header-cell>
-                <mat-cell *matCellDef="let row"> {{row.approved}} </mat-cell>
+                <mat-cell *matCellDef="let row"> {{row.taken ? "Completed" : "Pending"}} </mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="doctors">
@@ -56,7 +51,7 @@
             <ng-container matColumnDef="complainCenter">
                 <mat-header-cell *matHeaderCellDef></mat-header-cell>
                 <mat-cell class="mat-button-cell" *matCellDef="let row">
-                    <div matTooltip="Complaint can be made only for finished appointments."
+                    <div matTooltip="Complaints only for completed appointments."
                         [matTooltipDisabled]="row.taken" [matTooltipPosition]="'before'">
                         <button [disabled]="row.complainCenter || !row.taken" mat-raised-button color="accent"
                             (click)="onComplainCenter(row.id)">Center complaint</button>
@@ -67,7 +62,7 @@
             <ng-container matColumnDef="complainDoctor">
                 <mat-header-cell *matHeaderCellDef></mat-header-cell>
                 <mat-cell class="mat-button-cell" *matCellDef="let row">
-                    <div matTooltip="Complaint can be made only for finished appointments."
+                    <div matTooltip="Complaints only for completed appointments."
                         [matTooltipDisabled]="row.taken" [matTooltipPosition]="'before'">
                         <button [disabled]="row.complainPers  || !row.taken" mat-raised-button color="accent"
                             (click)="onComplainDoctor(row.id)">Doctor complaint</button>

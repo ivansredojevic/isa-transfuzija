@@ -17,7 +17,7 @@ import { ComplaintService } from 'src/app/services/complaint.service';
 })
 export class HistoryComponent implements OnInit {
 
-  public displayedColumns = ['id', 'center', 'startTime', 'duration', 'endTime', 'priceEuro', 'taken', 'approved', 'doctors', 'complainCenter' ,'complainDoctor'];
+  public displayedColumns = ['id', 'center', 'startTime', 'duration', 'endTime', 'priceEuro', 'taken', 'doctors', 'complainCenter' ,'complainDoctor'];
 
   dataSource: MatTableDataSource<AppointmentModel>;
 
