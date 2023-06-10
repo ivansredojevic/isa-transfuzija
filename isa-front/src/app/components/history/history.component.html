@@ -28,6 +28,11 @@
                 <mat-cell *matCellDef="let row"> {{row.duration}} </mat-cell>
             </ng-container>
 
+            <ng-container matColumnDef="endTime">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> End time </mat-header-cell>
+                <mat-cell *matCellDef="let row"> {{row.endTime.replace('T', ', ')}} </mat-cell>
+            </ng-container>
+
             <ng-container matColumnDef="priceEuro">
                 <mat-header-cell *matHeaderCellDef mat-sort-header> Price (€) </mat-header-cell>
                 <mat-cell *matCellDef="let row"> {{row.priceEuro}} </mat-cell>
@@ -35,7 +40,7 @@
 
             <ng-container matColumnDef="taken">
                 <mat-header-cell *matHeaderCellDef mat-sort-header> Status </mat-header-cell>
-                <mat-cell *matCellDef="let row"> {{row.taken}} </mat-cell>
+                <mat-cell *matCellDef="let row"> {{row.taken ? "Finished" : "Waiting for confirmation"}} </mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="approved">
@@ -51,14 +56,22 @@
             <ng-container matColumnDef="complainCenter">
                 <mat-header-cell *matHeaderCellDef></mat-header-cell>
                 <mat-cell class="mat-button-cell" *matCellDef="let row">
-                    <button [disabled]="row.complainCenter" mat-raised-button color="accent" (click)="onComplainCenter(row.id)">Center complaint</button>
+                    <div matTooltip="Complaint can be made only for finished appointments."
+                        [matTooltipDisabled]="row.taken" [matTooltipPosition]="'before'">
+                        <button [disabled]="row.complainCenter || !row.taken" mat-raised-button color="accent"
+                            (click)="onComplainCenter(row.id)">Center complaint</button>
+                    </div>
                 </mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="complainDoctor">
                 <mat-header-cell *matHeaderCellDef></mat-header-cell>
                 <mat-cell class="mat-button-cell" *matCellDef="let row">
-                    <button [disabled]="row.complainPers" mat-raised-button color="accent" (click)="onComplainDoctor(row.id)">Doctor complaint</button>
+                    <div matTooltip="Complaint can be made only for finished appointments."
+                        [matTooltipDisabled]="row.taken" [matTooltipPosition]="'before'">
+                        <button [disabled]="row.complainPers  || !row.taken" mat-raised-button color="accent"
+                            (click)="onComplainDoctor(row.id)">Doctor complaint</button>
+                    </div>
                 </mat-cell>
             </ng-container>
 

@@ -20,7 +20,7 @@ import { ApplicationUserService } from 'src/app/services/application.user.servic
 })
 export class MakeAppointmentComponent implements OnInit {
 
-  public displayedColumns = ['id', 'center', 'startTime', 'duration', 'priceEuro', 'taken', 'approved', 'doctors', 'makeAppointment'];
+  public displayedColumns = ['id', 'center', 'startTime', 'duration', 'endTime', 'priceEuro', 'taken', 'approved', 'doctors', 'makeAppointment'];
 
   dataSource: MatTableDataSource<AppointmentModel>;
 

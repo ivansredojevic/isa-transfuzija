@@ -22,11 +22,11 @@ public class AppointmentItemDTO {
 	private String username;
 	private String center;
 	private int centerId;
-	private String modifiedTime;
+	private String endTime;
 	private String startTime;
 	private String duration;
 	private String priceEuro;
-	private String taken;
+	private boolean taken;
 	private String approved;
 	private boolean complainPers;
 	private boolean complainCenter;
@@ -34,8 +34,9 @@ public class AppointmentItemDTO {
 	private ArrayList<Integer> doctorIds = new ArrayList<>();
     private boolean canReserve;
     private boolean canCancel;
+    private String reason;
 
-	public AppointmentItemDTO(Appointment a, boolean canReserve, boolean canCancel) {
+	public AppointmentItemDTO(Appointment a, ConditionsEvaluationDTO conditionsEvaluationDTO, boolean canCancel) {
 		this.id = a.getId();
 		if (a.getApplicationUser() != null) {
 			this.username = a.getApplicationUser().getUsername();
@@ -44,11 +45,11 @@ public class AppointmentItemDTO {
 		}
 		this.center = a.getCenter().getCenterName();
 		this.centerId = a.getCenter().getId();
-		this.modifiedTime = a.getModifiedTime().toString();
+		this.endTime = a.getEndTime().toString();
 		this.startTime = a.getStartTime().toString();
 		this.duration = String.valueOf(a.getDuration());
 		this.priceEuro = String.valueOf(a.getPriceEuro());
-		this.taken = a.isTaken() ? "Done" : "Upcoming";
+		this.taken = a.isTaken();
 		this.approved = a.isApproved() ? "Not available" : "Available";
 		this.complainPers = a.isComplainPers();
 		this.complainCenter = a.isComplainCenter();
@@ -62,8 +63,9 @@ public class AppointmentItemDTO {
 		} else {
 			this.doctors = "";
 		}
-		this.canReserve = canReserve;
+		this.canReserve = conditionsEvaluationDTO.isCanMakeAppointment();
 		this.canCancel = canCancel;
+		this.reason = conditionsEvaluationDTO.getReason();
 	}
 	
 	public AppointmentItemDTO(Appointment a) {
@@ -75,11 +77,11 @@ public class AppointmentItemDTO {
 		}
 		this.center = a.getCenter().getCenterName();
 		this.centerId = a.getCenter().getId();
-		this.modifiedTime = a.getModifiedTime().toString();
+		this.endTime = a.getEndTime().toString();
 		this.startTime = a.getStartTime().toString();
 		this.duration = String.valueOf(a.getDuration());
 		this.priceEuro = String.valueOf(a.getPriceEuro());
-		this.taken = a.isTaken() ? "Done" : "Upcoming";
+		this.taken = a.isTaken();
 		this.approved = a.isApproved() ? "Not available" : "Available";
 		this.complainPers = a.isComplainPers();
 		this.complainCenter = a.isComplainCenter();
@@ -96,6 +98,7 @@ public class AppointmentItemDTO {
 		}
 		this.canReserve = true;
 		this.canCancel = true;
+		this.reason = "";
 	}
 
 }

@@ -1,4 +1,4 @@
-.login-container {
+.register-container {
   margin-top: 10px;
   height: 100%;
   width: 100%;
@@ -10,13 +10,13 @@ form {
   width: 100%;
 }
 
-.login-content {
-  width: 400px;
+.register-content {
+  width: 483px;
   display: block;
   margin: 0 auto;
 }
 
-.login-toolbar {
+.register-toolbar {
   justify-content: center;
 }
 

@@ -43,10 +43,10 @@ public class Appointment {
 	private ApplicationUser applicationUser;
 	
 	@Column
-	private LocalDateTime modifiedTime;
-	
-	@Column
 	private LocalDateTime startTime;
+
+	@Column
+	private LocalDateTime endTime;
 	
 	@Column
 	private int duration;

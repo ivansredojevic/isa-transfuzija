@@ -37,26 +37,26 @@ public class AppointmentController {
 		this.appointmentService = appointmentService;
 	}
 	
-	@GetMapping(value = "all")
-	public ResponseEntity<List<AppointmentItemDTO>> getAll(){
-		List<AppointmentItemDTO> appointments = appointmentService.findAll();
-		if(!appointments.isEmpty()) {
-			return ResponseEntity.ok(appointments);
-		} else {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-		}
-	}
+//	@GetMapping(value = "all")
+//	public ResponseEntity<List<AppointmentItemDTO>> getAll(){
+//		List<AppointmentItemDTO> appointments = appointmentService.findAll();
+//		if(!appointments.isEmpty()) {
+//			return ResponseEntity.ok(appointments);
+//		} else {
+//			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+//		}
+//	}
 	
 	
-	@GetMapping(value = "history-by-user/{username}")
-	public ResponseEntity<List<Appointment>> getByUserTaken(@PathVariable String username){
-		List<Appointment> appointments = appointmentService.findByUserTaken(username);
-		if(!appointments.isEmpty()) {
-			return ResponseEntity.ok(appointments);
-		} else {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-		}
-	}
+//	@GetMapping(value = "history-by-user/{username}")
+//	public ResponseEntity<List<Appointment>> getByUserTaken(@PathVariable String username){
+//		List<Appointment> appointments = appointmentService.findByUserTaken(username);
+//		if(!appointments.isEmpty()) {
+//			return ResponseEntity.ok(appointments);
+//		} else {
+//			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+//		}
+//	}
 	
 
 	@GetMapping(value = "free-pageable/{username}")

@@ -33,6 +33,11 @@
                 <mat-cell *matCellDef="let row"> {{row.duration}} </mat-cell>
             </ng-container>
 
+            <ng-container matColumnDef="endTime">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> End time </mat-header-cell>
+                <mat-cell *matCellDef="let row"> {{row.endTime.replace('T', ', ')}} </mat-cell>
+            </ng-container>
+
             <ng-container matColumnDef="priceEuro">
                 <mat-header-cell *matHeaderCellDef mat-sort-header> Price (€) </mat-header-cell>
                 <mat-cell *matCellDef="let row"> {{row.priceEuro}} </mat-cell>
@@ -40,7 +45,7 @@
 
             <ng-container matColumnDef="taken">
                 <mat-header-cell *matHeaderCellDef mat-sort-header> Status </mat-header-cell>
-                <mat-cell *matCellDef="let row"> {{row.taken}} </mat-cell>
+                <mat-cell *matCellDef="let row"> {{row.taken ? "Done" : "Upcoming"}} </mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="approved">
@@ -56,7 +61,7 @@
             <ng-container matColumnDef="makeAppointment">
                 <mat-header-cell *matHeaderCellDef></mat-header-cell>
                 <mat-cell class="mat-button-cell" *matCellDef="let row">
-                    <div matTooltip="You don't fulfill requirements to make an appointment" [matTooltipDisabled]="row.canReserve" [matTooltipPosition]="'before'">
+                    <div matTooltip="{{row.reason}}" [matTooltipDisabled]="row.canReserve" [matTooltipPosition]="'before'">
                         <button [disabled]="!row.canReserve" mat-raised-button color="accent"
                             (click)="onMake(row)">Reserve</button>
                     </div>

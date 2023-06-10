@@ -18,6 +18,7 @@ import com.ivan.isaback.model.ApplicationUser;
 import com.ivan.isaback.model.Questionnaire;
 import com.ivan.isaback.model.dto.ActivationDTO;
 import com.ivan.isaback.model.dto.ApplicationUserDTO;
+import com.ivan.isaback.model.dto.ConditionsEvaluationDTO;
 import com.ivan.isaback.model.dto.RegisterUserDTO;
 import com.ivan.isaback.repository.ApplicationUserRepository;
 import com.ivan.isaback.repository.QuestionnaireRepository;
@@ -95,8 +96,9 @@ public class ApplicationUserServiceImpl implements ApplicationUserService, UserD
 	}
 
 	@Override
-	public boolean evaluateConditions(String username) {
-
+	public ConditionsEvaluationDTO evaluateConditions(String username) {
+		
+		ConditionsEvaluationDTO conditionsEvaluationDTO = new ConditionsEvaluationDTO();
 		Optional<ApplicationUser> applicationUserOpt = userRepository.findOneByUsernameAndActivatedTrue(username);
 		if (applicationUserOpt.isPresent()) {
 			Optional<Questionnaire> questionnaireOpt = questionnaireRepository
@@ -105,20 +107,33 @@ public class ApplicationUserServiceImpl implements ApplicationUserService, UserD
 				if (!questionnaireOpt.get().getApplicationUser().getUsername()
 						.equals(applicationUserOpt.get().getUsername())) {
 					// questionnaire invalid
-					return false;
+					conditionsEvaluationDTO.setCanMakeAppointment(false);
+					conditionsEvaluationDTO.setReason("Fill questionnaire before making an appointment.");
+					return conditionsEvaluationDTO;
 				}
 				if (applicationUserOpt.get().getPenalty() >= 3) {
 					// has more than 3 penalties
-					return false;
+					conditionsEvaluationDTO.setCanMakeAppointment(false);
+					conditionsEvaluationDTO.setReason("You have 3 or more penalties.");
+					return conditionsEvaluationDTO;
 				}
 				if (applicationUserOpt.get().getLastDonationDate().plusMonths(6).isAfter(LocalDate.now())) {
 					// had appointment in last 6 months
-					return false;
+					conditionsEvaluationDTO.setCanMakeAppointment(false);
+					conditionsEvaluationDTO.setReason("You have donated blood in last 6 months.");
+					return conditionsEvaluationDTO;
 				}
-				return true;
+				conditionsEvaluationDTO.setCanMakeAppointment(true);
+				conditionsEvaluationDTO.setReason("");
+				return conditionsEvaluationDTO;
 			}
+			conditionsEvaluationDTO.setCanMakeAppointment(false);
+			conditionsEvaluationDTO.setReason("Fill questionnaire before making an appointment.");
+			return conditionsEvaluationDTO;
 		}
-		return false;
+		conditionsEvaluationDTO.setCanMakeAppointment(false);
+		conditionsEvaluationDTO.setReason("");
+		return conditionsEvaluationDTO;
 	}
 
 	@Override

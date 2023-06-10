@@ -23,9 +23,9 @@
                 <mat-cell *matCellDef="let row"> {{row.startTime.replace('T', ', ')}} </mat-cell>
             </ng-container>
 
-            <ng-container matColumnDef="modifiedTime">
-                <mat-header-cell *matHeaderCellDef mat-sort-header> Modified time </mat-header-cell>
-                <mat-cell *matCellDef="let row"> {{row.modifiedTime.replace('T', ', ')}} </mat-cell>
+            <ng-container matColumnDef="endTime">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> End time </mat-header-cell>
+                <mat-cell *matCellDef="let row"> {{row.endTime.replace('T', ', ')}} </mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="duration">
@@ -38,9 +38,9 @@
                 <mat-cell *matCellDef="let row"> {{row.priceEuro}} </mat-cell>
             </ng-container>
 
-            <ng-container matColumnDef="approved">
-                <mat-header-cell *matHeaderCellDef mat-sort-header> Availability </mat-header-cell>
-                <mat-cell *matCellDef="let row"> {{row.approved}} </mat-cell>
+            <ng-container matColumnDef="taken">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Status </mat-header-cell>
+                <mat-cell *matCellDef="let row"> {{row.taken ? "Done" : "Upcoming"}} </mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="doctors">

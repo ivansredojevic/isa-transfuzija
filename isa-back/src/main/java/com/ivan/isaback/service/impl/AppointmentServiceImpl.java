@@ -15,6 +15,7 @@ import com.ivan.isaback.model.Appointment;
 import com.ivan.isaback.model.dto.AppointmentDTO;
 import com.ivan.isaback.model.dto.AppointmentItemDTO;
 import com.ivan.isaback.model.dto.AppointmentItemResponseDTO;
+import com.ivan.isaback.model.dto.ConditionsEvaluationDTO;
 import com.ivan.isaback.repository.ApplicationUserRepository;
 import com.ivan.isaback.repository.AppointmentRepository;
 import com.ivan.isaback.service.ApplicationUserService;
@@ -43,42 +44,46 @@ public class AppointmentServiceImpl implements AppointmentService {
 		this.applicationUserService = applicationUserService;
 	}
 
-	@Override
-	public List<AppointmentItemDTO> findAll() {
-		List<Appointment> appointments = appointmentRepository.findAll();
-		List<AppointmentItemDTO> appointmentResponseDTOs = new ArrayList<>();
-		for (Appointment a : appointments) {
-			AppointmentItemDTO arDto = new AppointmentItemDTO(a, true, true);
-			appointmentResponseDTOs.add(arDto);
-		}
-		return appointmentResponseDTOs;
-
-	}
+//	@Override
+//	public List<AppointmentItemDTO> findAll() {
+//		List<Appointment> appointments = appointmentRepository.findAll();
+//		List<AppointmentItemDTO> appointmentResponseDTOs = new ArrayList<>();
+//		for (Appointment a : appointments) {
+//			AppointmentItemDTO arDto = new AppointmentItemDTO(a, true, true);
+//			appointmentResponseDTOs.add(arDto);
+//		}
+//		return appointmentResponseDTOs;
+//
+//	}
 
 	@Override
 	public AppointmentItemDTO findOne(int id) {
 		Optional<Appointment> appointmentOpt = appointmentRepository.findById(id);
 		if (appointmentOpt.isPresent()) {
-			return new AppointmentItemDTO(appointmentOpt.get(), false, false);
+			return new AppointmentItemDTO(appointmentOpt.get(), new ConditionsEvaluationDTO(true, ""), false);
 		} else {
 			log.error("Appointment not found.");
 			return null;
 		}
 	}
 
-	@Override
-	public List<Appointment> findByUserTaken(String username) {
-		return appointmentRepository.findAllByApplicationUserUsernameAndTakenTrue(username);
-	}
-
-	@Override
-	public List<Appointment> findByUserAndNotTaken(String username) {
-		return appointmentRepository.findAllByApplicationUserUsernameAndTakenFalse(username);
-	}
+//	@Override
+//	public List<Appointment> findByUserTaken(String username) {
+//		return appointmentRepository.findAllByApplicationUserUsernameAndTakenTrue(username);
+//	}
+//
+//	@Override
+//	public List<Appointment> findByUserAndNotTaken(String username) {
+//		return appointmentRepository.findAllByApplicationUserUsernameAndTakenFalse(username);
+//	}
 
 	@Override
 	public AppointmentItemDTO save(Appointment appointment) throws Exception {
 		try {
+			// calculate end time
+			// made for creation of appointment
+			// so admin can enter start time and duration only
+			appointment.setEndTime(appointment.getStartTime().plusMinutes(appointment.getDuration()));
 			Appointment saved = appointmentRepository.save(appointment);
 			return new AppointmentItemDTO(saved);
 		} catch (Exception e) {
@@ -98,9 +103,8 @@ public class AppointmentServiceImpl implements AppointmentService {
 					.findByUsernameAndActivatedTrue(appointmentDTO.getUsername());
 
 			if (applicationUser != null) {
-				if (applicationUserService.evaluateConditions(appointmentDTO.getUsername())) {
+				if (applicationUserService.evaluateConditions(appointmentDTO.getUsername()).isCanMakeAppointment()) {
 
-					a.setModifiedTime(LocalDateTime.now());
 					a.setApplicationUser(applicationUser);
 					a.setTaken(false);
 					a.setApproved(true);
@@ -112,7 +116,7 @@ public class AppointmentServiceImpl implements AppointmentService {
 					int newCenterId = a.getCenter().getId();
 
 					List<Appointment> appointments = appointmentRepository
-							.findAllByApplicationUserUsernameAndTakenFalse(appointmentDTO.getUsername());
+							.findAllByApplicationUserUsernameAndTakenFalseAndStartTimeAfter(appointmentDTO.getUsername(), LocalDateTime.now());
 
 					for (Appointment appointment : appointments) {
 
@@ -129,7 +133,7 @@ public class AppointmentServiceImpl implements AppointmentService {
 //						log.info("new end after old start" + newEnd.isAfter(oldStart));
 
 						if (applicationUser.getPenalty() > 3) {
-							return new AppointmentItemResponseDTO(0, "User have more than 3 penalties.");
+							return new AppointmentItemResponseDTO(0, "User have 3 or more penalties.");
 						}
 						if (applicationUser.getLastDonationDate().plusMonths(6).isAfter(LocalDate.now())) {
 							return new AppointmentItemResponseDTO(0, "User has donated in last 6 months.");
@@ -182,32 +186,30 @@ public class AppointmentServiceImpl implements AppointmentService {
 //		log.info(" " + app.getStartTime());
 //		log.info("Can be cancelled: " + canCancel);
 		// calculate if date is further than
-		return new AppointmentItemDTO(app, true, canCancel);
+		return new AppointmentItemDTO(app, new ConditionsEvaluationDTO(true, ""), canCancel);
 	}
 
-	public AppointmentItemDTO convertToDtoCanReserveCancellable(Appointment app, boolean canReserve) {
+	public AppointmentItemDTO convertToDtoCanReserveCancellable(Appointment app, ConditionsEvaluationDTO conditions) {
 
 		boolean canCancel = LocalDateTime.now().plusDays(1).isBefore(app.getStartTime());
 //		log.info(" " + LocalDateTime.now().plusDays(1));
 //		log.info(" " + app.getStartTime());
 //		log.info("Can be cancelled: " + canCancel);
 		// calculate if date is further than
-		return new AppointmentItemDTO(app, canReserve, canCancel);
+		return new AppointmentItemDTO(app, conditions, canCancel);
 	}
 
 	@Override
 	public Page<AppointmentItemDTO> findByUserTakenPageable(String username, Pageable pageable) {
-
-		Page<Appointment> pageables = appointmentRepository.findAllByApplicationUserUsernameAndTakenTrue(username,
-				pageable);
+		//history
+		Page<Appointment> pageables = appointmentRepository.findAllByApplicationUserUsernameAndEndTimeBefore(username, LocalDateTime.now(), pageable);
 		Page<AppointmentItemDTO> appointmentsPage = pageables.map(appoint -> convertToDtoParamsDefault(appoint));
 		return appointmentsPage;
 	}
 
 	@Override
 	public Page<AppointmentItemDTO> findByUserNotTakenPageable(String username, Pageable pageable) {
-		Page<Appointment> pageables = appointmentRepository.findAllByApplicationUserUsernameAndTakenFalse(username,
-				pageable);
+		Page<Appointment> pageables = appointmentRepository.findAllByApplicationUserUsernameAndTakenFalseAndStartTimeAfter(username, LocalDateTime.now(), pageable);
 		Page<AppointmentItemDTO> appointmentsPage = pageables.map(appoint -> convertToDtoCancellable(appoint));
 		return appointmentsPage;
 	}
@@ -216,9 +218,9 @@ public class AppointmentServiceImpl implements AppointmentService {
 	public Page<AppointmentItemDTO> findFreePageable(String username, Pageable pageable) {
 		// vrati sve koji su slobodni a da nisu prosli
 		Page<Appointment> pageables = appointmentRepository.findAllByStartTimeAfterAndApprovedFalse(LocalDateTime.now(), pageable);
-		boolean canReserve = applicationUserService.evaluateConditions(username);
+		ConditionsEvaluationDTO conditions = applicationUserService.evaluateConditions(username);
 		Page<AppointmentItemDTO> appointmentsPage = pageables
-				.map(appoint -> convertToDtoCanReserveCancellable(appoint, canReserve));
+				.map(appoint -> convertToDtoCanReserveCancellable(appoint, conditions));
 		return appointmentsPage;
 	}
 
@@ -229,7 +231,6 @@ public class AppointmentServiceImpl implements AppointmentService {
 		if (appointmentOpt.isPresent()) {
 			Appointment a = appointmentOpt.get();
 
-			a.setModifiedTime(LocalDateTime.now());
 			a.setApplicationUser(null);
 			a.setTaken(false);
 			a.setApproved(false);

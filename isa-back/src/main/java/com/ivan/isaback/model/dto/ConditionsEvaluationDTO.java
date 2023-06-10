@@ -14,5 +14,6 @@ import lombok.ToString;
 public class ConditionsEvaluationDTO {
 	
 	private boolean canMakeAppointment;
+	private String reason;
 
 }

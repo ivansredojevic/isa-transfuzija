@@ -19,7 +19,7 @@ import { SnackService } from 'src/app/services/snackHelper.service';
 })
 export class AppointmentComponent implements OnInit {
 
-  public displayedColumns = ['id', 'center', 'startTime', 'modifiedTime', 'duration', 'priceEuro', 'approved', 'doctors', 'cancelAppointment'];
+  public displayedColumns = ['id', 'center', 'startTime', 'duration', 'endTime', 'priceEuro', 'taken', 'doctors', 'cancelAppointment'];
 
   dataSource: MatTableDataSource<AppointmentModel>;
 

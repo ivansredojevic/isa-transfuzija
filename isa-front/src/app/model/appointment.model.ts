@@ -4,7 +4,7 @@ export class AppointmentModel {
     username: string;
     center: string;
     centerId: number;
-    modifiedTime: string;
+    endTime: string;
     startTime: string;
     duration: number;
     priceEuro: number;
@@ -16,5 +16,6 @@ export class AppointmentModel {
     doctorIds: number[];
     canReserve: boolean;
     canCancel: boolean;
+    reason: string;
 
 }

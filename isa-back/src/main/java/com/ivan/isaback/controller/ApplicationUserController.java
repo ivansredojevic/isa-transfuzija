@@ -86,8 +86,7 @@ public class ApplicationUserController {
 	@PreAuthorize("hasAnyRole('ADMIN', 'USER')")
 	@GetMapping(path = "evaluate-conditions/{username}")
 	public ResponseEntity<ConditionsEvaluationDTO> evaluateConditions(@PathVariable String username) {
-		ConditionsEvaluationDTO conditionsEvaluationDTO = new ConditionsEvaluationDTO(
-				userService.evaluateConditions(username));
+		ConditionsEvaluationDTO conditionsEvaluationDTO = userService.evaluateConditions(username);
 		return ResponseEntity.ok(conditionsEvaluationDTO);
 	}
 
