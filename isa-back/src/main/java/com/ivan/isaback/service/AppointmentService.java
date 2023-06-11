@@ -12,11 +12,7 @@ import com.ivan.isaback.model.dto.AppointmentItemResponseDTO;
 
 public interface AppointmentService {
 	
-//	List<AppointmentItemDTO> findAll();
-	
-//	List<Appointment> findByUserTaken(String username);
-//	List<Appointment> findByUserAndNotTaken(String username);
-	
+	List<AppointmentItemDTO> findAll();
 	
 	AppointmentItemDTO save(Appointment appointment) throws Exception;
 	AppointmentItemResponseDTO make(AppointmentDTO appointmentDTO) throws Exception;

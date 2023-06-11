@@ -198,18 +198,3 @@ values (1, 2, '2023-06-10 09:15:00', '2023-06-10 08:30:00', 45, 60, false, true,
 insert into appointment_personnel (personnel_id, appointment_id) values (6, 23);
 --
 
-
-
-
-
-
-
-
-
--- user 1 - admin
--- user 2 - user
--- user 3 - user
--- user 4 - user
--- user 5 - personnel
--- user 6 - personnel
-

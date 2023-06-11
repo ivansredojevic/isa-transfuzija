@@ -32,10 +32,6 @@ spring:
     username: sokolicc.dji.acc@gmail.com
     password: dmpcnamghlyqqpto
     port: '587'
-
-#logging:
-#  level:
-#    '[com.ivan]': trace
     
 server:
   port : 8089

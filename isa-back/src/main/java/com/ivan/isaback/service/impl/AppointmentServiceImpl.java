@@ -44,17 +44,17 @@ public class AppointmentServiceImpl implements AppointmentService {
 		this.applicationUserService = applicationUserService;
 	}
 
-//	@Override
-//	public List<AppointmentItemDTO> findAll() {
-//		List<Appointment> appointments = appointmentRepository.findAll();
-//		List<AppointmentItemDTO> appointmentResponseDTOs = new ArrayList<>();
-//		for (Appointment a : appointments) {
-//			AppointmentItemDTO arDto = new AppointmentItemDTO(a, true, true);
-//			appointmentResponseDTOs.add(arDto);
-//		}
-//		return appointmentResponseDTOs;
-//
-//	}
+	@Override
+	public List<AppointmentItemDTO> findAll() {
+		List<Appointment> appointments = appointmentRepository.findAll();
+		List<AppointmentItemDTO> appointmentResponseDTOs = new ArrayList<>();
+		for (Appointment a : appointments) {
+			AppointmentItemDTO apDto = new AppointmentItemDTO(a);
+			appointmentResponseDTOs.add(apDto);
+		}
+		return appointmentResponseDTOs;
+
+	}
 
 	@Override
 	public AppointmentItemDTO findOne(int id) {

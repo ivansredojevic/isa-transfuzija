@@ -1,7 +1,6 @@
 package com.ivan.isaback.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -17,10 +16,7 @@ import com.ivan.isaback.service.AuthenticationService;
 import com.ivan.isaback.util.JwtUtil;
 import com.ivan.isaback.util.RefreshTokenUtil;
 
-import lombok.extern.slf4j.Slf4j;
-
 @Service
-@Slf4j
 public class AuthenticationServiceImpl implements AuthenticationService{
 	
 	@Autowired
