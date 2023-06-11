@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { QuestionnaireModel } from 'src/app/model/questionnaire.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { QuestionnaireService } from 'src/app/services/questionnaire.service';
-import { SnackService } from 'src/app/services/snackHelper.service';
 
 @Component({
   selector: 'app-questionnaire',
@@ -19,18 +18,11 @@ export class QuestionnaireComponent implements OnInit {
 
 
   constructor(private authService: AuthService, private router: Router,
-    private questionnaireService: QuestionnaireService, private snackService: SnackService) { }
+    private questionnaireService: QuestionnaireService) { }
 
   ngOnInit(): void {
     this.username = this.authService.getUsername();
     this.loadQuestionnaire();
-
-    // console.log(this.questionnaire);
-    // console.log(!this.questionnaire);
-
-    // console.log(!!this.questionnaire);
-
-    // console.log(!!!this.questionnaire);
   }
 
 
@@ -38,14 +30,10 @@ export class QuestionnaireComponent implements OnInit {
     this.questionnaireService.getOne(this.username)
       .subscribe(data => {
         this.questionnaire = data;
-        console.log(this.questionnaire);
-        console.log(!this.questionnaire);
-        console.log(!!this.questionnaire);
-        console.log(!!!this.questionnaire);
       },
         error => {
           console.log(error);
-          this.router.navigate(["/profile"]) , {
+          this.router.navigate(["/profile"]), {
             state: { loadQuestionnaireError: "Error loading questionnaire" }
           }
         });

@@ -14,7 +14,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
@@ -27,7 +27,6 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { UserComponent } from './components/user/user.component';
 import { AppointmentComponent } from './components/appointment/appointment.component';
 import { CenterComponent } from './components/center/center.component';
 import { ComplaintComponent } from './components/complaint/complaint.component';
@@ -45,9 +44,9 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { DatePipe } from '@angular/common';
 import { FillQuestionnaireComponent } from './components/fill-questionnaire/fill-questionnaire.component';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { ActivateUserComponent } from './components/activate-user/activate-user.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { AuthInterceptor } from './services/authInterceptor';
 
 
 
@@ -57,7 +56,6 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     LoginComponent,
     RegisterComponent,
     NavigationComponent,
-    UserComponent,
     AppointmentComponent,
     CenterComponent,
     ComplaintComponent,
@@ -103,7 +101,14 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatNativeDateModule,
     MatTooltipModule
   ],
-  providers: [DatePipe],
+  providers: [
+    DatePipe,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
+],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

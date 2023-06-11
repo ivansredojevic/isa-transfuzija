@@ -2,21 +2,17 @@ package com.ivan.isaback.controller;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ivan.isaback.model.Center;
-import com.ivan.isaback.model.dto.CenterDTO;
 import com.ivan.isaback.service.CenterService;
 
 @RestController
@@ -24,11 +20,11 @@ import com.ivan.isaback.service.CenterService;
 @RequestMapping("/api/center/")
 public class CenterController {
 	
+	@Autowired
 	private CenterService centerService;
 
-	public CenterController(CenterService centerService) {
+	public CenterController() {
 		super();
-		this.centerService = centerService;
 	}
 	
 	@GetMapping(value = "all")

@@ -1,7 +1,5 @@
 package com.ivan.isaback.controller;
 
-import java.util.List;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -88,9 +86,9 @@ public class AppointmentController {
 	
 	@PostMapping(value = "add")
 	public ResponseEntity<String> addAppointment(@RequestBody Appointment appointment){
-		AppointmentItemDTO appoint;
+		
 		try {
-			appoint = appointmentService.save(appointment);
+			appointmentService.save(appointment);
 			return ResponseEntity.ok("Appointment added");
 		} catch (Exception e) {
 			log.error(e.getMessage());

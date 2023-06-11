@@ -2,13 +2,9 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { AppointmentModel } from 'src/app/model/appointment.model';
-import { AppointmentService } from 'src/app/services/appointment.service';
 import { merge } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth.service';
-import { AppointmentDTO } from 'src/app/model/dto/appointment.dto';
-import { Router } from '@angular/router';
 import { ComplaintModel } from 'src/app/model/complaint.model';
 import { ComplaintService } from 'src/app/services/complaint.service';
 import { SnackService } from 'src/app/services/snackHelper.service';
@@ -36,7 +32,7 @@ export class ComplaintComponent implements OnInit {
   username: string;
   addComplaintResponse: string = "";
 
-  constructor(public complaintService: ComplaintService, public authService: AuthService, public snackService: SnackService) { }
+  constructor(private complaintService: ComplaintService, private authService: AuthService, private snackService: SnackService) { }
 
   ngOnInit(): void {
     this.dataSource = new MatTableDataSource;

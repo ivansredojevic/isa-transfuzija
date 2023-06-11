@@ -9,9 +9,7 @@ import { tap } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth.service';
 import { AppointmentDTO } from 'src/app/model/dto/appointment.dto';
 import { Router } from '@angular/router';
-import { StorageService } from 'src/app/services/storage.service';
 import { SnackService } from 'src/app/services/snackHelper.service';
-import { ApplicationUserService } from 'src/app/services/application.user.service';
 
 @Component({
   selector: 'app-make-appointment',
@@ -38,8 +36,8 @@ export class MakeAppointmentComponent implements OnInit {
   response: string = "";
   cancelAppointmentResult: string = "";
 
-  constructor(public appointmentService: AppointmentService, public snackService: SnackService,
-    public sessionStorage: StorageService, public authService: AuthService, public router: Router, public userService: ApplicationUserService) { }
+  constructor(private appointmentService: AppointmentService, private snackService: SnackService,
+    private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
     this.dataSource = new MatTableDataSource;

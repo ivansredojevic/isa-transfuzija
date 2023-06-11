@@ -4,14 +4,16 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class AuthenticationResponse {
+@ToString
+public class RefreshTokenResponse {
 	
-	private String jwt;	
-	private String refreshToken;
-	private ApplicationUser user;
+	private String newToken;
+	private String newRefreshToken;
+
 }

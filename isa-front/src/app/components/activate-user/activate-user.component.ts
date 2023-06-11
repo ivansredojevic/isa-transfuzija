@@ -1,11 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ActivationDTO } from 'src/app/model/dto/activation.dto';
 import { ApplicationUserService } from 'src/app/services/application.user.service';
-import { AuthService } from 'src/app/services/auth.service';
-import { SnackService } from 'src/app/services/snackHelper.service';
-import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
   selector: 'app-activate-user',
@@ -25,13 +22,11 @@ export class ActivateUserComponent implements OnInit {
 
 
 
-  constructor(private userService: ApplicationUserService, public activatedRoute: ActivatedRoute,
-    public router: Router, public snackBar: MatSnackBar) {
+  constructor(private userService: ApplicationUserService, private activatedRoute: ActivatedRoute,
+    private router: Router) {
     this.activatedRoute.queryParams
       .subscribe(params => {
-        console.log(params);
         this.token = params['token'];
-        console.log(this.token); // token
       }
       );
   }
@@ -46,9 +41,7 @@ export class ActivateUserComponent implements OnInit {
     this.userService.activate(this.token)
       .subscribe(data => {
         this.activationResponse = data;
-        console.log(data);
         console.log(this.activationResponse);
-        // this.storageService.setItem('canDonate', this.applicationUser.canDonate);
         if (this.activationResponse.response.startsWith("fail")) {
           if (!!!this.activationResponse.username) {
             this.activationMessage = "Activation failed, user does not exist. Please register to continue.";
@@ -79,5 +72,4 @@ export class ActivateUserComponent implements OnInit {
             });
         });
   }
-
 }

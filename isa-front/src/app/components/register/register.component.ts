@@ -4,7 +4,6 @@ import { ApplicationUserDTO } from 'src/app/model/dto/applicationUser.dto';
 import { DatePipe } from '@angular/common'
 import { SnackService } from 'src/app/services/snackHelper.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AuthService } from 'src/app/services/auth.service';
 import { ApplicationUserService } from 'src/app/services/application.user.service';
 
 
@@ -21,17 +20,14 @@ export class RegisterComponent implements OnInit {
   
   activationStatus: string;
 
-  constructor(public datepipe: DatePipe, public router: Router, public userService: ApplicationUserService, public snackService: SnackService, public activatedRoute: ActivatedRoute) { 
+  constructor(private datepipe: DatePipe, private router: Router, private userService: ApplicationUserService, private snackService: SnackService, private activatedRoute: ActivatedRoute) { 
     this.activatedRoute.queryParams.subscribe(params => {
-      console.log(params);
       this.redirectString = params['activation'];
-      console.log(this.redirectString);
     });
   }
 
   ngOnInit() {
     this.activationStatus = history.state.activationStatusMessage;
-
     if (!!this.activationStatus) {
       this.snackService.showSnack(this.activationStatus, "OK");
     }
@@ -121,6 +117,5 @@ export class RegisterComponent implements OnInit {
 export const passwordMatchingValidatior: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
   const password = control.get('password');
   const passwordConfirm = control.get('passwordConfirm');
-
   return password?.value === passwordConfirm?.value ? null : { notmatched: true };
 };

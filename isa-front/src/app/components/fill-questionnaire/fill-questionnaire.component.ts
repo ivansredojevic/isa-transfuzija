@@ -27,13 +27,12 @@ export class FillQuestionnaireComponent implements OnInit {
   aspirin: boolean = false;
   tatooed: boolean = false;
 
-  constructor(public router: Router, public questionnaireService: QuestionnaireService,
-    public snackService: SnackService, public authService: AuthService) { }
+  constructor(private router: Router, private questionnaireService: QuestionnaireService,
+    private snackService: SnackService, private authService: AuthService) { }
 
   ngOnInit() {
     this.username = this.authService.getUsername();
   }
-
 
   onSubmit(){
 

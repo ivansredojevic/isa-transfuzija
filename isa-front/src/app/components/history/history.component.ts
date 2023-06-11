@@ -32,7 +32,7 @@ export class HistoryComponent implements OnInit {
   errorMessage: string = "";
   username: string;
 
-  constructor(public appointmentService: AppointmentService, public authService: AuthService, public complaintService: ComplaintService, public router: Router) { }
+  constructor(private appointmentService: AppointmentService, private authService: AuthService, private complaintService: ComplaintService, private router: Router) { }
 
   ngOnInit(): void {
     this.dataSource = new MatTableDataSource;

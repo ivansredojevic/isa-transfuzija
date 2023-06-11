@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormControl, FormGroup, FormGroupDirective, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
-import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
-import { ActivatedRoute, Router } from '@angular/router';
-import { error } from 'console';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AppointmentModel } from 'src/app/model/appointment.model';
 import { DoctorHelper } from 'src/app/model/complaint.helper';
 import { InsertComplaintDTO } from 'src/app/model/dto/insert.complaint.dto';
@@ -96,7 +94,6 @@ export class CreateComplaintComponent implements OnInit {
           this.snackService.showSnack(error, "OK");
         }
       );
-
     this.complaintForm.reset();
   }
 

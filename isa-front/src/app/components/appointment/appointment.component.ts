@@ -8,8 +8,7 @@ import { merge } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth.service';
 import { AppointmentDTO } from 'src/app/model/dto/appointment.dto';
-import { ActivatedRoute, Router } from '@angular/router';
-import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 import { SnackService } from 'src/app/services/snackHelper.service';
 
 @Component({
@@ -35,8 +34,8 @@ export class AppointmentComponent implements OnInit {
   errorMessage: string = "";
   username: string;
 
-  constructor(public appointmentService: AppointmentService, public authService: AuthService,
-    public router: Router, public snackService: SnackService) { }
+  constructor(private appointmentService: AppointmentService, private authService: AuthService,
+    private router: Router, private snackService: SnackService) { }
 
   ngOnInit(): void {
     this.dataSource = new MatTableDataSource;

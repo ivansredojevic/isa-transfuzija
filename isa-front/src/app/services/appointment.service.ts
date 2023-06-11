@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { AppointmentDTO } from '../model/dto/appointment.dto';
-import { AppointmentModel } from '../model/appointment.model';
 
 @Injectable({
     providedIn: 'root'
@@ -11,12 +10,11 @@ import { AppointmentModel } from '../model/appointment.model';
 export class AppointmentService {
 
     private resourceUrl = `${environment.API_URL}`;
+    headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
 
     constructor(private http: HttpClient) { }
 
     getFreePageable(username: string, sort = 'id,asc', page: number, size: number): Observable<any> {
-        const headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': `Bearer ` + localStorage.getItem('token') });
-        
         return this.http.get<any>(
             this.resourceUrl + '/appointment/free-pageable/' + username,
             {
@@ -25,33 +23,28 @@ export class AppointmentService {
                     page: page.toString(),
                     size: size.toString()
                 },
-                headers: headers
+                headers: this.headers
             });
     }
 
     getOne(id: number): Observable<any> {
-        const headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': `Bearer ` + localStorage.getItem('token') });
-        
         return this.http.get<any>(
             this.resourceUrl + '/appointment/get/' + id,
             {
-                headers: headers
+                headers: this.headers
             });
     }
 
     reserveAppointment(appointmentDto: AppointmentDTO): Observable<any> {
-        const headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': `Bearer ` + localStorage.getItem('token') });
         return this.http.post<any>(
-            this.resourceUrl + '/appointment/reserve', 
+            this.resourceUrl + '/appointment/reserve',
             appointmentDto,
             {
-                headers: headers
+                headers: this.headers
             });
     }
 
     getMyAppointmentsPageable(username: string, sort = 'id,asc', page: number, size: number): Observable<any> {
-        const headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': `Bearer ` + localStorage.getItem('token') });
-        
         return this.http.get<any>(
             this.resourceUrl + '/appointment/upcoming-by-user-pageable/' + username,
             {
@@ -60,13 +53,11 @@ export class AppointmentService {
                     page: page.toString(),
                     size: size.toString()
                 },
-                headers: headers
+                headers: this.headers
             });
     }
 
     getMyHistoryPageable(username: string, sort = 'id,asc', page: number, size: number): Observable<any> {
-        const headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': `Bearer ` + localStorage.getItem('token') });
-        
         return this.http.get<any>(
             this.resourceUrl + '/appointment/history-by-user-pageable/' + username,
             {
@@ -75,17 +66,16 @@ export class AppointmentService {
                     page: page.toString(),
                     size: size.toString()
                 },
-                headers: headers
+                headers: this.headers
             });
     }
 
     cancelAppointment(appointmentDto: AppointmentDTO): Observable<any> {
-        const headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': `Bearer ` + localStorage.getItem('token') });
         return this.http.post<any>(
-            this.resourceUrl + '/appointment/cancel', 
+            this.resourceUrl + '/appointment/cancel',
             appointmentDto,
             {
-                headers: headers
+                headers: this.headers
             });
     }
 

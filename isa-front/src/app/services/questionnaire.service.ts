@@ -11,26 +11,24 @@ import { QuestionnaireModel } from '../model/questionnaire.model';
 export class QuestionnaireService {
 
     private resourceUrl = `${environment.API_URL}`;
+    headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
 
     constructor(private http: HttpClient) { }
 
     getOne(username: string): Observable<any> {
-        const headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': `Bearer ` + localStorage.getItem('token') });
-        
         return this.http.get<any>(
             this.resourceUrl + '/questionnaire/get/' + username,
             {
-                headers: headers
+                headers: this.headers
             });
     }
 
     fillQuestionnaire(questionnaire: QuestionnaireModel): Observable<any> {
-        const headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': `Bearer ` + localStorage.getItem('token') });
         return this.http.post<any>(
-            this.resourceUrl + '/questionnaire/fill-questionnaire', 
+            this.resourceUrl + '/questionnaire/fill-questionnaire',
             questionnaire,
             {
-                headers: headers
+                headers: this.headers
             });
     }
 }

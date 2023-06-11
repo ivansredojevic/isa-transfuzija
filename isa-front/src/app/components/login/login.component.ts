@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, FormGroupDirective } from '@angular/forms'
+import { FormGroup, FormControl } from '@angular/forms'
 import { AuthUserModel } from 'src/app/model/auth.user.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ApplicationUserService } from 'src/app/services/application.user.service';
-import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { SnackService } from 'src/app/services/snackHelper.service';
 
 @Component({
@@ -18,12 +16,21 @@ export class LoginComponent implements OnInit {
   private user: AuthUserModel = new AuthUserModel();
   addRegisterResponse: string;
   activationStatus: string;
+  sessionExpired: string;
 
-  constructor(public authService: AuthService, private router: Router,
-    public userService: ApplicationUserService, private snackService: SnackService) {
+  constructor(private authService: AuthService, private router: Router, private activatedRoute: ActivatedRoute, private snackService: SnackService) {
+      this.activatedRoute.queryParams
+      .subscribe(params => {
+        this.sessionExpired = params['sessionExpired'];
+      }
+      );
   }
 
   ngOnInit(): void {
+    if (!!this.sessionExpired) {
+      this.snackService.showSnack("Session expired. Please log in.", "OK");
+    }
+
     this.addRegisterResponse = history.state.addRegisterResponse;
     if (!!this.addRegisterResponse) {
       this.snackService.showSnack(this.addRegisterResponse, "OK");
@@ -53,7 +60,7 @@ export class LoginComponent implements OnInit {
     this.authService.login(this.user)
       .subscribe(data => {
         localStorage.setItem('token', data.jwt)
-        console.log(localStorage.getItem('token'));
+        console.log('login token' + localStorage.getItem('token'));
         this.router.navigate(["/profile"]);
       },
         error => {

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { ApplicationUserDTO } from '../model/dto/applicationUser.dto';
+import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -12,12 +12,11 @@ export class AuthService {
 
   private resourceUrl = `${environment.API_URL}`;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router) { }
 
   getAuthHeader(): any {
     const headers = {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + localStorage.getItem("token")
+      'Content-Type': 'application/json'
     }
     return {
       headers: headers
@@ -26,6 +25,14 @@ export class AuthService {
 
   login(user: any): Observable<any> {
     return this.http.post(this.resourceUrl + "/auth/generate-token", user);
+  }
+
+  sessionExpired(): void {
+    localStorage.removeItem('token');
+    this.router.navigate(['/centers'],
+      {
+        queryParams: { sessionExpired: 'true' }
+      });
   }
 
   getUsername() {
@@ -37,9 +44,14 @@ export class AuthService {
     }
   }
 
+  getToken() {
+    let jwt = localStorage.getItem('token');
+    return jwt;
+  }
+
   logout() {
-    // sessionStorage.removeItem('canDonate');
     localStorage.removeItem('token');
+    this.router.navigate(['/login'])
   }
 
   getUserDetails(username: string) {

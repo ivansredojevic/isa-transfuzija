@@ -11,44 +11,37 @@ import { ApplicationUserDTO } from '../model/dto/applicationUser.dto';
 export class ApplicationUserService {
 
     private resourceUrl = `${environment.API_URL}`;
+    headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
 
     constructor(private http: HttpClient) { }
 
     loadUser(username: string): Observable<any> {
-        const headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': `Bearer ` + localStorage.getItem('token') });
-
-        return this.http.get<any>(
+         return this.http.get<any>(
             this.resourceUrl + '/users/load-user/' + username,
             {
-                headers: headers
+                headers: this.headers
             });
     }
 
     register(appUser: ApplicationUserDTO): Observable<any> {
-        const headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
-
-        return this.http.post(this.resourceUrl + "/users/register", appUser,
+         return this.http.post(this.resourceUrl + "/users/register", appUser,
             {
-                headers: headers
+                headers: this.headers
             });
     }
 
     conditionsEvaluate(username: string): Observable<any> {
-        const headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': `Bearer ` + localStorage.getItem('token') });
-
         return this.http.get<any>(
             this.resourceUrl + '/users/evaluate-conditions/' + username,
             {
-                headers: headers
+                headers: this.headers
             });
     }
 
     activate(token: string): Observable<any> {
-        const headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
-
         return this.http.get(this.resourceUrl + "/users/activate/" + token,
             {
-                headers: headers
+                headers: this.headers
             });
     }
 }

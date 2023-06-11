@@ -30,7 +30,7 @@ export class CenterComponent implements OnInit {
   pageSize: number = 10;
   selectedRowIndex = -1;
 
-  constructor(public centerService: CenterService, private route: ActivatedRoute, public snackService: SnackService) {
+  constructor(private centerService: CenterService, private route: ActivatedRoute, private snackService: SnackService) {
     this.route.queryParams.subscribe(params => {
       this.redirectReason = params['redirected'];
     });
@@ -39,7 +39,7 @@ export class CenterComponent implements OnInit {
   ngOnInit(): void {
     this.dataSource = new MatTableDataSource;
     this.loadPage();
-    if(!!this.redirectReason){
+    if (!!this.redirectReason) {
       this.snackService.showSnack("Requested page does not exist", "OK");
     }
   }
@@ -96,5 +96,5 @@ export class CenterComponent implements OnInit {
     console.log(event);
     this.loadPage();
   }
-
+  
 }

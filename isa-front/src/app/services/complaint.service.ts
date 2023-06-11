@@ -9,13 +9,13 @@ import { InsertComplaintDTO } from '../model/dto/insert.complaint.dto';
 })
 
 export class ComplaintService {
+    
     private resourceUrl = `${environment.API_URL}`;
+    headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
 
     constructor(private http: HttpClient) { }
 
     getMyComplaintsPageable(username: string, sort = 'id,asc', page: number, size: number): Observable<any> {
-        const headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': `Bearer ` + localStorage.getItem('token') });
-        
         return this.http.get<any>(
             this.resourceUrl + '/complaint/user-pageable/' + username,
             {
@@ -24,17 +24,16 @@ export class ComplaintService {
                     page: page.toString(),
                     size: size.toString()
                 },
-                headers: headers
+                headers: this.headers
             });
     }
 
     addComplaint(complaint: InsertComplaintDTO): Observable<any> {
-        const headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': `Bearer ` + localStorage.getItem('token') });
         return this.http.post<any>(
-            this.resourceUrl + '/complaint/add', 
+            this.resourceUrl + '/complaint/add',
             complaint,
             {
-                headers: headers
+                headers: this.headers
             });
     }
 

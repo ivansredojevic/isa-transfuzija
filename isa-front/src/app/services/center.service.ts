@@ -9,12 +9,11 @@ import { environment } from 'src/environments/environment';
 export class CenterService {
 
   private resourceUrl = `${environment.API_URL}`;
+  headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
 
   constructor(private http: HttpClient) { }
 
   getAllPageable(sort = 'id,asc', page: number, size: number): Observable<any> {
-    const headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
-
     return this.http.get<any>(
       this.resourceUrl + '/center/all-pageable',
       {
@@ -23,7 +22,7 @@ export class CenterService {
           page: page.toString(),
           size: size.toString()
         },
-        headers: headers
+        headers: this.headers
       });
   }
 
