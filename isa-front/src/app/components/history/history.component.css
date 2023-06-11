@@ -17,6 +17,10 @@ table.mat-table {
   background-color: gray;
 }
 
+.pending {
+  background-color: lightgray;
+}
+
 .mat-button-cell {
   justify-content: center;
 }

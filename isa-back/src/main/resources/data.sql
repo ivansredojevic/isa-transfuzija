@@ -51,80 +51,80 @@ values ('application_user', 'ivan.m.sredojevicc@gmail.com', 'admin', '$2a$10$3Tn
 -- free appointments
 -- KCV.id=1 preklapajuci, 12 jun
 insert into appointment (center_id, application_user_id, end_time, start_time, duration, price_euro, taken, approved, complain_pers, complain_center)
-values (1, null, '2023-06-12 09:51:00', '2023-06-12 09:16:00', 45, 60, false, false, false, false);
+values (1, null, '2023-06-13 09:51:00', '2023-06-13 09:16:00', 45, 60, false, false, false, false);
 insert into appointment_personnel (personnel_id, appointment_id) values (3, 1);
 insert into appointment_personnel (personnel_id, appointment_id) values (4, 1);
 
 insert into appointment (center_id, application_user_id, end_time, start_time, duration, price_euro, taken, approved, complain_pers, complain_center)
-values (1, null, '2023-06-12 10:45:00', '2023-06-12 10:00:00', 45, 60, false, false, false, false);
+values (1, null, '2023-06-13 10:45:00', '2023-06-13 10:00:00', 45, 60, false, false, false, false);
 insert into appointment_personnel (personnel_id, appointment_id) values (3, 2);
 
 insert into appointment (center_id, application_user_id, end_time, start_time, duration, price_euro, taken, approved, complain_pers, complain_center)
-values (1, null, '2023-06-12 11:30:01', '2023-06-12 10:45:01', 45, 60, false, false, false, false);
+values (1, null, '2023-06-13 11:30:01', '2023-06-13 10:45:01', 45, 60, false, false, false, false);
 insert into appointment_personnel (personnel_id, appointment_id) values (4, 3);
 
 insert into appointment (center_id, application_user_id, end_time, start_time, duration, price_euro, taken, approved, complain_pers, complain_center)
-values (1, null, '2023-06-12 12:45:00', '2023-06-12 11:30:00', 45, 60, false, false, false, false);
+values (1, null, '2023-06-13 12:45:00', '2023-06-13 11:30:00', 45, 60, false, false, false, false);
 insert into appointment_personnel (personnel_id, appointment_id) values (3, 4);
 insert into appointment_personnel (personnel_id, appointment_id) values (4, 4);
 
 -- prosao, proveriti da li se pojavljuje u slobodnim terminima
 insert into appointment (center_id, application_user_id, end_time, start_time, duration, price_euro, taken, approved, complain_pers, complain_center)
-values (1, null, '2023-05-11 12:15:00', '2023-05-11 11:30:00', 45, 60, false, false, false, false);
+values (1, null, '2023-05-12 12:15:00', '2023-05-12 11:30:00', 45, 60, false, false, false, false);
 insert into appointment_personnel (personnel_id, appointment_id) values (3, 5);
 insert into appointment_personnel (personnel_id, appointment_id) values (4, 5);
 
 -- kam.id=2 preklapajuci, 12 jun
 
 insert into appointment (center_id, application_user_id, end_time, start_time, duration, price_euro, taken, approved, complain_pers, complain_center)
-values (2, null, '2023-06-12 10:01:00', '2023-06-12 09:16:00', 45, 60, false, false, false, false);
+values (2, null, '2023-06-13 10:01:00', '2023-06-13 09:16:00', 45, 60, false, false, false, false);
 insert into appointment_personnel (personnel_id, appointment_id) values (5, 6);
 insert into appointment_personnel (personnel_id, appointment_id) values (6, 6);
 
 insert into appointment (center_id, application_user_id, end_time, start_time, duration, price_euro, taken, approved, complain_pers, complain_center)
-values (2, null, '2023-06-12 10:45:00', '2023-06-12 10:00:00', 45, 60, false, false, false, false);
+values (2, null, '2023-06-13 10:45:00', '2023-06-13 10:00:00', 45, 60, false, false, false, false);
 insert into appointment_personnel (personnel_id, appointment_id) values (5, 7);
 insert into appointment_personnel (personnel_id, appointment_id) values (6, 7);
 
 insert into appointment (center_id, application_user_id, end_time, start_time, duration, price_euro, taken, approved, complain_pers, complain_center)
-values (2, null, '2023-06-12 11:30:01', '2023-06-12 10:45:01', 45, 60, false, false, false, false);
+values (2, null, '2023-06-13 11:30:01', '2023-06-13 10:45:01', 45, 60, false, false, false, false);
 insert into appointment_personnel (personnel_id, appointment_id) values (5, 8);
 
 
 insert into appointment (center_id, application_user_id, end_time, start_time, duration, price_euro, taken, approved, complain_pers, complain_center)
-values (2, null, '2023-06-12 12:45:00', '2023-06-12 11:30:00', 45, 60, false, false, false, false);
+values (2, null, '2023-06-13 12:45:00', '2023-06-13 11:30:00', 45, 60, false, false, false, false);
 insert into appointment_personnel (personnel_id, appointment_id) values (6, 9);
 insert into appointment_personnel (personnel_id, appointment_id) values (5, 9);
 
 --kcv 12 user, id=1
 insert into appointment (center_id, application_user_id, end_time, start_time, duration, price_euro, taken, approved, complain_pers, complain_center)
-values (1, 1, '2023-06-12 09:15:00', '2023-06-12 08:30:00', 45, 60, false, true, false, false);
+values (1, 1, '2023-06-13 09:15:00', '2023-06-13 08:30:00', 45, 60, false, true, false, false);
 insert into appointment_personnel (personnel_id, appointment_id) values (3, 10);
 insert into appointment_personnel (personnel_id, appointment_id) values (4, 10);
 --kcv 11
 insert into appointment (center_id, application_user_id, end_time, start_time, duration, price_euro, taken, approved, complain_pers, complain_center)
-values (1, 1, '2023-06-11 08:01:00', '2023-06-11 07:16:00', 45, 60, false, true, false, false);
+values (1, 1, '2023-06-12 08:01:00', '2023-06-12 07:16:00', 45, 60, false, true, false, false);
 insert into appointment_personnel (personnel_id, appointment_id) values (4, 11);
 -- kam 12
 insert into appointment (center_id, application_user_id, end_time, start_time, duration, price_euro, taken, approved, complain_pers, complain_center)
-values (2, 1, '2023-06-12 09:15:00', '2023-06-12 08:30:00', 45, 60, false, true, false, false);
+values (2, 1, '2023-06-13 09:15:00', '2023-06-13 08:30:00', 45, 60, false, true, false, false);
 insert into appointment_personnel (personnel_id, appointment_id) values (6, 12);
 insert into appointment_personnel (personnel_id, appointment_id) values (5, 12);
 
 
 --kcv 12 user12, id=2
 insert into appointment (center_id, application_user_id, end_time, start_time, duration, price_euro, taken, approved, complain_pers, complain_center)
-values (1, 2, '2023-06-12 09:15:00', '2023-06-12 08:30:00', 45, 60, false, true, false, false);
+values (1, 2, '2023-06-13 09:15:00', '2023-06-13 08:30:00', 45, 60, false, true, false, false);
 insert into appointment_personnel (personnel_id, appointment_id) values (3, 13);
 insert into appointment_personnel (personnel_id, appointment_id) values (4, 13);
 
 --kcv 11
 insert into appointment (center_id, application_user_id, end_time, start_time, duration, price_euro, taken, approved, complain_pers, complain_center)
-values (1, 2, '2023-06-11 08:01:00', '2023-06-11 07:16:00', 45, 60, false, true, false, false);
+values (1, 2, '2023-06-12 08:01:00', '2023-06-12 07:16:00', 45, 60, false, true, false, false);
 insert into appointment_personnel (personnel_id, appointment_id) values (4, 14);
 -- kam 12
 insert into appointment (center_id, application_user_id, end_time, start_time, duration, price_euro, taken, approved, complain_pers, complain_center)
-values (2, 2, '2023-06-12 09:15:00', '2023-06-12 08:30:00', 45, 60, false, true, false, false);
+values (2, 2, '2023-06-13 09:15:00', '2023-06-13 08:30:00', 45, 60, false, true, false, false);
 insert into appointment_personnel (personnel_id, appointment_id) values (6, 15);
 
 

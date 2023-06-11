@@ -51,8 +51,8 @@
             <ng-container matColumnDef="complainCenter">
                 <mat-header-cell *matHeaderCellDef></mat-header-cell>
                 <mat-cell class="mat-button-cell" *matCellDef="let row">
-                    <div matTooltip="Complaints only for completed appointments."
-                        [matTooltipDisabled]="row.taken" [matTooltipPosition]="'before'">
+                    <div matTooltip="Complaints only for completed appointments." [matTooltipDisabled]="row.taken"
+                        [matTooltipPosition]="'before'">
                         <button [disabled]="row.complainCenter || !row.taken" mat-raised-button color="accent"
                             (click)="onComplainCenter(row.id)">Center complaint</button>
                     </div>
@@ -62,8 +62,8 @@
             <ng-container matColumnDef="complainDoctor">
                 <mat-header-cell *matHeaderCellDef></mat-header-cell>
                 <mat-cell class="mat-button-cell" *matCellDef="let row">
-                    <div matTooltip="Complaints only for completed appointments."
-                        [matTooltipDisabled]="row.taken" [matTooltipPosition]="'before'">
+                    <div matTooltip="Complaints only for completed appointments." [matTooltipDisabled]="row.taken"
+                        [matTooltipPosition]="'before'">
                         <button [disabled]="row.complainPers  || !row.taken" mat-raised-button color="accent"
                             (click)="onComplainDoctor(row.id)">Doctor complaint</button>
                     </div>
@@ -72,7 +72,8 @@
 
             <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
             <mat-row *matRowDef="let row; columns: displayedColumns;"
-                [ngClass]="{'highlight': selectedRowIndex == row.id}" (click)="highlight(row)">
+                [ngClass]="{'highlight': selectedRowIndex == row.id && row.taken}" [ngClass]="{'pending' : !row.taken}"
+                (click)="highlight(row)" [matTooltip]="!row.taken ? 'Appointment pending' : ''" [matTooltipPosition]="'right'">
             </mat-row>
 
         </mat-table>
@@ -83,3 +84,9 @@
     </mat-paginator>
 
 </div>
+
+<!-- 
+<mat-row [ngClass]="{'class-name': condition}" matTooltip="Tooltip text" *ngIf="row.param">
+  
+  </mat-row>
+   -->
