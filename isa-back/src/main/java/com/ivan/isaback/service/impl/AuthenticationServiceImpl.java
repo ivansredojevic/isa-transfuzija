@@ -60,7 +60,6 @@ public class AuthenticationServiceImpl implements AuthenticationService{
 		String refreshToken = request.getRefreshToken();
 		
 		String username = refreshUtil.extractUsername(refreshToken);
-		log.info(username);
 		
 		final UserDetails userDetails = userService.loadUserByUsername(username);
 		if(refreshUtil.validateRefreshToken(refreshToken)) {

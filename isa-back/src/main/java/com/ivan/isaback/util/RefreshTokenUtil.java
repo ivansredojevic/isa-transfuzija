@@ -12,10 +12,8 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import lombok.extern.slf4j.Slf4j;
 
 @Service
-@Slf4j
 public class RefreshTokenUtil {
 
 	public static final String SECRET_KEY = "secret_refresh";
@@ -37,7 +35,6 @@ public class RefreshTokenUtil {
 	public boolean validateRefreshToken(String refreshToken) {
 		
 		try {
-			log.info(refreshToken);
 			Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(refreshToken);
 			return true;
 		} catch (JwtException | IllegalArgumentException e) {
