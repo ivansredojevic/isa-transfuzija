@@ -78,7 +78,7 @@ export class MakeAppointmentComponent implements OnInit {
         } else {
           this.response = data.response;
           this.router.navigate(['my-appointments'], {
-            state: { makeAppointmentResult: this.response }
+              state: { makeAppointmentResult: this.response }
           })
         }
       },

@@ -73,7 +73,7 @@
             <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
             <mat-row *matRowDef="let row; columns: displayedColumns;"
                 [ngClass]="{'highlight': selectedRowIndex == row.id && row.taken}" [ngClass]="{'pending' : !row.taken}"
-                (click)="highlight(row)" [matTooltip]="!row.taken ? 'Appointment pending' : ''" [matTooltipPosition]="'right'">
+                (click)="highlight(row)">
             </mat-row>
 
         </mat-table>

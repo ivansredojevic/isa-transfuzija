@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { FormControl, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AppointmentModel } from 'src/app/model/appointment.model';
 import { DoctorHelper } from 'src/app/model/complaint.helper';
 import { InsertComplaintDTO } from 'src/app/model/dto/insert.complaint.dto';
@@ -34,7 +34,15 @@ export class CreateComplaintComponent implements OnInit {
   center: string = '';
 
   constructor(private authService: AuthService, private router: Router, private snackService: SnackService, 
-    private complaintService: ComplaintService, private appointmentService: AppointmentService) { }
+    private complaintService: ComplaintService, private appointmentService: AppointmentService, private activatedRoute: ActivatedRoute) {
+      this.activatedRoute.queryParams
+      .subscribe(params => {
+        console.log(params);
+        this.appointmentId = params['aptId'];
+        this.subject = params['subject'];
+      }
+      );
+     }
 
   ngOnInit(): void {
     this.appointmentId = history.state.aptId;
@@ -51,8 +59,8 @@ export class CreateComplaintComponent implements OnInit {
   createForm() {
     this.complaintForm = new FormGroup(
       {
-        'complaintText': new FormControl(null, [Validators.required, Validators.maxLength(200)]),//[null, Validators.required, Validators.maxLength(200)]),
-        'personnelId': new FormControl(null),
+        'complaintText': new FormControl(null, [Validators.required, Validators.maxLength(200)]),
+        'personnelId': new FormControl(null) ,
       }
     )
   }
@@ -82,6 +90,7 @@ export class CreateComplaintComponent implements OnInit {
     this.isDoctor ? this.complaintDto.personnelId = +this.doctor : this.complaintDto.centerId = this.appointment.centerId;
 
     this.complaintDto.appointmentId = this.appointment.id;
+
 
     this.complaintService.addComplaint(this.complaintDto)
       .subscribe(data => {

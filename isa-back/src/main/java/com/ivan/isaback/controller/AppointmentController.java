@@ -113,7 +113,6 @@ public class AppointmentController {
 	public ResponseEntity<AppointmentDTO> cancelAppointment(@RequestBody AppointmentDTO dto){
 		try {
 			AppointmentDTO response = appointmentService.cancel(dto);
-			log.info(response.toString());
 			return ResponseEntity.ok(response);
 		} catch (Exception e) {
 			log.error(e.getMessage());

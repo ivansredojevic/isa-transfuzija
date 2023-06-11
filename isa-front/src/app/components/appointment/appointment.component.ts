@@ -10,6 +10,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { AppointmentDTO } from 'src/app/model/dto/appointment.dto';
 import { Router } from '@angular/router';
 import { SnackService } from 'src/app/services/snackHelper.service';
+import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
   selector: 'app-appointment',
@@ -35,7 +36,7 @@ export class AppointmentComponent implements OnInit {
   username: string;
 
   constructor(private appointmentService: AppointmentService, private authService: AuthService,
-    private router: Router, private snackService: SnackService) { }
+    private router: Router, private snackService: SnackService, private storageService: StorageService) { }
 
   ngOnInit(): void {
     this.dataSource = new MatTableDataSource;
@@ -43,6 +44,7 @@ export class AppointmentComponent implements OnInit {
     this.snackMessage = history.state.makeAppointmentResult;
     if (!!this.snackMessage) {
       this.snackService.showSnack(this.snackMessage, "OK");
+      this.storageService.removeItem('makeAppointmentResult');
     }
     this.loadPage();
   }
