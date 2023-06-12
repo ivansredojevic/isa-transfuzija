@@ -67,7 +67,7 @@ public class ApplicationUserController {
 		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
 	}
 
-	@PreAuthorize("hasAnyRole('USER')")
+	@PreAuthorize("hasAnyRole('ADMIN', 'USER')")
 	@GetMapping(path = "load-user/{username}")
 	public ResponseEntity<ApplicationUserDTO> getCurrentByUsername(@PathVariable String username) {
 
