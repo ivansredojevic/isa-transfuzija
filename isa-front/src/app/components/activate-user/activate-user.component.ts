@@ -41,7 +41,6 @@ export class ActivateUserComponent implements OnInit {
     this.userService.activate(this.token)
       .subscribe(data => {
         this.activationResponse = data;
-        console.log(this.activationResponse);
         if (this.activationResponse.response.startsWith("fail")) {
           if (!!!this.activationResponse.username) {
             this.activationMessage = "Activation failed, user does not exist. Please register to continue.";

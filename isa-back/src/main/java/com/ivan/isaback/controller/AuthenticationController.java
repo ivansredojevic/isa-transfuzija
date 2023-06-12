@@ -1,6 +1,5 @@
 package com.ivan.isaback.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,11 +18,11 @@ import com.ivan.isaback.service.AuthenticationService;
 @RequestMapping("/api/auth")
 public class AuthenticationController {
 
-	@Autowired
 	private AuthenticationService authenticationService;
 
-	public AuthenticationController() {
+	public AuthenticationController(AuthenticationService authenticationService) {
 		super();
+		this.authenticationService = authenticationService;
 	}
 
 	@PostMapping("/generate-token")

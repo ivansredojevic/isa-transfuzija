@@ -2,7 +2,6 @@ package com.ivan.isaback.controller;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -20,13 +19,13 @@ import com.ivan.isaback.service.CenterService;
 @RequestMapping("/api/center/")
 public class CenterController {
 	
-	@Autowired
 	private CenterService centerService;
-
-	public CenterController() {
-		super();
-	}
 	
+	public CenterController(CenterService centerService) {
+		super();
+		this.centerService = centerService;
+	}
+
 	@GetMapping(value = "all")
 	public ResponseEntity<List<Center>> getAll(){
 		List<Center> centers = centerService.findAll();

@@ -26,6 +26,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RequestMapping("/api/appointment/")
 @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
+
 public class AppointmentController {
 	
 	private AppointmentService appointmentService;

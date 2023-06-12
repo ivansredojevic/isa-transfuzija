@@ -29,7 +29,7 @@ import lombok.extern.slf4j.Slf4j;
 public class ApplicationUserController {
 
 	private ApplicationUserService userService;
-
+	
 	public ApplicationUserController(ApplicationUserService userService) {
 		super();
 		this.userService = userService;
@@ -67,7 +67,7 @@ public class ApplicationUserController {
 		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
 	}
 
-	@PreAuthorize("hasAnyRole('ADMIN', 'USER')")
+	@PreAuthorize("hasAnyRole('USER')")
 	@GetMapping(path = "load-user/{username}")
 	public ResponseEntity<ApplicationUserDTO> getCurrentByUsername(@PathVariable String username) {
 
@@ -82,7 +82,7 @@ public class ApplicationUserController {
 
 	// helper function to provide information whether user is allowed to make
 	// appointment or not
-	@PreAuthorize("hasAnyRole('ADMIN', 'USER')")
+	@PreAuthorize("hasAnyRole('USER')")
 	@GetMapping(path = "evaluate-conditions/{username}")
 	public ResponseEntity<ConditionsEvaluationDTO> evaluateConditions(@PathVariable String username) {
 		ConditionsEvaluationDTO conditionsEvaluationDTO = userService.evaluateConditions(username);

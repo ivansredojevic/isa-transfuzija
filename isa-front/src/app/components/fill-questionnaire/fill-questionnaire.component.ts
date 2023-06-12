@@ -35,8 +35,6 @@ export class FillQuestionnaireComponent implements OnInit {
   }
 
   onSubmit(){
-
-    console.log("click");
     
     let questionnaire: QuestionnaireModel = new QuestionnaireModel();
 
@@ -49,8 +47,6 @@ export class FillQuestionnaireComponent implements OnInit {
     questionnaire.onTherapy = this.onTherapy;
     questionnaire.aspirin = this.aspirin;
     questionnaire.tatooed = this.tatooed;
-
-    console.log(questionnaire);
 
     this.questionnaireService.fillQuestionnaire(questionnaire)
       .subscribe(

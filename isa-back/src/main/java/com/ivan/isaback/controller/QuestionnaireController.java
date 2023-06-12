@@ -16,22 +16,23 @@ import com.ivan.isaback.service.QuestionnaireService;
 @RestController
 @CrossOrigin
 @RequestMapping("/api/questionnaire/")
-@PreAuthorize("hasAnyRole('ADMIN', 'USER')")
 public class QuestionnaireController {
 
 	private QuestionnaireService questionnaireService;
-
+	
 	public QuestionnaireController(QuestionnaireService questionnaireService) {
 		super();
 		this.questionnaireService = questionnaireService;
 	}
 
+	@PreAuthorize("hasAnyRole('USER')")
 	@PostMapping("fill-questionnaire")
 	public ResponseEntity<String> fillQuestionnaire(@RequestBody QuestionnaireDTO q) {
 		String response = questionnaireService.save(q);
 		return ResponseEntity.ok("{ \"response\" : \"" + response + "\" }");
 	}
 
+	@PreAuthorize("hasAnyRole('ADMIN', 'USER')")
 	@GetMapping("get/{username}")
 	public ResponseEntity<QuestionnaireDTO> getQuestionnaire(@PathVariable String username) {
 		try {
@@ -42,18 +43,7 @@ public class QuestionnaireController {
 		}
 	}
 
-//	@GetMapping("get-all")
-//	public ResponseEntity<List<Questionnaire>> getAll() {
-//
-//		List<Questionnaire> questionnaire = questionnaireService.findAll();
-//		if (!questionnaire.isEmpty()) {
-//			return ResponseEntity.ok(questionnaire);
-//		} else {
-//			log.error("No questionnaires found");
-//			return ResponseEntity.internalServerError().body(null);
-//		}
-//	}
-
+//	@PreAuthorize("hasAnyRole('USER')")
 //	@DeleteMapping("delete/{id}")
 //	public ResponseEntity<String> deleteQuestionnaire(@PathVariable int id) {
 //

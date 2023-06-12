@@ -23,16 +23,16 @@ import com.ivan.isaback.service.ComplaintService;
 @RestController
 @CrossOrigin
 @RequestMapping("/api/complaint/")
-@PreAuthorize("hasAnyRole('ADMIN', 'USER')")
 public class ComplaintController {
 	
 	private ComplaintService complaintService;
-
+	
 	public ComplaintController(ComplaintService complaintService) {
 		super();
 		this.complaintService = complaintService;
 	}
 	
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@GetMapping(value = "all")
 	public ResponseEntity<List<Complaint>> getAll(){
 		List<Complaint> complaints = complaintService.findAll();
@@ -43,21 +43,13 @@ public class ComplaintController {
 		}
 	}
 	
-//	@GetMapping(value = "user/{userId}")
-//	public ResponseEntity<List<Complaint>> getByUser(@PathVariable int userId){
-//		List<Complaint> complaints = complaintService.findByUserId(userId);
-//		if(!complaints.isEmpty()) {
-//			return ResponseEntity.ok(complaints);
-//		} else {
-//			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-//		}
-//	}
-	
+	@PreAuthorize("hasAnyRole('ADMIN', 'USER')")
 	@GetMapping(value = "user-pageable/{username}")
 	public Page<ComplaintDTO> getByUser(@PathVariable String username, Pageable pageable){
 		return complaintService.findByUserIdPageable(username, pageable);
 	}
 	
+	@PreAuthorize("hasAnyRole('ADMIN', 'USER')")
 	@PostMapping(value = "add")
 	public ResponseEntity<Complaint> addComplaint(@RequestBody InsertComplaintDTO complaintDTO){
 		Complaint complaint = complaintService.save(complaintDTO);
@@ -68,6 +60,7 @@ public class ComplaintController {
 		}
 	}
 	
+//	@PreAuthorize("hasAnyRole('ADMIN')")
 //	@PostMapping(value = "update")
 //	public ResponseEntity<Complaint> updateComplaint(@RequestBody ComplaintDTO complaintDTO){
 //		Complaint complaint = complaintService.update(complaintDTO);

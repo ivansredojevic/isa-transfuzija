@@ -84,7 +84,7 @@ export class MakeAppointmentComponent implements OnInit {
       },
         (error) => {
           console.log(error);
-          this.snackService.showSnack("Error making appointment. Check if another appointment is overlaping with this one.", "OK");
+          this.snackService.showSnack("Error making appointment.", "OK");
         }
       );
   }

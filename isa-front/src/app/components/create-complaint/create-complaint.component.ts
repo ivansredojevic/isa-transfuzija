@@ -37,7 +37,6 @@ export class CreateComplaintComponent implements OnInit {
     private complaintService: ComplaintService, private appointmentService: AppointmentService, private activatedRoute: ActivatedRoute) {
       this.activatedRoute.queryParams
       .subscribe(params => {
-        console.log(params);
         this.appointmentId = params['aptId'];
         this.subject = params['subject'];
       }
