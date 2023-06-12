@@ -66,6 +66,7 @@ export class LoginComponent implements OnInit {
         error => {
           console.log(error);
           this.snackService.showSnack("Login failed!\nUsername and password not matching or account is not activated.\nPlease check your email.", "DISMISS");
+          this.router.navigate(["/login"]);
           localStorage.removeItem('token');
         }
       );

@@ -87,7 +87,7 @@ insert into appointment_personnel (personnel_id, appointment_id) values (5, 7);
 insert into appointment_personnel (personnel_id, appointment_id) values (6, 7);
 
 insert into appointment (center_id, application_user_id, end_time, start_time, duration, price_euro, taken, approved, complain_pers, complain_center)
-values (2, null, '2023-06-22 11:30:01', '2023-06-22 10:45:01', 45, 60, false, false, false, false);
+values (2, null, '2023-06-22 11:30:00', '2023-06-22 10:45:00', 45, 60, false, false, false, false);
 insert into appointment_personnel (personnel_id, appointment_id) values (5, 8);
 
 
