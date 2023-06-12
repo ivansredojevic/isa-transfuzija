@@ -1,8 +1,8 @@
 -- ISA 2022/2023 data.sql
 
 -- centers
-insert into center (center_name, address, rating, open_time, closed_time) values ('KCV', '45.253248, 19.822806', '4.0', '07:00', '23:00');
-insert into center (center_name, address, rating, open_time, closed_time) values ('Kamenica', '45.226622, 19.874706', '4.2', '05:00', '22:00');
+insert into center (center_name, address, rating, open_time, closed_time) values ('KCV', 'https://goo.gl/maps/E8wPTt2B5AjeyYu8A', '4.0', '07:00', '23:00');
+insert into center (center_name, address, rating, open_time, closed_time) values ('Kamenica', 'https://goo.gl/maps/2UxHNz1wr3vXc9q36', '4.2', '05:00', '22:00');
 insert into center (center_name, address, rating, open_time, closed_time) values ('Urgentni', '45.250061, 19.820405', '3.5', '01:00', '23:00');
 insert into center (center_name, address, rating, open_time, closed_time) values ('KCV 2', '45.253248, 19.822806', '4.8', '07:00', '23:00');
 insert into center (center_name, address, rating, open_time, closed_time) values ('Kamenica 2', '45.226622, 19.874706', '3.2', '05:00', '22:00');
