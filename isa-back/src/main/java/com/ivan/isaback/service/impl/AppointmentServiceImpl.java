@@ -138,7 +138,7 @@ public class AppointmentServiceImpl implements AppointmentService {
 						if (applicationUser.getLastDonationDate().plusMonths(6).isAfter(LocalDate.now())) {
 							return new AppointmentItemResponseDTO(0, "User has donated in last 6 months.");
 						}
-						// ako je u pitanju isti centar proveriti da se ne poklapaju satnice, ako nije 
+						// ako je u pitanju isti centar proveriti da se ne poklapaju satnice, ako nije
 						if (newCenterId == oldCenterId) {
 							if (newStart.isBefore(oldEnd) && newEnd.isAfter(oldStart)) {
 								log.error("Appointment overlaps with your upcoming appointment " + appointment.getId()
@@ -185,7 +185,6 @@ public class AppointmentServiceImpl implements AppointmentService {
 //		log.info(" " + LocalDateTime.now().plusDays(1));
 //		log.info(" " + app.getStartTime());
 //		log.info("Can be cancelled: " + canCancel);
-		// calculate if date is further than
 		return new AppointmentItemDTO(app, new ConditionsEvaluationDTO(true, ""), canCancel);
 	}
 
@@ -201,7 +200,7 @@ public class AppointmentServiceImpl implements AppointmentService {
 
 	@Override
 	public Page<AppointmentItemDTO> findByUserTakenPageable(String username, Pageable pageable) {
-		//history
+		// history
 		Page<Appointment> pageables = appointmentRepository.findAllByApplicationUserUsernameAndEndTimeBefore(username, LocalDateTime.now(), pageable);
 		Page<AppointmentItemDTO> appointmentsPage = pageables.map(appoint -> convertToDtoParamsDefault(appoint));
 		return appointmentsPage;
@@ -217,30 +216,34 @@ public class AppointmentServiceImpl implements AppointmentService {
 	@Override
 	public Page<AppointmentItemDTO> findFreePageable(String username, Pageable pageable) {
 		// vrati sve koji su slobodni a da nisu prosli
-		Page<Appointment> pageables = appointmentRepository.findAllByStartTimeAfterAndApprovedFalse(LocalDateTime.now(), pageable);
+		Page<Appointment> pageables = appointmentRepository.findAllByStartTimeAfterAndApprovedFalse(LocalDateTime.now(),pageable);
 		ConditionsEvaluationDTO conditions = applicationUserService.evaluateConditions(username);
-		Page<AppointmentItemDTO> appointmentsPage = pageables
-				.map(appoint -> convertToDtoCanReserveCancellable(appoint, conditions));
+		Page<AppointmentItemDTO> appointmentsPage = pageables.map(appoint -> convertToDtoCanReserveCancellable(appoint, conditions));
 		return appointmentsPage;
 	}
 
 	@Override
-	public AppointmentDTO cancel(AppointmentDTO appointmentDTO) {
+	public AppointmentDTO cancel(AppointmentDTO appointmentDTO) throws Exception {
 		Optional<Appointment> appointmentOpt = appointmentRepository.findById(appointmentDTO.getId());
 
 		if (appointmentOpt.isPresent()) {
-			Appointment a = appointmentOpt.get();
+			if (LocalDateTime.now().plusDays(1).isBefore(appointmentOpt.get().getStartTime())) {
+				Appointment a = appointmentOpt.get();
 
-			a.setApplicationUser(null);
-			a.setTaken(false);
-			a.setApproved(false);
+				a.setApplicationUser(null);
+				a.setTaken(false);
+				a.setApproved(false);
 
-			Appointment saved = appointmentRepository.save(a);
-			log.info("" + saved.getId());
-			return new AppointmentDTO(saved);
+				Appointment saved = appointmentRepository.save(a);
+				log.info("" + saved.getId());
+				return new AppointmentDTO(saved);
+			} else {
+				log.error("Cancellation not possible within 24h of appointment.");
+				throw new Exception("Cancellation not possible within 24h of appointment.");
+			}
 		} else {
 			log.error("No appointment found with ID = " + appointmentDTO.getId() + ".");
-			return null;
+			throw new Exception("No appointment found with ID = " + appointmentDTO.getId() + ".");
 		}
 	}
 
