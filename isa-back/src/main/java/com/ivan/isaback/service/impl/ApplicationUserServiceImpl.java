@@ -140,7 +140,6 @@ public class ApplicationUserServiceImpl implements ApplicationUserService, UserD
 			user.get().setAddress(userDto.getAddress());
 			user.get().setPhone(userDto.getPhone());
 			user.get().setJmbg(userDto.getJmbg());
-			;
 			user.get().setSex(userDto.getSex());
 			user.get().setOccupation(userDto.getOccupation());
 			user.get().setJobinformation(userDto.getJobinformation());
