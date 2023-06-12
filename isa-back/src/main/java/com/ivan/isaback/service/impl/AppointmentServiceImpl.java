@@ -161,7 +161,7 @@ public class AppointmentServiceImpl implements AppointmentService {
 				emailDetails.setRecipient(saved.getApplicationUser().getEmail());
 				emailDetails.setSubject("ISA Appointment mail");
 
-				emailService.sendQrCode(emailDetails, a.getCenter().getAddress());
+				emailService.sendQrCode(emailDetails, "https://www.google.com/maps/place/" + a.getCenter().getAddress());
 
 				return new AppointmentItemResponseDTO(appointmentDTO.getId(),
 						"Appointment " + appointmentDTO.getId() + " reserved.");
