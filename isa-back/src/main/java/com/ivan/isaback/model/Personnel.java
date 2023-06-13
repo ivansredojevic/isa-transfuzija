@@ -15,6 +15,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.AllArgsConstructor;
@@ -42,7 +43,7 @@ public class Personnel extends ApplicationUser {
 	
 	@ManyToMany( cascade = {CascadeType.ALL})
 	@JoinTable(name = "appointment_personnel", joinColumns = @JoinColumn(name = "personnel_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "appointment_id", referencedColumnName = "id"))
-	@JsonIgnoreProperties("doctors")
+	@JsonIgnore
 	private Set<Appointment> appointments = new HashSet<Appointment>();
 	
 }

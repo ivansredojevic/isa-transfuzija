@@ -19,6 +19,8 @@ public interface AppointmentService {
 	AppointmentDTO cancel(AppointmentDTO appointmentDTO) throws Exception;
 	AppointmentItemDTO findOne(int id);
 	
+	Appointment findOneAppointment(int id);
+	
 	Page<AppointmentItemDTO> findFreePageable(String username, Pageable pageable);
 	Page<AppointmentItemDTO> findByUserTakenPageable(String username, Pageable pageable);
 	Page<AppointmentItemDTO> findByUserNotTakenPageable(String username, Pageable pageable);

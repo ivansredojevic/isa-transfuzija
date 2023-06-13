@@ -57,6 +57,11 @@ public class AppointmentController {
 //		}
 //	}
 	
+	@GetMapping(value = "find-one/{id}")
+	public Appointment getOneApp(@PathVariable int id){
+		return appointmentService.findOneAppointment(id);
+	}
+	
 
 	@GetMapping(value = "free-pageable/{username}")
 	public Page<AppointmentItemDTO> getFreePageable(@PathVariable String username, Pageable pageable){
