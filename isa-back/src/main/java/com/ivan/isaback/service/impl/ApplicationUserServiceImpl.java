@@ -13,6 +13,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.ivan.isaback.model.ApplicationUser;
 import com.ivan.isaback.model.Questionnaire;
@@ -228,5 +229,13 @@ public class ApplicationUserServiceImpl implements ApplicationUserService, UserD
 			userRepository.save(userOpt.get());
 		}
 	}
+
+	@Override
+	@Transactional
+	public void clearPenalties() {
+		userRepository.clearPenalties();
+	}
+	
+	
 
 }

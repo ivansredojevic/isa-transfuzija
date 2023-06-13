@@ -20,5 +20,7 @@ public interface ApplicationUserService {
 	Optional<ApplicationUser> findByEmail(String email);
 	ActivationDTO activateUser(String token);
 	ConditionsEvaluationDTO evaluateConditions(String username);
+	
+	void clearPenalties();
 
 }

@@ -104,6 +104,14 @@ public class ApplicationUserController {
 		String response = userService.registerUser(user);
 		return ResponseEntity.ok("{ \"response\" : \"" + response + "\" }");
 	}
+	
+	@PreAuthorize("hasAnyRole('USER')")
+	@GetMapping(path = "clear-penalties")
+	public String clearPenalties() {
+		userService.clearPenalties();
+		return "Penalties cleared";
+
+	}
 
 //	@PutMapping("penalty/{id}")
 //	public void addPenalty(@RequestBody ApplicationUserDTO userDto) {
