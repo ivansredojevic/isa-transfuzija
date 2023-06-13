@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ivan.isaback.model.Complaint;
 import com.ivan.isaback.model.dto.ComplaintDTO;
 import com.ivan.isaback.model.dto.InsertComplaintDTO;
+import com.ivan.isaback.model.dto.UpdateComplaintDTO;
 import com.ivan.isaback.service.ComplaintService;
 
 @RestController
@@ -60,16 +61,16 @@ public class ComplaintController {
 		}
 	}
 	
-//	@PreAuthorize("hasAnyRole('ADMIN')")
-//	@PostMapping(value = "update")
-//	public ResponseEntity<Complaint> updateComplaint(@RequestBody ComplaintDTO complaintDTO){
-//		Complaint complaint = complaintService.update(complaintDTO);
-//		if(complaint != null) {
-//			return ResponseEntity.ok(complaint);
-//		} else {
-//			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-//		}
-//	}
+	@PreAuthorize("hasAnyRole('ADMIN')")
+	@PostMapping(value = "update")
+	public ResponseEntity<Complaint> updateComplaint(@RequestBody UpdateComplaintDTO complaintDTO){
+		Complaint complaint = complaintService.update(complaintDTO);
+		if(complaint != null) {
+			return ResponseEntity.ok(complaint);
+		} else {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+		}
+	}
 	
 	
 }

@@ -69,7 +69,6 @@ public class EmailServiceImpl implements EmailService {
 			log.error(e.getMessage());
 		}
 		
-		
 	    File qrImg = new File("qr-code.jpg");
 	    String name = qrImg.getName();
         log.info(name);
@@ -77,8 +76,7 @@ public class EmailServiceImpl implements EmailService {
 	    ImageIO.write(bfi, "jpg", qrImg);
 	   
 	    DataSource dataSource = new FileDataSource(qrImg.getPath());
-
-
+	    
 	    MimeMessage message = javaMailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message,
                 MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED,

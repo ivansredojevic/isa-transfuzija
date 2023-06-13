@@ -14,12 +14,15 @@ import com.ivan.isaback.model.Complaint;
 import com.ivan.isaback.model.Personnel;
 import com.ivan.isaback.model.dto.ComplaintDTO;
 import com.ivan.isaback.model.dto.InsertComplaintDTO;
+import com.ivan.isaback.model.dto.UpdateComplaintDTO;
 import com.ivan.isaback.repository.ApplicationUserRepository;
 import com.ivan.isaback.repository.AppointmentRepository;
 import com.ivan.isaback.repository.CenterRepository;
 import com.ivan.isaback.repository.ComplaintRepository;
 import com.ivan.isaback.repository.PersonnelRepository;
 import com.ivan.isaback.service.ComplaintService;
+import com.ivan.isaback.util.email.EmailDetails;
+import com.ivan.isaback.util.email.EmailService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -32,16 +35,18 @@ public class ComplaintServiceImpl implements ComplaintService {
 	private PersonnelRepository personnelRepository;
 	private ApplicationUserRepository applicationUserRepository;
 	private AppointmentRepository appointmentRepository;
+	private EmailService emailService;
 	
 	public ComplaintServiceImpl(ComplaintRepository complaintRepository, CenterRepository centerRepository,
 			PersonnelRepository personnelRepository, ApplicationUserRepository applicationUserRepository,
-			AppointmentRepository appointmentRepository) {
+			AppointmentRepository appointmentRepository, EmailService emailService) {
 		super();
 		this.complaintRepository = complaintRepository;
 		this.centerRepository = centerRepository;
 		this.personnelRepository = personnelRepository;
 		this.applicationUserRepository = applicationUserRepository;
 		this.appointmentRepository = appointmentRepository;
+		this.emailService = emailService;
 	}
 
 	@Override
@@ -100,23 +105,45 @@ public class ComplaintServiceImpl implements ComplaintService {
 	}
 
 	@Override
-	public Complaint update(Complaint comp) {
+	public Complaint update(UpdateComplaintDTO comp) {
 		
 		Optional<Complaint> complaintOpt = complaintRepository.findById(comp.getId());
 		if(complaintOpt.isPresent()) {
 			Complaint c = complaintOpt.get();
-			// update all params
-			c.setComplaintText(comp.getComplaintText());
-			c.setReplyText(comp.getReplyText());
-			c.setAdmin(comp.getAdmin());
-			c.setApplicationUser(comp.getApplicationUser());
-			c.setAppointment(comp.getAppointment());
-			c.setCenter(comp.getCenter());
-			c.setPersonnelUser(comp.getPersonnelUser());
 			
-			log.info(c.toString());
+			if(c.getAdmin() != null) {
+				log.error("Already sent response.");
+				return null;
+			}
+			
+			
+			Optional<ApplicationUser> adminOpt = applicationUserRepository.findOneById(comp.getAdminId());
+			if(!adminOpt.isPresent()) {
+				log.error("No admin found");
+				return null;
+			}
+			if(comp.getReplyText().isEmpty()) {
+				log.error("invalid sender or reply");
+				return null;
+			}
+			
+			c.setReplyText(comp.getReplyText());
+			c.setAdmin(adminOpt.get());
+			
+			String email = c.getApplicationUser().getEmail();
+			log.info(email);
+			
 			try {
 				Complaint saved = complaintRepository.save(c);
+				
+				EmailDetails emailDetails = new EmailDetails();
+				emailDetails.setRecipient(email);
+				emailDetails.setSubject("ISA Complaint report mail");
+				emailDetails.setMsgBody("Reply for complaint ID=" + saved.getId() + ".  Reply text: \"" + saved.getReplyText() + "\", Admin ID=" + comp.getAdminId());
+				log.info(emailDetails.getMsgBody());
+				
+				emailService.sendLink(emailDetails);
+
 				return saved;
 			} catch (Exception e) {
 				log.error(e.getMessage());
@@ -126,7 +153,6 @@ public class ComplaintServiceImpl implements ComplaintService {
 			log.error("No complaint found with ID = " + comp.getId() + ".");
 			return null;
 		}
-		
 	}
 	
 	@Override

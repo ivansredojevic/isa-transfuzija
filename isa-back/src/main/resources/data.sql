@@ -19,9 +19,9 @@ insert into center (center_name, address, rating, open_time, closed_time) values
 
 -- user
 insert into application_user (dtype, email, username, password, name, surname, address, phone, jmbg, sex, occupation, jobinformation, activated, role, token, penalty, last_donation_date) 
-values ('application_user', 'ivan.sredojevic.c@devoteam.com', 'user', '$2a$10$3TnwcRM8Es3lm3jQUClvK.wugatrVpe209UJ5xaKbec3EMAoaClve', 'Ivan', 'Sredojevic', 'Bulevar Cara Lazara 21', '0640123456', '1010999887766', 'm', 'Engineer', 'senior consultant at dt srb', true, 'USER', '99a3a2fb-cc06-46e3-9086-2c76aa323801', 2, '2022-05-30');
+values ('application_user', 'ivan.sredojevic@devoteam.com', 'user', '$2a$10$3TnwcRM8Es3lm3jQUClvK.wugatrVpe209UJ5xaKbec3EMAoaClve', 'Ivan', 'Sredojevic', 'Bulevar Cara Lazara 21', '0640123456', '1010999887766', 'm', 'Engineer', 'senior consultant at dt srb', true, 'USER', '99a3a2fb-cc06-46e3-9086-2c76aa323801', 2, '2022-05-30');
 insert into application_user (dtype, email, username, password, name, surname, address, phone, jmbg, sex, occupation, jobinformation, activated, role, token, penalty, last_donation_date) 
-values ('application_user', 'marko.markovic.19843e29876@gmail.com', 'user12', '$2a$10$3TnwcRM8Es3lm3jQUClvK.wugatrVpe209UJ5xaKbec3EMAoaClve', 'Marko', 'Markovic', 'Bulevar Cara Dusana 22', '0640123456', '1010999887766', 'm', 'Moler', 'Moler', true, 'USER', '99a3a2fb-cc06-46e3-9086-2c76aa323802', 4, '2023-05-30');
+values ('application_user', 'ivan.m.sredojevic@gmail.com', 'user12', '$2a$10$3TnwcRM8Es3lm3jQUClvK.wugatrVpe209UJ5xaKbec3EMAoaClve', 'Marko', 'Markovic', 'Bulevar Cara Dusana 22', '0640123456', '1010999887766', 'm', 'Moler', 'Moler', true, 'USER', '99a3a2fb-cc06-46e3-9086-2c76aa323802', 4, '2023-05-30');
 /* insert into application_user (dtype, email, username, password, name, surname, address, phone, jmbg, sex, occupation, jobinformation, activated, role, token, penalty) values ('application_user', 'sokolicc.dji.acc@gmail.com', 'user11', '$2a$10$3TnwcRM8Es3lm3jQUClvK.wugatrVpe209UJ5xaKbec3EMAoaClve', 'user1234 pass user123', 'userovic', 'bul c laz 22', '0640276707', '1010999887766', 'm', 'it consultant', 'junior consultant at dt srb', true, 'USER', '99a3a2fb-cc06-46e3-9086-2c76aa323803', 3); */
 
 -- questionnaire
