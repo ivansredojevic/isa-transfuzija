@@ -1,5 +1,8 @@
 -- ISA 2022/2023 data.sql
 
+
+-- ALTER TABLE appointment_personnel ADD COLUMN complaint boolean;
+
 -- centers
 insert into center (center_name, address, rating, open_time, closed_time) values ('KCV', '45.253248,19.822806', '4.0', '07:00', '23:00');
 insert into center (center_name, address, rating, open_time, closed_time) values ('Kamenica', '45.226622,19.874706', '4.2', '05:00', '22:00');
